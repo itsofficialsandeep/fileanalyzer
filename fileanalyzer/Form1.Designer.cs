@@ -35,12 +35,12 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.smallFilesRadioButton = new System.Windows.Forms.RadioButton();
+            this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.imageCheckBox = new System.Windows.Forms.CheckBox();
-            this.videoCheckBox = new System.Windows.Forms.CheckBox();
             this.otherCheckBox = new System.Windows.Forms.CheckBox();
+            this.videoCheckBox = new System.Windows.Forms.CheckBox();
+            this.imageCheckBox = new System.Windows.Forms.CheckBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.analyze = new System.Windows.Forms.Button();
@@ -53,25 +53,27 @@
             this.progressLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.findOlderFiles = new System.Windows.Forms.Button();
-            this.deleteOlderFiles = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.deleteOlderFiles = new System.Windows.Forms.Button();
+            this.findOlderFiles = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.findLargerFiles = new System.Windows.Forms.Button();
-            this.deleteLargerFiles = new System.Windows.Forms.Button();
-            this.largeFileValue = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.largeFileValue = new System.Windows.Forms.NumericUpDown();
+            this.deleteLargerFiles = new System.Windows.Forms.Button();
+            this.findLargerFiles = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.deleteFilesWithExtension = new System.Windows.Forms.Button();
+            this.findFilesWithExtension = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.smallFilesValue = new System.Windows.Forms.NumericUpDown();
             this.deleteSmallerFiles = new System.Windows.Forms.Button();
             this.findSmallerFiles = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.findFilesWithExtension = new System.Windows.Forms.Button();
-            this.deleteFilesWithExtension = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.selectAllButton = new System.Windows.Forms.Button();
+            this.evenOddButton = new System.Windows.Forms.Button();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -79,9 +81,9 @@
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.largeFileValue)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.smallFilesValue)).BeginInit();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // listView1
@@ -94,7 +96,7 @@
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(15, 303);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1895, 207);
+            this.listView1.Size = new System.Drawing.Size(1895, 371);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -115,7 +117,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteSelected.BackColor = System.Drawing.Color.White;
             this.deleteSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteSelected.Location = new System.Drawing.Point(887, 528);
+            this.deleteSelected.Location = new System.Drawing.Point(887, 692);
             this.deleteSelected.Name = "deleteSelected";
             this.deleteSelected.Size = new System.Drawing.Size(212, 35);
             this.deleteSelected.TabIndex = 1;
@@ -153,16 +155,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sort by";
             // 
-            // largeFilesRadioButton
-            // 
-            this.largeFilesRadioButton.AutoSize = true;
-            this.largeFilesRadioButton.Location = new System.Drawing.Point(45, 34);
-            this.largeFilesRadioButton.Name = "largeFilesRadioButton";
-            this.largeFilesRadioButton.Size = new System.Drawing.Size(96, 21);
-            this.largeFilesRadioButton.TabIndex = 0;
-            this.largeFilesRadioButton.Text = "Large Files";
-            this.largeFilesRadioButton.UseVisualStyleBackColor = true;
-            // 
             // smallFilesRadioButton
             // 
             this.smallFilesRadioButton.AutoSize = true;
@@ -174,6 +166,16 @@
             this.smallFilesRadioButton.TabStop = true;
             this.smallFilesRadioButton.Text = "Small Files";
             this.smallFilesRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // largeFilesRadioButton
+            // 
+            this.largeFilesRadioButton.AutoSize = true;
+            this.largeFilesRadioButton.Location = new System.Drawing.Point(45, 34);
+            this.largeFilesRadioButton.Name = "largeFilesRadioButton";
+            this.largeFilesRadioButton.Size = new System.Drawing.Size(96, 21);
+            this.largeFilesRadioButton.TabIndex = 0;
+            this.largeFilesRadioButton.Text = "Large Files";
+            this.largeFilesRadioButton.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -187,17 +189,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "File Types";
             // 
-            // imageCheckBox
+            // otherCheckBox
             // 
-            this.imageCheckBox.AutoSize = true;
-            this.imageCheckBox.Checked = true;
-            this.imageCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.imageCheckBox.Location = new System.Drawing.Point(16, 34);
-            this.imageCheckBox.Name = "imageCheckBox";
-            this.imageCheckBox.Size = new System.Drawing.Size(65, 21);
-            this.imageCheckBox.TabIndex = 0;
-            this.imageCheckBox.Text = "Image";
-            this.imageCheckBox.UseVisualStyleBackColor = true;
+            this.otherCheckBox.AutoSize = true;
+            this.otherCheckBox.Location = new System.Drawing.Point(220, 34);
+            this.otherCheckBox.Name = "otherCheckBox";
+            this.otherCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.otherCheckBox.Size = new System.Drawing.Size(63, 21);
+            this.otherCheckBox.TabIndex = 2;
+            this.otherCheckBox.Text = "Other";
+            this.otherCheckBox.UseVisualStyleBackColor = true;
             // 
             // videoCheckBox
             // 
@@ -209,16 +210,17 @@
             this.videoCheckBox.Text = "Video";
             this.videoCheckBox.UseVisualStyleBackColor = true;
             // 
-            // otherCheckBox
+            // imageCheckBox
             // 
-            this.otherCheckBox.AutoSize = true;
-            this.otherCheckBox.Location = new System.Drawing.Point(220, 34);
-            this.otherCheckBox.Name = "otherCheckBox";
-            this.otherCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.otherCheckBox.Size = new System.Drawing.Size(63, 21);
-            this.otherCheckBox.TabIndex = 2;
-            this.otherCheckBox.Text = "Other";
-            this.otherCheckBox.UseVisualStyleBackColor = true;
+            this.imageCheckBox.AutoSize = true;
+            this.imageCheckBox.Checked = true;
+            this.imageCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.imageCheckBox.Location = new System.Drawing.Point(16, 34);
+            this.imageCheckBox.Name = "imageCheckBox";
+            this.imageCheckBox.Size = new System.Drawing.Size(65, 21);
+            this.imageCheckBox.TabIndex = 0;
+            this.imageCheckBox.Text = "Image";
+            this.imageCheckBox.UseVisualStyleBackColor = true;
             // 
             // progressBar
             // 
@@ -356,19 +358,12 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Files older than:";
             // 
-            // findOlderFiles
+            // dateTimePicker1
             // 
-            this.findOlderFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.findOlderFiles.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.findOlderFiles.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findOlderFiles.Location = new System.Drawing.Point(9, 85);
-            this.findOlderFiles.Name = "findOlderFiles";
-            this.findOlderFiles.Size = new System.Drawing.Size(104, 34);
-            this.findOlderFiles.TabIndex = 1;
-            this.findOlderFiles.Text = "Find";
-            this.findOlderFiles.UseVisualStyleBackColor = false;
-            this.findOlderFiles.Click += new System.EventHandler(this.analyze_click);
+            this.dateTimePicker1.Location = new System.Drawing.Point(9, 39);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(197, 23);
+            this.dateTimePicker1.TabIndex = 2;
             // 
             // deleteOlderFiles
             // 
@@ -384,12 +379,19 @@
             this.deleteOlderFiles.UseVisualStyleBackColor = false;
             this.deleteOlderFiles.Click += new System.EventHandler(this.analyze_click);
             // 
-            // dateTimePicker1
+            // findOlderFiles
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(9, 39);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(197, 23);
-            this.dateTimePicker1.TabIndex = 2;
+            this.findOlderFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.findOlderFiles.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.findOlderFiles.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.findOlderFiles.Location = new System.Drawing.Point(9, 85);
+            this.findOlderFiles.Name = "findOlderFiles";
+            this.findOlderFiles.Size = new System.Drawing.Size(104, 34);
+            this.findOlderFiles.TabIndex = 1;
+            this.findOlderFiles.Text = "Find";
+            this.findOlderFiles.UseVisualStyleBackColor = false;
+            this.findOlderFiles.Click += new System.EventHandler(this.analyze_click);
             // 
             // groupBox6
             // 
@@ -405,19 +407,21 @@
             this.groupBox6.Text = "Files larger than:";
             this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
-            // findLargerFiles
+            // label1
             // 
-            this.findLargerFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.findLargerFiles.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.findLargerFiles.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findLargerFiles.Location = new System.Drawing.Point(24, 59);
-            this.findLargerFiles.Name = "findLargerFiles";
-            this.findLargerFiles.Size = new System.Drawing.Size(103, 34);
-            this.findLargerFiles.TabIndex = 1;
-            this.findLargerFiles.Text = "Find";
-            this.findLargerFiles.UseVisualStyleBackColor = false;
-            this.findLargerFiles.Click += new System.EventHandler(this.analyze_click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(186, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(28, 17);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "MB";
+            // 
+            // largeFileValue
+            // 
+            this.largeFileValue.Location = new System.Drawing.Point(24, 26);
+            this.largeFileValue.Name = "largeFileValue";
+            this.largeFileValue.Size = new System.Drawing.Size(156, 23);
+            this.largeFileValue.TabIndex = 2;
             // 
             // deleteLargerFiles
             // 
@@ -433,12 +437,19 @@
             this.deleteLargerFiles.UseVisualStyleBackColor = false;
             this.deleteLargerFiles.Click += new System.EventHandler(this.analyze_click);
             // 
-            // largeFileValue
+            // findLargerFiles
             // 
-            this.largeFileValue.Location = new System.Drawing.Point(24, 26);
-            this.largeFileValue.Name = "largeFileValue";
-            this.largeFileValue.Size = new System.Drawing.Size(156, 23);
-            this.largeFileValue.TabIndex = 2;
+            this.findLargerFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.findLargerFiles.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.findLargerFiles.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.findLargerFiles.Location = new System.Drawing.Point(24, 59);
+            this.findLargerFiles.Name = "findLargerFiles";
+            this.findLargerFiles.Size = new System.Drawing.Size(103, 34);
+            this.findLargerFiles.TabIndex = 1;
+            this.findLargerFiles.Text = "Find";
+            this.findLargerFiles.UseVisualStyleBackColor = false;
+            this.findLargerFiles.Click += new System.EventHandler(this.analyze_click);
             // 
             // groupBox1
             // 
@@ -471,14 +482,52 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Analyze the folder easily";
             // 
-            // label1
+            // groupBox8
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(186, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "MB";
+            this.groupBox8.Controls.Add(this.textBox1);
+            this.groupBox8.Controls.Add(this.deleteFilesWithExtension);
+            this.groupBox8.Controls.Add(this.findFilesWithExtension);
+            this.groupBox8.Location = new System.Drawing.Point(875, 169);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(454, 70);
+            this.groupBox8.TabIndex = 9;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Files with extentions:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(17, 30);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(141, 23);
+            this.textBox1.TabIndex = 0;
+            // 
+            // deleteFilesWithExtension
+            // 
+            this.deleteFilesWithExtension.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteFilesWithExtension.BackColor = System.Drawing.Color.Coral;
+            this.deleteFilesWithExtension.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteFilesWithExtension.Location = new System.Drawing.Point(316, 24);
+            this.deleteFilesWithExtension.Name = "deleteFilesWithExtension";
+            this.deleteFilesWithExtension.Size = new System.Drawing.Size(120, 34);
+            this.deleteFilesWithExtension.TabIndex = 1;
+            this.deleteFilesWithExtension.Text = "Delete";
+            this.deleteFilesWithExtension.UseVisualStyleBackColor = false;
+            this.deleteFilesWithExtension.Click += new System.EventHandler(this.analyze_click);
+            // 
+            // findFilesWithExtension
+            // 
+            this.findFilesWithExtension.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.findFilesWithExtension.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.findFilesWithExtension.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.findFilesWithExtension.Location = new System.Drawing.Point(177, 24);
+            this.findFilesWithExtension.Name = "findFilesWithExtension";
+            this.findFilesWithExtension.Size = new System.Drawing.Size(124, 34);
+            this.findFilesWithExtension.TabIndex = 1;
+            this.findFilesWithExtension.Text = "Find";
+            this.findFilesWithExtension.UseVisualStyleBackColor = false;
+            this.findFilesWithExtension.Click += new System.EventHandler(this.analyze_click);
             // 
             // groupBox7
             // 
@@ -538,53 +587,6 @@
             this.findSmallerFiles.UseVisualStyleBackColor = false;
             this.findSmallerFiles.Click += new System.EventHandler(this.analyze_click);
             // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.textBox1);
-            this.groupBox8.Controls.Add(this.deleteFilesWithExtension);
-            this.groupBox8.Controls.Add(this.findFilesWithExtension);
-            this.groupBox8.Location = new System.Drawing.Point(875, 169);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(454, 70);
-            this.groupBox8.TabIndex = 9;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Files with extentions:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(17, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(141, 23);
-            this.textBox1.TabIndex = 0;
-            // 
-            // findFilesWithExtension
-            // 
-            this.findFilesWithExtension.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.findFilesWithExtension.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.findFilesWithExtension.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findFilesWithExtension.Location = new System.Drawing.Point(177, 24);
-            this.findFilesWithExtension.Name = "findFilesWithExtension";
-            this.findFilesWithExtension.Size = new System.Drawing.Size(124, 34);
-            this.findFilesWithExtension.TabIndex = 1;
-            this.findFilesWithExtension.Text = "Find";
-            this.findFilesWithExtension.UseVisualStyleBackColor = false;
-            this.findFilesWithExtension.Click += new System.EventHandler(this.analyze_click);
-            // 
-            // deleteFilesWithExtension
-            // 
-            this.deleteFilesWithExtension.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteFilesWithExtension.BackColor = System.Drawing.Color.Coral;
-            this.deleteFilesWithExtension.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteFilesWithExtension.Location = new System.Drawing.Point(316, 24);
-            this.deleteFilesWithExtension.Name = "deleteFilesWithExtension";
-            this.deleteFilesWithExtension.Size = new System.Drawing.Size(120, 34);
-            this.deleteFilesWithExtension.TabIndex = 1;
-            this.deleteFilesWithExtension.Text = "Delete";
-            this.deleteFilesWithExtension.UseVisualStyleBackColor = false;
-            this.deleteFilesWithExtension.Click += new System.EventHandler(this.analyze_click);
-            // 
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -599,14 +601,44 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.analyze_click);
             // 
+            // selectAllButton
+            // 
+            this.selectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectAllButton.BackColor = System.Drawing.Color.White;
+            this.selectAllButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectAllButton.Location = new System.Drawing.Point(15, 692);
+            this.selectAllButton.Name = "selectAllButton";
+            this.selectAllButton.Size = new System.Drawing.Size(128, 35);
+            this.selectAllButton.TabIndex = 1;
+            this.selectAllButton.Text = "Select All";
+            this.selectAllButton.UseVisualStyleBackColor = false;
+            this.selectAllButton.Click += new System.EventHandler(this.selectAllButton_Click);
+            // 
+            // evenOddButton
+            // 
+            this.evenOddButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.evenOddButton.BackColor = System.Drawing.Color.White;
+            this.evenOddButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.evenOddButton.Location = new System.Drawing.Point(162, 692);
+            this.evenOddButton.Name = "evenOddButton";
+            this.evenOddButton.Size = new System.Drawing.Size(128, 35);
+            this.evenOddButton.TabIndex = 1;
+            this.evenOddButton.Text = "Select Even";
+            this.evenOddButton.UseVisualStyleBackColor = false;
+            this.evenOddButton.Click += new System.EventHandler(this.evenOddButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1924, 575);
+            this.ClientSize = new System.Drawing.Size(1924, 739);
             this.Controls.Add(this.results);
             this.Controls.Add(this.listView1);
+            this.Controls.Add(this.evenOddButton);
+            this.Controls.Add(this.selectAllButton);
             this.Controls.Add(this.deleteSelected);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
@@ -623,11 +655,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.largeFileValue)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.smallFilesValue)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -677,6 +709,8 @@
         private System.Windows.Forms.Button deleteFilesWithExtension;
         private System.Windows.Forms.Button findFilesWithExtension;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button selectAllButton;
+        private System.Windows.Forms.Button evenOddButton;
     }
 }
 

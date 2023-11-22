@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 // ... (existing code)
 
@@ -270,8 +271,7 @@ namespace fileanalyzer
                 listView1.CheckBoxes = true;
                 // Select the item and subitems when selection is made.
                 listView1.FullRowSelect = true;
-                // Display grid lines.
-                listView1.GridLines = true;
+
                 // Sort the items in the list in ascending order.
                 listView1.Sorting = SortOrder.Ascending;
 
@@ -409,6 +409,107 @@ namespace fileanalyzer
             // Handle the Enter event for groupBox6 here
             // Add your logic or functionality for this event
         }
+
+        private void SelectAllFiles()
+        {
+
+            for (int i = listView1.Items.Count - 1; i >= 0; i--)
+            {
+                listView1.Items[i].Checked = true;
+            }
+
+
+        }
+
+        private void DeselectAllFiles()
+        {
+            for (int i = listView1.Items.Count - 1; i >= 0; i--)
+            {
+                listView1.Items[i].Checked = false;
+            }
+        }
+
+        private void SelectFilesInEvenOrder()
+        {
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    listView1.Items[i].Checked = true;
+                }
+            }
+        }
+
+        private void SelectFilesInOddOrder()
+        {
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                if (i % 2 != 0)
+                {
+                    listView1.Items[i].Checked = true;
+                }
+            }
+        }
+
+
+        private void selectEvenOrderButton_Click(object sender, EventArgs e)
+        {
+            SelectFilesInEvenOrder();
+        }
+
+        private void selectOddOrderButton_Click(object sender, EventArgs e)
+        {
+            SelectFilesInOddOrder();
+        }
+
+        private void ToggleSelectAllFiles()
+        {
+            bool anySelected = listView1.CheckedItems.Count > 0;
+
+            if (anySelected)
+            {
+                DeselectAllFiles();
+                selectAllButton.Text = "Select All";
+            }
+            else
+            {
+                SelectAllFiles();
+                selectAllButton.Text = "Deselect All";
+            }
+        }
+
+        private void selectAllButton_Click(object sender, EventArgs e)
+        {
+            ToggleSelectAllFiles();
+        }
+
+
+        private bool selectEven = true; // Flag to track even/odd selection
+
+        private void evenOddButton_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                if (i % 2 == 0 && selectEven) // Select even index files
+                {
+                    listView1.Items[i].Checked = true;
+                }
+                else if (i % 2 != 0 && !selectEven) // Select odd index files
+                {
+                    listView1.Items[i].Checked = true;
+                }
+                else
+                {
+                    listView1.Items[i].Checked = false; // Deselect other files
+                }
+            }
+
+            // Toggle the flag for the next click
+            selectEven = !selectEven;
+            evenOddButton.Text = selectEven ? "Select Even" : "Select Odd";
+        }
+
+
 
 
     }
