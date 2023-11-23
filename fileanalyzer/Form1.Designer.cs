@@ -45,7 +45,7 @@
             this.pathTextBox = new System.Windows.Forms.TextBox();
             this.analyze = new System.Windows.Forms.Button();
             this.findDuplicate = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.deleteDuplicate = new System.Windows.Forms.Button();
             this.clearRecycleBin = new System.Windows.Forms.Button();
             this.clearTempFolder1 = new System.Windows.Forms.Button();
             this.clearTempFolder2 = new System.Windows.Forms.Button();
@@ -63,7 +63,7 @@
             this.findLargerFiles = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.extension = new System.Windows.Forms.TextBox();
             this.deleteFilesWithExtension = new System.Windows.Forms.Button();
             this.findFilesWithExtension = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -74,6 +74,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.selectAllButton = new System.Windows.Forms.Button();
             this.evenOddButton = new System.Windows.Forms.Button();
+            this.documentCheckbox = new System.Windows.Forms.CheckBox();
+            this.appFilesCheckbox = new System.Windows.Forms.CheckBox();
+            this.audioCheckbox = new System.Windows.Forms.CheckBox();
+            this.appCheckbox = new System.Windows.Forms.CheckBox();
+            this.zipCheckbox = new System.Windows.Forms.CheckBox();
+            this.allCheckbox = new System.Windows.Forms.CheckBox();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -179,12 +185,18 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.appFilesCheckbox);
+            this.groupBox3.Controls.Add(this.zipCheckbox);
+            this.groupBox3.Controls.Add(this.appCheckbox);
+            this.groupBox3.Controls.Add(this.documentCheckbox);
+            this.groupBox3.Controls.Add(this.audioCheckbox);
+            this.groupBox3.Controls.Add(this.allCheckbox);
             this.groupBox3.Controls.Add(this.otherCheckBox);
             this.groupBox3.Controls.Add(this.videoCheckBox);
             this.groupBox3.Controls.Add(this.imageCheckBox);
             this.groupBox3.Location = new System.Drawing.Point(534, 98);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(315, 75);
+            this.groupBox3.Size = new System.Drawing.Size(315, 141);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "File Types";
@@ -192,7 +204,7 @@
             // otherCheckBox
             // 
             this.otherCheckBox.AutoSize = true;
-            this.otherCheckBox.Location = new System.Drawing.Point(220, 34);
+            this.otherCheckBox.Location = new System.Drawing.Point(118, 110);
             this.otherCheckBox.Name = "otherCheckBox";
             this.otherCheckBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.otherCheckBox.Size = new System.Drawing.Size(63, 21);
@@ -264,18 +276,18 @@
             this.findDuplicate.UseVisualStyleBackColor = false;
             this.findDuplicate.Click += new System.EventHandler(this.DisplayDuplicatesInListView);
             // 
-            // button2
+            // deleteDuplicate
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button2.BackColor = System.Drawing.Color.Coral;
-            this.button2.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(875, 116);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(212, 42);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Delete Duplicate Files";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.analyze_click);
+            this.deleteDuplicate.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.deleteDuplicate.BackColor = System.Drawing.Color.Coral;
+            this.deleteDuplicate.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteDuplicate.Location = new System.Drawing.Point(875, 116);
+            this.deleteDuplicate.Name = "deleteDuplicate";
+            this.deleteDuplicate.Size = new System.Drawing.Size(212, 42);
+            this.deleteDuplicate.TabIndex = 1;
+            this.deleteDuplicate.Text = "Delete Duplicate Files";
+            this.deleteDuplicate.UseVisualStyleBackColor = false;
+            this.deleteDuplicate.Click += new System.EventHandler(this.deleteDuplicateFiles);
             // 
             // clearRecycleBin
             // 
@@ -466,7 +478,7 @@
             this.groupBox1.Controls.Add(this.progressLabel);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.clearRecycleBin);
-            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.deleteDuplicate);
             this.groupBox1.Controls.Add(this.findDuplicate);
             this.groupBox1.Controls.Add(this.analyze);
             this.groupBox1.Controls.Add(this.pathTextBox);
@@ -484,7 +496,7 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.textBox1);
+            this.groupBox8.Controls.Add(this.extension);
             this.groupBox8.Controls.Add(this.deleteFilesWithExtension);
             this.groupBox8.Controls.Add(this.findFilesWithExtension);
             this.groupBox8.Location = new System.Drawing.Point(875, 169);
@@ -494,12 +506,12 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Files with extentions:";
             // 
-            // textBox1
+            // extension
             // 
-            this.textBox1.Location = new System.Drawing.Point(17, 30);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(141, 23);
-            this.textBox1.TabIndex = 0;
+            this.extension.Location = new System.Drawing.Point(17, 30);
+            this.extension.Name = "extension";
+            this.extension.Size = new System.Drawing.Size(141, 23);
+            this.extension.TabIndex = 0;
             // 
             // deleteFilesWithExtension
             // 
@@ -513,7 +525,7 @@
             this.deleteFilesWithExtension.TabIndex = 1;
             this.deleteFilesWithExtension.Text = "Delete";
             this.deleteFilesWithExtension.UseVisualStyleBackColor = false;
-            this.deleteFilesWithExtension.Click += new System.EventHandler(this.analyze_click);
+            this.deleteFilesWithExtension.Click += new System.EventHandler(this.deleteWithExtension);
             // 
             // findFilesWithExtension
             // 
@@ -521,13 +533,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.findFilesWithExtension.BackColor = System.Drawing.Color.LightSkyBlue;
             this.findFilesWithExtension.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findFilesWithExtension.Location = new System.Drawing.Point(177, 24);
+            this.findFilesWithExtension.Location = new System.Drawing.Point(174, 24);
             this.findFilesWithExtension.Name = "findFilesWithExtension";
             this.findFilesWithExtension.Size = new System.Drawing.Size(124, 34);
             this.findFilesWithExtension.TabIndex = 1;
             this.findFilesWithExtension.Text = "Find";
             this.findFilesWithExtension.UseVisualStyleBackColor = false;
-            this.findFilesWithExtension.Click += new System.EventHandler(this.analyze_click);
+            this.findFilesWithExtension.Click += new System.EventHandler(this.findWithExtension);
             // 
             // groupBox7
             // 
@@ -629,6 +641,73 @@
             this.evenOddButton.UseVisualStyleBackColor = false;
             this.evenOddButton.Click += new System.EventHandler(this.evenOddButton_Click);
             // 
+            // documentCheckbox
+            // 
+            this.documentCheckbox.AutoSize = true;
+            this.documentCheckbox.Location = new System.Drawing.Point(16, 71);
+            this.documentCheckbox.Name = "documentCheckbox";
+            this.documentCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.documentCheckbox.Size = new System.Drawing.Size(98, 21);
+            this.documentCheckbox.TabIndex = 2;
+            this.documentCheckbox.Text = "Documents";
+            this.documentCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // appFilesCheckbox
+            // 
+            this.appFilesCheckbox.AutoSize = true;
+            this.appFilesCheckbox.Location = new System.Drawing.Point(118, 71);
+            this.appFilesCheckbox.Name = "appFilesCheckbox";
+            this.appFilesCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.appFilesCheckbox.Size = new System.Drawing.Size(81, 21);
+            this.appFilesCheckbox.TabIndex = 2;
+            this.appFilesCheckbox.Text = "App files";
+            this.appFilesCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // audioCheckbox
+            // 
+            this.audioCheckbox.AutoSize = true;
+            this.audioCheckbox.Location = new System.Drawing.Point(212, 34);
+            this.audioCheckbox.Name = "audioCheckbox";
+            this.audioCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.audioCheckbox.Size = new System.Drawing.Size(63, 21);
+            this.audioCheckbox.TabIndex = 2;
+            this.audioCheckbox.Text = "Audio";
+            this.audioCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // appCheckbox
+            // 
+            this.appCheckbox.AutoSize = true;
+            this.appCheckbox.Location = new System.Drawing.Point(212, 71);
+            this.appCheckbox.Name = "appCheckbox";
+            this.appCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.appCheckbox.Size = new System.Drawing.Size(59, 21);
+            this.appCheckbox.TabIndex = 2;
+            this.appCheckbox.Text = "Apps";
+            this.appCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // zipCheckbox
+            // 
+            this.zipCheckbox.AutoSize = true;
+            this.zipCheckbox.Location = new System.Drawing.Point(16, 108);
+            this.zipCheckbox.Name = "zipCheckbox";
+            this.zipCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.zipCheckbox.Size = new System.Drawing.Size(47, 21);
+            this.zipCheckbox.TabIndex = 2;
+            this.zipCheckbox.Text = "Zip";
+            this.zipCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // allCheckbox
+            // 
+            this.allCheckbox.AutoSize = true;
+            this.allCheckbox.Location = new System.Drawing.Point(212, 108);
+            this.allCheckbox.Name = "allCheckbox";
+            this.allCheckbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.allCheckbox.Size = new System.Drawing.Size(42, 21);
+            this.allCheckbox.TabIndex = 2;
+            this.allCheckbox.Text = "All";
+            this.allCheckbox.UseVisualStyleBackColor = true;
+            this.allCheckbox.Click += new System.EventHandler(this.checkAllFilters);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -682,7 +761,7 @@
         private System.Windows.Forms.TextBox pathTextBox;
         private System.Windows.Forms.Button analyze;
         private System.Windows.Forms.Button findDuplicate;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button deleteDuplicate;
         private System.Windows.Forms.Button clearRecycleBin;
         private System.Windows.Forms.Button clearTempFolder1;
         private System.Windows.Forms.Button clearTempFolder2;
@@ -705,12 +784,18 @@
         private System.Windows.Forms.Button deleteSmallerFiles;
         private System.Windows.Forms.Button findSmallerFiles;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox extension;
         private System.Windows.Forms.Button deleteFilesWithExtension;
         private System.Windows.Forms.Button findFilesWithExtension;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button selectAllButton;
         private System.Windows.Forms.Button evenOddButton;
+        private System.Windows.Forms.CheckBox appFilesCheckbox;
+        private System.Windows.Forms.CheckBox appCheckbox;
+        private System.Windows.Forms.CheckBox documentCheckbox;
+        private System.Windows.Forms.CheckBox audioCheckbox;
+        private System.Windows.Forms.CheckBox zipCheckbox;
+        private System.Windows.Forms.CheckBox allCheckbox;
     }
 }
 

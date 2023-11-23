@@ -19,9 +19,10 @@ namespace fileanalyzer
     {
 
         // Declare a variable to hold the total number of files found
-        private int totalFilesFound;
         private ListViewColumnSorter lvwColumnSorter;
         private string pathToSearch;
+        string searchPattern = "*.*";
+
         public Form1()
         {
             InitializeComponent();
@@ -49,23 +50,97 @@ namespace fileanalyzer
 
             if (Directory.Exists(pathToSearch))
             {
+                string imageExtensions = "";
+                string videoExtensions = "";
+                string audioExtensions = "";
+                string zipExtensions = "";
+                string docExtensions = "";
+                string otherExtensions = "";
+                string appExtensions = "";
+                string appFilesExtensions = "";
+
+                string extensions = "";                
+
                 var selectedTypes = new List<string>();
                 if (imageCheckBox.Checked)
-                    selectedTypes.Add("*.jpeg"); // Add other image file extensions as needed
-                                                 //   selectedTypes.Add("*.jpg"); // Add other image file extensions as needed
-                                                 //   selectedTypes.Add("*.png"); // Add other image file extensions as needed
+                {
+                    imageExtensions = @".png, .jpeg, .jpg, .tiff, .tif, .bmp, .gif, .tga, .webp, .svg, 
+                                               .eps, .ai, .xcf, .ico, .psd, .raw, .yuv, .ppm, .pgm, .pbm, .pnm, 
+                                                .hdr, .exr, .bpg, .jxr, .heic, .heif";
+                }
 
                 if (videoCheckBox.Checked)
-                    selectedTypes.Add("*.mp4"); // Add other video file extensions as needed
-                                                // Add more file types based on checkboxes
+                {
+                    videoExtensions = ".mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .m4v, .mpeg, .mpg, .3gp, .vob, .ogv, .swf, .asf, .rm, .rmvb, .m2ts, .ts, .m2v, .mts, .f4v, .divx, .xvid, .mxf, .dv, .mp2, .m1v, .gxf, .roq, .m2p, .mpeg4, .mpg2, .mpeg1, .ssif, .r3d, .bik, .smk, .m4e, .nsv, .nut, .wtv, .trp, .ifo, .wtv, .dvr-ms, .dav, .ogm, .drc, .yuv, .vc1, .avs, .mts";
 
-                // var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories)
-                //                       .Where(file => selectedTypes.Any(type => file.EndsWith(type, StringComparison.OrdinalIgnoreCase)))
-                //                      .ToList();
+                }
 
-                //  string[] selectedTypesArray = { ".jpg", ".png" }; // Define the specific file types you want to search for
-                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
-                                     //.Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                if (audioCheckbox.Checked)
+                {
+                    audioExtensions = ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape";
+
+                }
+
+                if (documentCheckbox.Checked)
+                {
+                    docExtensions = ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv";
+
+                }
+
+                if (zipCheckbox.Checked)
+                {
+                     zipExtensions = ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz";
+
+                }
+
+                if (appCheckbox.Checked)
+                {
+                    appExtensions = ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb";
+
+                }
+
+                if (appFilesCheckbox.Checked)
+                {
+                    appFilesExtensions = ".cfg, .ini, .conf, .plist, .properties, .db, .sqlite, .mdb, .accdb, .sql, .bak, .dbf, .ttf, .otf, .woff, .woff2, .eot, .dll, .sys, .bin, .dat, .key, .mdf, .log";
+
+                }
+
+                if (otherCheckBox.Checked)
+                {
+                    otherExtensions = ".png, .jpeg, .jpg, .tiff, .tif, .bmp, .gif, .tga, .webp, .svg, .eps, .ai, .xcf, .ico, .psd, .raw, .yuv, .ppm, .pgm, .pbm, .pnm, .hdr, .exr, .bpg, .jxr, .heic, .heif, " +
+                        ".mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .m4v, .mpeg, .mpg, .3gp, .vob, .ogv, .swf, .asf, .rm, .rmvb, .m2ts, .ts, .m2v, .mts, .f4v, .divx, .xvid, .mxf, .dv, .mp2, .m1v, .gxf, .roq, .m2p, .mpeg4, .mpg2, .mpeg1, .ssif, .r3d, .bik, .smk, .m4e, .nsv, .nut, .wtv, .trp, .ifo, .wtv, .dvr-ms, .dav, .ogm, .drc, .yuv, .vc1, .avs, .mts " +
+                        ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape "+
+                        ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv "+
+                        ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz "+
+                        ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb "+
+                        ".cfg, .ini, .conf, .plist, .properties, .db, .sqlite, .mdb, .accdb, .sql, .bak, .dbf, .ttf, .otf, .woff, .woff2, .eot, .dll, .sys, .bin, .dat, .key, .mdf, .log ";
+                }
+
+                if (allCheckbox.Checked)
+                {
+                    videoCheckBox.Checked = true;
+                    audioCheckbox.Checked = true;
+                    appFilesCheckbox.Checked = true;
+                    otherCheckBox.Checked = true;
+                    appCheckbox.Checked = true;
+                    imageCheckBox.Checked = true;
+                    zipCheckbox.Checked = true;
+                    documentCheckbox.Checked = true;
+
+                    searchPattern = "*.*";
+                }
+
+                extensions = imageExtensions+" "+videoExtensions + " " +audioExtensions + " " +docExtensions + " " +zipExtensions + " " +appExtensions + " " +appFilesExtensions + " " +otherExtensions ;
+
+                string[] words = extensions.Split(',');
+                foreach (string word in words)
+                {
+                    string cleanedWord =  word.Trim(); // Remove leading/trailing spaces
+                    selectedTypes.Add(cleanedWord);
+                }
+
+                var files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
+                                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
                                      .ToList();
 
                 int totalFiles = files.Count;
@@ -195,6 +270,7 @@ namespace fileanalyzer
             duplicatesInListView(duplicates);
 
         }
+
         private void SetupListView()
         {
             // Clear existing columns and items
@@ -509,8 +585,125 @@ namespace fileanalyzer
             evenOddButton.Text = selectEven ? "Select Even" : "Select Odd";
         }
 
+        // DELETE DUPLICATE FILES
+        private void deleteDuplicateFiles(object sender, EventArgs e)
+        {
+            // Call the FindDuplicates method to get the duplicates dictionary
+            Dictionary<string, List<string>> duplicates = FindDuplicates(pathToSearch);
 
+            // Display the duplicates in the ListView using DisplayDuplicatesInListView
+            duplicatesInListView(duplicates);            
 
+            for (int i = 0; i < listView1.Items.Count; i++)
+            {
+                if (i % 2 == 0 && selectEven) // Select even index files
+                {
+                    listView1.Items[i].Checked = true;
+                }
+                else if (i % 2 != 0 && !selectEven) // Select odd index files
+                {
+                    listView1.Items[i].Checked = true;
+                }
+                else
+                {
+                    listView1.Items[i].Checked = false; // Deselect other files
+                }
+            }
 
+            deleteSelected_Click(sender, e);
+
+        }
+
+        // FIND FILES WITH EXTENSIONS
+        private void findWithExtension(object sender, EventArgs e)
+        {
+            if (Directory.Exists(pathToSearch))
+            {
+                string extensions = extension.Text;
+
+                var selectedTypes = new List<string>();
+
+                // Split the input string by commas and remove spaces
+                string[] words = extensions.Split(',');
+                foreach (string word in words)
+                {
+                    string cleanedWord = "."+word.Trim(); // Remove leading/trailing spaces
+                    selectedTypes.Add(cleanedWord);
+                }
+
+                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                                     .ToList();
+
+                int totalFiles = files.Count;
+
+                if (totalFiles > 1)
+                {
+                    filesFound.Text = "" + totalFiles;
+                }
+                else { MessageBox.Show("Nothing Found"); }
+
+                DisplayFilesInListView(files);
+            }
+            else
+            {
+                MessageBox.Show("The specified path does not exist.");
+            }
+        }
+
+        private void deleteWithExtension(object sender, EventArgs e)
+        {
+            if (Directory.Exists(pathToSearch))
+            {
+                string extensions = extension.Text;
+
+                var selectedTypes = new List<string>();
+
+                // Split the input string by commas and remove spaces
+                string[] words = extensions.Split(',');
+                foreach (string word in words)
+                {
+                    string cleanedWord = "." + word.Trim(); // Remove leading/trailing spaces
+                    selectedTypes.Add(cleanedWord);
+                }
+
+                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                                     .ToList();
+
+                int totalFiles = files.Count;
+
+                if (totalFiles > 1)
+                {
+                    filesFound.Text = "" + totalFiles;
+                }
+                else { MessageBox.Show("Nothing Found"); }
+
+                DisplayFilesInListView(files);
+            }
+
+            SelectAllFiles();
+            selectAllButton.Text = "Deselect All";
+
+            deleteSelected_Click(sender, e);
+
+        }
+
+        private void checkAllFilters(object sender, EventArgs e)
+        {
+            if (allCheckbox.Checked)
+            {
+                videoCheckBox.Checked = true;
+                audioCheckbox.Checked = true;
+                appFilesCheckbox.Checked = true;
+                otherCheckBox.Checked = true;
+                appCheckbox.Checked = true;
+                imageCheckBox.Checked = true;
+                zipCheckbox.Checked = true;
+                documentCheckbox.Checked = true;
+
+                searchPattern = "*.*";
+            }
+        }
     }
 }
