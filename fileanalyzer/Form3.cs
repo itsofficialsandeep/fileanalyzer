@@ -16,7 +16,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace fileanalyzer
 {
-    public partial class Form1 : Form
+    public partial class Form3 : Form
     {
         [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
         static extern int SHEmptyRecycleBin(IntPtr hwnd, string pszRootPath, RecycleFlags dwFlags);
@@ -34,9 +34,10 @@ namespace fileanalyzer
         private string pathToSearch;
         string searchPattern = "*.*";
 
-        public Form1()
+        public Form3()
         {
             InitializeComponent();
+
             analyze.Click += analyze_click; // Wiring up the Click event to the analyze_click method
             clearRecycleBinButton.Click += clearRecycleBin;
 
@@ -50,11 +51,13 @@ namespace fileanalyzer
 
             //initialize the tab control
             // TabControl tabControl1 = new TabControl();
-        //    mainTabControl.Dock = DockStyle.Fill;
-        //    mainTabControl.ImageList = imageList1;
-        //    mainTabControl.TabPages.Add("tabKey1", "TabText1", "key1"); // icon using ImageKey
-        //   mainTabControl.TabPages.Add("tabKey2", "TabText2", "key2");      // icon using ImageIndex
-        //    this.Controls.Add(mainTabControl);
+            //    mainTabControl.Dock = DockStyle.Fill;
+            //    mainTabControl.ImageList = imageList1;
+            //    mainTabControl.TabPages.Add("tabKey1", "TabText1", "key1"); // icon using ImageKey
+            //   mainTabControl.TabPages.Add("tabKey2", "TabText2", "key2");      // icon using ImageIndex
+            //    this.Controls.Add(mainTabControl);
+
+            GenerateDriveCards();
         }
 
         private void openFolderBrowser(object sender, EventArgs e)
@@ -84,7 +87,7 @@ namespace fileanalyzer
                 string appExtensions = "";
                 string appFilesExtensions = "";
 
-                string extensions = "";                
+                string extensions = "";
 
                 var selectedTypes = new List<string>();
                 if (imageCheckBox.Checked)
@@ -114,7 +117,7 @@ namespace fileanalyzer
 
                 if (zipCheckbox.Checked)
                 {
-                     zipExtensions = ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz";
+                    zipExtensions = ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz";
 
                 }
 
@@ -134,10 +137,10 @@ namespace fileanalyzer
                 {
                     otherExtensions = ".png, .jpeg, .jpg, .tiff, .tif, .bmp, .gif, .tga, .webp, .svg, .eps, .ai, .xcf, .ico, .psd, .raw, .yuv, .ppm, .pgm, .pbm, .pnm, .hdr, .exr, .bpg, .jxr, .heic, .heif, " +
                         ".mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .m4v, .mpeg, .mpg, .3gp, .vob, .ogv, .swf, .asf, .rm, .rmvb, .m2ts, .ts, .m2v, .mts, .f4v, .divx, .xvid, .mxf, .dv, .mp2, .m1v, .gxf, .roq, .m2p, .mpeg4, .mpg2, .mpeg1, .ssif, .r3d, .bik, .smk, .m4e, .nsv, .nut, .wtv, .trp, .ifo, .wtv, .dvr-ms, .dav, .ogm, .drc, .yuv, .vc1, .avs, .mts " +
-                        ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape "+
-                        ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv "+
-                        ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz "+
-                        ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb "+
+                        ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape " +
+                        ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv " +
+                        ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz " +
+                        ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb " +
                         ".cfg, .ini, .conf, .plist, .properties, .db, .sqlite, .mdb, .accdb, .sql, .bak, .dbf, .ttf, .otf, .woff, .woff2, .eot, .dll, .sys, .bin, .dat, .key, .mdf, .log ";
                 }
 
@@ -155,17 +158,17 @@ namespace fileanalyzer
                     searchPattern = "*.*";
                 }
 
-                extensions = imageExtensions+" "+videoExtensions + " " +audioExtensions + " " +docExtensions + " " +zipExtensions + " " +appExtensions + " " +appFilesExtensions ;
+                extensions = imageExtensions + " " + videoExtensions + " " + audioExtensions + " " + docExtensions + " " + zipExtensions + " " + appExtensions + " " + appFilesExtensions;
 
                 string[] words = extensions.Split(',');
                 foreach (string word in words)
                 {
-                    string cleanedWord =  word.Trim(); // Remove leading/trailing spaces
+                    string cleanedWord = word.Trim(); // Remove leading/trailing spaces
                     selectedTypes.Add(cleanedWord);
                 }
 
                 var files = new List<string>();
-                
+
                 if (otherCheckBox.Checked)
                 {
 
@@ -307,7 +310,8 @@ namespace fileanalyzer
             listView1.LargeImageList = imageList;
         }
 
-        private void DisplayDuplicatesInListView(object sender, EventArgs e) {
+        private void DisplayDuplicatesInListView(object sender, EventArgs e)
+        {
             // Call the FindDuplicates method to get the duplicates dictionary
             Dictionary<string, List<string>> duplicates = FindDuplicates(pathToSearch);
 
@@ -637,7 +641,7 @@ namespace fileanalyzer
             Dictionary<string, List<string>> duplicates = FindDuplicates(pathToSearch);
 
             // Display the duplicates in the ListView using DisplayDuplicatesInListView
-            duplicatesInListView(duplicates);            
+            duplicatesInListView(duplicates);
 
             for (int i = 0; i < listView1.Items.Count; i++)
             {
@@ -672,7 +676,7 @@ namespace fileanalyzer
                 string[] words = extensions.Split(',');
                 foreach (string word in words)
                 {
-                    string cleanedWord = "."+word.Trim(); // Remove leading/trailing spaces
+                    string cleanedWord = "." + word.Trim(); // Remove leading/trailing spaces
                     selectedTypes.Add(cleanedWord);
                 }
 

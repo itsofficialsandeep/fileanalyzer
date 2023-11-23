@@ -42,19 +42,6 @@ namespace fileanalyzer
 
             // progressBar.Value += ProgressBar_ValueChanged;
 
-            // adding icons to tab of tab control
-            // initialize the imagelist
-            ImageList imageList1 = new ImageList();
-            imageList1.Images.Add("key1", Image.FromFile(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\icon.jpg"));
-            imageList1.Images.Add("key2", Image.FromFile(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\icon.jpg"));
-
-            //initialize the tab control
-            // TabControl tabControl1 = new TabControl();
-        //    mainTabControl.Dock = DockStyle.Fill;
-        //    mainTabControl.ImageList = imageList1;
-        //    mainTabControl.TabPages.Add("tabKey1", "TabText1", "key1"); // icon using ImageKey
-        //   mainTabControl.TabPages.Add("tabKey2", "TabText2", "key2");      // icon using ImageIndex
-        //    this.Controls.Add(mainTabControl);
         }
 
         private void openFolderBrowser(object sender, EventArgs e)
@@ -861,26 +848,9 @@ namespace fileanalyzer
             EmptyFolder(folderPath);
         }
 
-        private void YourForm_Load(object sender, EventArgs e)
+        private void label5_Click(object sender, EventArgs e)
         {
-            // Set properties for groupBox1 if needed
 
-            // Create a Panel within the current TabPage
-            Panel panel1 = new Panel();
-            panel1.Dock = DockStyle.Fill; // Dock the panel within the TabPage
-
-            // Add the Panel to the TabPage
-            dashboardPanel.Controls.Add(panel1);
-
-            // Add the GroupBox to the Panel
-            panel1.Controls.Add(groupBox1);
-            panel1.Controls.Add(groupBoxForResuts);
-
-            // Adjust the position and size of the GroupBox within the Panel
-            groupBox1.Location = new Point(0, 0); // Set the location within the panel
-            groupBoxForResuts.Location = new Point(0, 255);
-            //groupBox1.Size = new Size(200, 150); // Set the size of the groupBox1
         }
-
     }
 }
