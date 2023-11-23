@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,16 @@ namespace fileanalyzer
 {
     public partial class Form1 : Form
     {
+        [DllImport("shell32.dll", CharSet = CharSet.Unicode)]
+        static extern int SHEmptyRecycleBin(IntPtr hwnd, string pszRootPath, RecycleFlags dwFlags);
+
+        [Flags]
+        public enum RecycleFlags : uint
+        {
+            SHERB_NOCONFIRMATION = 0x00000001, // No confirmation
+            SHERB_NOPROGRESSUI = 0x00000001,   // No progress tracking window
+            SHERB_NOSOUND = 0x00000004         // No sound is played when the operation is complete
+        }
 
         // Declare a variable to hold the total number of files found
         private ListViewColumnSorter lvwColumnSorter;
@@ -27,6 +38,7 @@ namespace fileanalyzer
         {
             InitializeComponent();
             analyze.Click += analyze_click; // Wiring up the Click event to the analyze_click method
+            clearRecycleBinButton.Click += clearRecycleBin;
 
             // progressBar.Value += ProgressBar_ValueChanged;
 
@@ -121,7 +133,7 @@ namespace fileanalyzer
                     videoCheckBox.Checked = true;
                     audioCheckbox.Checked = true;
                     appFilesCheckbox.Checked = true;
-                    otherCheckBox.Checked = true;
+                    //otherCheckBox.Checked = true;
                     appCheckbox.Checked = true;
                     imageCheckBox.Checked = true;
                     zipCheckbox.Checked = true;
@@ -130,7 +142,7 @@ namespace fileanalyzer
                     searchPattern = "*.*";
                 }
 
-                extensions = imageExtensions+" "+videoExtensions + " " +audioExtensions + " " +docExtensions + " " +zipExtensions + " " +appExtensions + " " +appFilesExtensions + " " +otherExtensions ;
+                extensions = imageExtensions+" "+videoExtensions + " " +audioExtensions + " " +docExtensions + " " +zipExtensions + " " +appExtensions + " " +appFilesExtensions ;
 
                 string[] words = extensions.Split(',');
                 foreach (string word in words)
@@ -139,9 +151,29 @@ namespace fileanalyzer
                     selectedTypes.Add(cleanedWord);
                 }
 
-                var files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
-                                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
-                                     .ToList();
+                var files = new List<string>();
+                
+                if (otherCheckBox.Checked)
+                {
+
+                    extensions = otherExtensions;
+                    words = extensions.Split(',');
+                    foreach (string word in words)
+                    {
+                        string cleanedWord = word.Trim(); // Remove leading/trailing spaces
+                        selectedTypes.Add(cleanedWord);
+                    }
+
+                    files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
+                     .Where(file => !selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                     .ToList();
+                }
+                else
+                {
+                    files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
+                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                     .ToList();
+                }
 
                 int totalFiles = files.Count;
 
@@ -696,7 +728,6 @@ namespace fileanalyzer
                 videoCheckBox.Checked = true;
                 audioCheckbox.Checked = true;
                 appFilesCheckbox.Checked = true;
-                otherCheckBox.Checked = true;
                 appCheckbox.Checked = true;
                 imageCheckBox.Checked = true;
                 zipCheckbox.Checked = true;
@@ -704,6 +735,117 @@ namespace fileanalyzer
 
                 searchPattern = "*.*";
             }
+        }
+
+        private void findOldFiles(object sender, EventArgs e)
+        {
+            // Assuming dateTimePicker is the name of your DateTimePicker control
+            DateTime selectedDate = dateTimePicker1.Value;
+
+            if (Directory.Exists(pathToSearch))
+            {
+
+                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                                     .Where(file => {
+                                         FileInfo fileInfo = new FileInfo(file);
+                                         // Change the condition based on whether you want to filter by creation or last modified date
+                                         return fileInfo.LastWriteTime < selectedDate; // For last modified date
+                                                                                       // return fileInfo.CreationTime < selectedDate; // For creation date
+                                     })
+                                     .ToList();
+
+                int totalFiles = files.Count;
+
+                if (totalFiles > 1)
+                {
+                    filesFound.Text = "" + totalFiles;
+                }
+                else { MessageBox.Show("Nothing Found.."); }
+
+                DisplayFilesInListView(files);
+            }
+            else
+            {
+                MessageBox.Show("The specified path does not exist.");
+            }
+        }
+
+        private void deleteOldFiles(object sender, EventArgs e)
+        {
+            // Assuming dateTimePicker is the name of your DateTimePicker control
+            DateTime selectedDate = dateTimePicker1.Value;
+
+            if (Directory.Exists(pathToSearch))
+            {
+
+                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                                     .Where(file => {
+                                         FileInfo fileInfo = new FileInfo(file);
+                                         // Change the condition based on whether you want to filter by creation or last modified date
+                                         return fileInfo.LastWriteTime < selectedDate; // For last modified date
+                                                                                       // return fileInfo.CreationTime < selectedDate; // For creation date
+                                     })
+                                     .ToList();
+
+                int totalFiles = files.Count;
+
+                if (totalFiles > 1)
+                {
+                    filesFound.Text = "" + totalFiles;
+                }
+                else { MessageBox.Show("Nothing Found.."); }
+
+                DisplayFilesInListView(files);
+            }
+
+            SelectAllFiles();
+            selectAllButton.Text = "Deselect All";
+
+            deleteSelected_Click(sender, e);
+        }
+
+        private void clearRecycleBin(object sender, EventArgs e)
+        {
+            int result = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHERB_NOCONFIRMATION);
+            if (result == 0)
+            {
+                MessageBox.Show("Recycle bin emptied successfully.");
+            }
+            else
+            {
+                MessageBox.Show("Failed to empty the recycle bin.");
+            }
+        }
+
+        private void EmptyFolder(string folderPath)
+        {
+            try
+            {
+                DirectoryInfo directory = new DirectoryInfo(folderPath);
+
+                foreach (FileInfo file in directory.GetFiles())
+                {
+                    file.Delete();
+                }
+
+                foreach (DirectoryInfo subDirectory in directory.GetDirectories())
+                {
+                    subDirectory.Delete(true);
+                }
+
+                MessageBox.Show("Folder emptied successfully.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to empty the folder: " + ex.Message);
+            }
+        }
+
+        // Call this method on a button click or as needed
+        private void EmptyTempFolderButton_Click(object sender, EventArgs e)
+        {
+            string folderPath = @"C:\Windows\Temp";
+            EmptyFolder(folderPath);
         }
     }
 }
