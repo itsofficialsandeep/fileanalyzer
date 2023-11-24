@@ -32,7 +32,6 @@
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.driveGroupBox = new System.Windows.Forms.GroupBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.dashboardPanel = new System.Windows.Forms.TabPage();
             this.groupBoxForResuts = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -76,6 +75,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
             this.backpanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.driveGroupBox.SuspendLayout();
@@ -106,6 +106,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(248)))), ((int)(((byte)(251)))));
             this.tabPage1.Controls.Add(this.driveGroupBox);
             this.tabPage1.Location = new System.Drawing.Point(124, 4);
             this.tabPage1.Name = "tabPage1";
@@ -113,7 +114,6 @@
             this.tabPage1.Size = new System.Drawing.Size(1793, 1048);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // driveGroupBox
             // 
@@ -125,17 +125,6 @@
             this.driveGroupBox.TabIndex = 0;
             this.driveGroupBox.TabStop = false;
             this.driveGroupBox.Text = "Drives";
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
-            this.button2.Location = new System.Drawing.Point(293, 402);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "analyze";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.DiskAnalyzeButton_Click);
             // 
             // dashboardPanel
             // 
@@ -399,7 +388,7 @@
             // 
             this.progressLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.progressLabel.AutoSize = true;
-            this.progressLabel.Location = new System.Drawing.Point(718, 68);
+            this.progressLabel.Location = new System.Drawing.Point(711, 68);
             this.progressLabel.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(28, 17);
@@ -480,7 +469,7 @@
             // 
             this.progressBar.Location = new System.Drawing.Point(134, 65);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(578, 23);
+            this.progressBar.Size = new System.Drawing.Size(571, 23);
             this.progressBar.TabIndex = 2;
             // 
             // groupBox3
@@ -662,11 +651,21 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.backpanel.BackColor = System.Drawing.Color.Transparent;
-            this.backpanel.Controls.Add(this.button2);
+            this.backpanel.Controls.Add(this.label1);
             this.backpanel.Location = new System.Drawing.Point(9, 23);
             this.backpanel.Name = "backpanel";
             this.backpanel.Size = new System.Drawing.Size(1757, 1011);
             this.backpanel.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(329, 280);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "label1";
             // 
             // Form3
             // 
@@ -693,6 +692,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.backpanel.ResumeLayout(false);
+            this.backpanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -744,7 +744,7 @@
         private System.Windows.Forms.Button deleteSelected;
         private System.Windows.Forms.Button selectAllButton;
         private System.Windows.Forms.GroupBox driveGroupBox;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel backpanel;
+        private System.Windows.Forms.Label label1;
     }
 }

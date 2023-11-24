@@ -50,45 +50,45 @@ namespace fileanalyzer
 
               //  makeCornerRound(drivePanel, 5);
 
-                PictureBox pictureBox = new PictureBox();
+                /** PictureBox pictureBox = new PictureBox();
                 pictureBox.Location = new Point(20, 30);
                 pictureBox.Height = 65;
                 pictureBox.Width = 65;
                 pictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
-                drivePanel.Controls.Add(pictureBox);
+                drivePanel.Controls.Add(pictureBox); **/
 
                 Label totalSizeLabel = new Label();
                 totalSizeLabel.Text = ConvertBytes(drive.TotalSize);
-                totalSizeLabel.Location = new Point(110, 50);
-                totalSizeLabel.Font = new Font(FontFamily.GenericSansSerif, 17, FontStyle.Bold);
+                totalSizeLabel.Location = new Point(110, 35);
+                totalSizeLabel.Font = new Font("Roboto", 17, FontStyle.Bold);
                 totalSizeLabel.BackColor = Color.Transparent;
                 totalSizeLabel.ForeColor = Color.DarkBlue;
-                totalSizeLabel.Height = 60;
+                totalSizeLabel.Height = 30;
                 totalSizeLabel.Width = 200;
                 drivePanel.Controls.Add(totalSizeLabel);
 
-
                 Label driveLabel = new Label();
-                driveLabel.Text = drive.Name + " Drive";
-                driveLabel.Location = new Point(15, 110);
-                driveLabel.Font = new Font(FontFamily.GenericSansSerif, 15, FontStyle.Bold);
+                driveLabel.Text = drive.Name;
+                driveLabel.Location = new Point(10, 10); // new Point(15, 110);
+                driveLabel.Font = new Font("Roboto", 45, FontStyle.Bold);
+                driveLabel.Height = 60;
                 drivePanel.Controls.Add(driveLabel);
 
                 Label usedSpaceLabel = new Label();
                 usedSpaceLabel.Text = ConvertBytes(drive.TotalSize - drive.TotalFreeSpace);
-                usedSpaceLabel.Location = new Point(20, 165);
-                usedSpaceLabel.Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
+                usedSpaceLabel.Location = new Point(20, 90);
+                usedSpaceLabel.Font = new Font("Roboto", 10, FontStyle.Bold);
                 usedSpaceLabel.BackColor = Color.Transparent;
-                usedSpaceLabel.ForeColor = Color.DarkGray;
+                usedSpaceLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
                 drivePanel.Controls.Add(usedSpaceLabel);
 
                 Label freeSpaceLabel = new Label();
                 freeSpaceLabel.Text = ConvertBytes(drive.TotalFreeSpace);
-                freeSpaceLabel.Location = new Point(150, 165);
-                freeSpaceLabel.Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
+                freeSpaceLabel.Location = new Point(150, 90);
+                freeSpaceLabel.Font = new Font("Roboto", 10, FontStyle.Bold);
                 freeSpaceLabel.BackColor = Color.Transparent;
                 freeSpaceLabel.Padding = new Padding(0);
-                freeSpaceLabel.ForeColor = Color.DarkGray;
+                freeSpaceLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
                 drivePanel.Controls.Add(freeSpaceLabel);
 
                 // Use System.Windows.Forms.ProgressBar
@@ -96,7 +96,7 @@ namespace fileanalyzer
                 spaceProgressBar.Maximum = 100;
                 spaceProgressBar.Minimum = 0;
                 spaceProgressBar.Value = (int)((drive.TotalSize - drive.AvailableFreeSpace) * 100 / drive.TotalSize);
-                spaceProgressBar.Location = new Point(20, 190);
+                spaceProgressBar.Location = new Point(20, 120);
                 spaceProgressBar.Width = 205;
                 spaceProgressBar.Height = 6;
                 spaceProgressBar.Style = ProgressBarStyle.Continuous;
@@ -109,12 +109,13 @@ namespace fileanalyzer
                 // Add the panel to the GroupBox
                 myBackPanel.Controls.Add(drivePanel);
 
-                
+                diskInfo(drivePanel, @"E:\SANDEEP_KUMAR",drive);
+
                 x += 280;
             }
         }
 
-        private void DiskAnalyzeButton_Click(object sender, EventArgs e)
+        private void diskInfo(Control control,string disk,DriveInfo driveInfo)
         {
             try
             {
@@ -122,9 +123,11 @@ namespace fileanalyzer
                 int imageCount = 0;
                 int videoCount = 0;
                 int docCount = 0;
-                int otherCount = 0;
+                long totalImageSize = 0;
+                long totalVideoSize = 0;
+                long totalDocSize = 0;
 
-                TraverseTreeParallelForEach(@"E:\SANDEEP_KUMAR\PIC", (f) =>
+                TraverseTreeParallelForEach(disk, (f) =>
                 {
                     // Exceptions are no-ops.
                     try
@@ -135,25 +138,26 @@ namespace fileanalyzer
                         string extension = Path.GetExtension(f)?.ToLower();
                         if (!string.IsNullOrEmpty(extension))
                         {
+                            var fileInfo = new FileInfo(f);
+                            long fileSize = fileInfo.Length;
+
                             if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
                             {
                                 // Image file
                                 Interlocked.Increment(ref imageCount);
+                                Interlocked.Add(ref totalImageSize, fileSize);
                             }
                             else if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
                             {
                                 // Video file
                                 Interlocked.Increment(ref videoCount);
+                                Interlocked.Add(ref totalVideoSize, fileSize);
                             }
                             else if (extension == ".doc" || extension == ".docx" || extension == ".pdf" || extension == ".txt")
                             {
                                 // Document file
                                 Interlocked.Increment(ref docCount);
-                            }
-                            else
-                            {
-                                // Other files
-                                Interlocked.Increment(ref otherCount);
+                                Interlocked.Add(ref totalDocSize, fileSize);
                             }
                         }
                     }
@@ -163,13 +167,175 @@ namespace fileanalyzer
                     catch (System.Security.SecurityException) { }
                 });
 
-                // Display counts or use them as needed
-                MessageBox.Show($"Total Files: {fileCount}\nImage Files: {imageCount}\nVideo Files: {videoCount}\nDocument Files: {docCount}\nOther Files: {otherCount}");
+             // DETAILS OF SPACE USED BY IMAGES
+                PictureBox imagespictureBox = new PictureBox();
+                imagespictureBox.Location = new Point(15, 150);
+                imagespictureBox.Height = 30;
+                imagespictureBox.Width = 30;
+                imagespictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
+                control.Controls.Add(imagespictureBox);
+
+                Label imagesLabel = new Label();
+                imagesLabel.Text = "Images";
+                imagesLabel.Location = new Point(50, 150);
+                imagesLabel.Font = new Font("RobotoRegular", 12);
+                imagesLabel.BackColor = Color.Transparent;
+                imagesLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
+                imagesLabel.Height = 20;
+                imagesLabel.Width = 90;
+                control.Controls.Add(imagesLabel);
+
+                Label imagesCount = new Label();
+                imagesCount.Text = imageCount + " files";
+                imagesCount.Location = new Point(52, 173);
+                imagesCount.Font = new Font("Roboto", 9, FontStyle.Bold);
+                imagesCount.BackColor = Color.Transparent;
+                imagesCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
+                imagesCount.Height = 13;
+                imagesCount.Width = 30;
+                control.Controls.Add(imagesCount);
+
+                Label imagesSpaceTaken = new Label();
+                imagesSpaceTaken.Text = ConvertBytes(totalImageSize)+"";
+                imagesSpaceTaken.Location = new Point(140, 160);
+                imagesSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
+                imagesSpaceTaken.BackColor = Color.Transparent;
+                imagesSpaceTaken.ForeColor = Color.DarkBlue;
+                imagesSpaceTaken.Height = 22;
+                imagesSpaceTaken.Width = 100;
+                imagesSpaceTaken.Anchor = AnchorStyles.Right;
+                control.Controls.Add(imagesSpaceTaken);
+
+                System.Windows.Forms.ProgressBar ImagespaceProgressBar = new System.Windows.Forms.ProgressBar();
+                ImagespaceProgressBar.Maximum = 100;
+                ImagespaceProgressBar.Minimum = 0;
+                ImagespaceProgressBar.Value = (int)(totalImageSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
+                ImagespaceProgressBar.Location = new Point(20, 190);
+                ImagespaceProgressBar.Width = 205;
+                ImagespaceProgressBar.Height = 1;
+                ImagespaceProgressBar.Style = ProgressBarStyle.Continuous;
+                ImagespaceProgressBar.MarqueeAnimationSpeed = 0;
+                control.Controls.Add(ImagespaceProgressBar);
+
+
+                // DETAILS OF SPACE USED BY VIDEOS
+                PictureBox videospictureBox = new PictureBox();
+                videospictureBox.Location = new Point(15, 210);
+                videospictureBox.Height = 30;
+                videospictureBox.Width = 30;
+                videospictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
+                control.Controls.Add(videospictureBox);
+
+                Label videosLabel = new Label();
+                videosLabel.Text = "Videos";
+                videosLabel.Location = new Point(50, 210);
+                videosLabel.Font = new Font("RobotoRegular", 12);
+                videosLabel.BackColor = Color.Transparent;
+                videosLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
+                videosLabel.Height = 20;
+                videosLabel.Width = 90;
+                control.Controls.Add(videosLabel);
+
+                Label videosCount = new Label();
+                videosCount.Text = videoCount + " files";
+                videosCount.Location = new Point(52, 233);
+                videosCount.Font = new Font("Roboto", 9, FontStyle.Bold);
+                videosCount.BackColor = Color.Transparent;
+                videosCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
+                videosCount.Height = 13;
+                videosCount.Width = 30;
+                control.Controls.Add(videosCount);
+
+                Label videosSpaceTaken = new Label();
+                videosSpaceTaken.Text = ConvertBytes(totalVideoSize) + "";
+                videosSpaceTaken.Location = new Point(140, 220);
+                videosSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
+                videosSpaceTaken.BackColor = Color.Transparent;
+                videosSpaceTaken.ForeColor = Color.DarkBlue;
+                videosSpaceTaken.Height = 22;
+                videosSpaceTaken.Width = 100;
+                videosSpaceTaken.Anchor = AnchorStyles.Right;
+                control.Controls.Add(videosSpaceTaken);
+
+                System.Windows.Forms.ProgressBar videospaceProgressBar = new System.Windows.Forms.ProgressBar();
+                videospaceProgressBar.Maximum = 100;
+                videospaceProgressBar.Minimum = 0;
+                videospaceProgressBar.Value = (int)(totalVideoSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
+                videospaceProgressBar.Location = new Point(20, 250);
+                videospaceProgressBar.Width = 205;
+                videospaceProgressBar.Height = 1;
+                videospaceProgressBar.Style = ProgressBarStyle.Continuous;
+                videospaceProgressBar.MarqueeAnimationSpeed = 0;
+                control.Controls.Add(videospaceProgressBar);
+
+
+                // DETAILS OF SPACE USED BY docs
+                PictureBox docspictureBox = new PictureBox();
+                docspictureBox.Location = new Point(15, 270);
+                docspictureBox.Height = 30;
+                docspictureBox.Width = 30;
+                docspictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
+                control.Controls.Add(docspictureBox);
+
+                Label docsLabel = new Label();
+                docsLabel.Text = "Docs";
+                docsLabel.Location = new Point(50, 270);
+                docsLabel.Font = new Font("RobotoRegular", 12);
+                docsLabel.BackColor = Color.Transparent;
+                docsLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
+                docsLabel.Height = 20;
+                docsLabel.Width = 90;
+                control.Controls.Add(docsLabel);
+
+                Label docsCount = new Label();
+                docsCount.Text = docsCount + " files";
+                docsCount.Location = new Point(52, 293);
+                docsCount.Font = new Font("Roboto", 9, FontStyle.Bold);
+                docsCount.BackColor = Color.Transparent;
+                docsCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
+                docsCount.Height = 13;
+                docsCount.Width = 50;
+                control.Controls.Add(docsCount);
+
+                Label docsSpaceTaken = new Label();
+                docsSpaceTaken.Text = ConvertBytes(totalDocSize) + "";
+                docsSpaceTaken.Location = new Point(140, 280);
+                docsSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
+                docsSpaceTaken.BackColor = Color.Transparent;
+                docsSpaceTaken.ForeColor = Color.DarkBlue;
+                docsSpaceTaken.Height = 22;
+                docsSpaceTaken.Width = 100;
+                docsSpaceTaken.Anchor = AnchorStyles.Right;
+                control.Controls.Add(docsSpaceTaken);
+
+                System.Windows.Forms.ProgressBar docspaceProgressBar = new System.Windows.Forms.ProgressBar();
+                docspaceProgressBar.Maximum = 100;
+                docspaceProgressBar.Minimum = 0;
+                docspaceProgressBar.Value = (int)(totalDocSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
+                docspaceProgressBar.Location = new Point(20, 310);
+                docspaceProgressBar.Width = 205;
+                docspaceProgressBar.Height = 1;
+                docspaceProgressBar.Style = ProgressBarStyle.Continuous;
+                docspaceProgressBar.MarqueeAnimationSpeed = 0;
+                control.Controls.Add(docspaceProgressBar);
             }
             catch (ArgumentException)
             {
                 MessageBox.Show(@"The directory 'C:\Program Files' does not exist.");
             }
+        }
+
+
+        public static string FormatBytes(long bytes)
+        {
+            const long kb = 1024;
+            const long mb = kb * 1024;
+            const long gb = mb * 1024;
+
+            if (bytes >= gb) return $"{bytes / gb} GB";
+            if (bytes >= mb) return $"{bytes / mb} MB";
+            if (bytes >= kb) return $"{bytes / kb} KB";
+            return $"{bytes} Bytes";
         }
 
         public static void TraverseTreeParallelForEach(string root, Action<string> action)
