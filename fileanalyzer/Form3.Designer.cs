@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.driveGroupBox = new System.Windows.Forms.GroupBox();
             this.button2 = new System.Windows.Forms.Button();
             this.dashboardPanel = new System.Windows.Forms.TabPage();
             this.groupBoxForResuts = new System.Windows.Forms.GroupBox();
@@ -75,9 +75,10 @@
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
+            this.backpanel = new System.Windows.Forms.Panel();
             this.mainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox6.SuspendLayout();
+            this.driveGroupBox.SuspendLayout();
             this.dashboardPanel.SuspendLayout();
             this.groupBoxForResuts.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -86,6 +87,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.backpanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -104,7 +106,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.groupBox6);
+            this.tabPage1.Controls.Add(this.driveGroupBox);
             this.tabPage1.Location = new System.Drawing.Point(124, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -113,25 +115,26 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // groupBox6
+            // driveGroupBox
             // 
-            this.groupBox6.Controls.Add(this.button2);
-            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(18, 14);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(966, 446);
-            this.groupBox6.TabIndex = 0;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Drives";
+            this.driveGroupBox.Controls.Add(this.backpanel);
+            this.driveGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.driveGroupBox.Location = new System.Drawing.Point(6, 14);
+            this.driveGroupBox.Name = "driveGroupBox";
+            this.driveGroupBox.Size = new System.Drawing.Size(1784, 1038);
+            this.driveGroupBox.TabIndex = 0;
+            this.driveGroupBox.TabStop = false;
+            this.driveGroupBox.Text = "Drives";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(18, 34);
+            this.button2.BackColor = System.Drawing.Color.DodgerBlue;
+            this.button2.Location = new System.Drawing.Point(293, 402);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 0;
             this.button2.Text = "analyze";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.DiskAnalyzeButton_Click);
             // 
             // dashboardPanel
@@ -653,6 +656,18 @@
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
             // 
+            // backpanel
+            // 
+            this.backpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.backpanel.BackColor = System.Drawing.Color.Transparent;
+            this.backpanel.Controls.Add(this.button2);
+            this.backpanel.Location = new System.Drawing.Point(9, 23);
+            this.backpanel.Name = "backpanel";
+            this.backpanel.Size = new System.Drawing.Size(1757, 1011);
+            this.backpanel.TabIndex = 1;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,7 +678,7 @@
             this.Text = "Form3";
             this.mainTabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
+            this.driveGroupBox.ResumeLayout(false);
             this.dashboardPanel.ResumeLayout(false);
             this.groupBoxForResuts.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -677,6 +692,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.backpanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -727,7 +743,8 @@
         private System.Windows.Forms.Button evenOddButton;
         private System.Windows.Forms.Button deleteSelected;
         private System.Windows.Forms.Button selectAllButton;
-        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox driveGroupBox;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel backpanel;
     }
 }

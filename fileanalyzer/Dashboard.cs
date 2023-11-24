@@ -2,65 +2,115 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace fileanalyzer
 {
     public partial class Form3 : Form
     {
 
+        // function to make corner round
+        private void makeCornerRound(Control control, int borderRadius)
+        {
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, borderRadius * 2, borderRadius * 2, 180, 90); // Top-left corner
+                path.AddArc(control.Width - borderRadius * 2, 0, borderRadius * 2, borderRadius * 2, 270, 90); // Top-right corner
+                path.AddArc(control.Width - borderRadius * 2, control.Height - borderRadius * 2, borderRadius * 2, borderRadius * 2, 0, 90); // Bottom-right corner
+                path.AddArc(0, control.Height - borderRadius * 2, borderRadius * 2, borderRadius * 2, 90, 90); // Bottom-left corner
+                path.CloseFigure();
+
+                control.Region = new Region(path);
+            }
+        }
         private void GenerateDriveCards()
         {
             DriveInfo[] allDrives = DriveInfo.GetDrives();
 
-            int x = 20, y = 20;
+            int x = 20, y = 25;
 
             foreach (DriveInfo drive in allDrives)
             {
                 Panel drivePanel = new Panel();
-                drivePanel.Size = new Size(200, 200); // Increased size for additional labels
+                // Set panel properties
+                drivePanel.BackColor = Color.LightGray; // Set panel background color
+
+                drivePanel.Size = new Size(250, 350); // Increased size for additional labels
                 drivePanel.Location = new Point(x, y);
                 drivePanel.BorderStyle = BorderStyle.FixedSingle;
+                drivePanel.BackColor = Color.White;
+               // drivePanel.ForeColor = Color.White;
+
+              //  makeCornerRound(drivePanel, 5);
+
+                PictureBox pictureBox = new PictureBox();
+                pictureBox.Location = new Point(20, 30);
+                pictureBox.Height = 65;
+                pictureBox.Width = 65;
+                pictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
+                drivePanel.Controls.Add(pictureBox);
+
+                Label totalSizeLabel = new Label();
+                totalSizeLabel.Text = ConvertBytes(drive.TotalSize);
+                totalSizeLabel.Location = new Point(110, 50);
+                totalSizeLabel.Font = new Font(FontFamily.GenericSansSerif, 17, FontStyle.Bold);
+                totalSizeLabel.BackColor = Color.Transparent;
+                totalSizeLabel.ForeColor = Color.DarkBlue;
+                totalSizeLabel.Height = 60;
+                totalSizeLabel.Width = 200;
+                drivePanel.Controls.Add(totalSizeLabel);
+
 
                 Label driveLabel = new Label();
-                driveLabel.Text = drive.Name;
-                driveLabel.Location = new Point(10, 10);
-                driveLabel.Font = new Font(FontFamily.GenericSansSerif, 12, FontStyle.Bold);
+                driveLabel.Text = drive.Name + " Drive";
+                driveLabel.Location = new Point(15, 110);
+                driveLabel.Font = new Font(FontFamily.GenericSansSerif, 15, FontStyle.Bold);
                 drivePanel.Controls.Add(driveLabel);
 
-                // Labels for total and available space
-                // ...
+                Label usedSpaceLabel = new Label();
+                usedSpaceLabel.Text = ConvertBytes(drive.TotalSize - drive.TotalFreeSpace);
+                usedSpaceLabel.Location = new Point(20, 165);
+                usedSpaceLabel.Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
+                usedSpaceLabel.BackColor = Color.Transparent;
+                usedSpaceLabel.ForeColor = Color.DarkGray;
+                drivePanel.Controls.Add(usedSpaceLabel);
 
-                ProgressBar spaceProgressBar = new ProgressBar();
+                Label freeSpaceLabel = new Label();
+                freeSpaceLabel.Text = ConvertBytes(drive.TotalFreeSpace);
+                freeSpaceLabel.Location = new Point(150, 165);
+                freeSpaceLabel.Font = new Font(FontFamily.GenericSansSerif, 10, FontStyle.Bold);
+                freeSpaceLabel.BackColor = Color.Transparent;
+                freeSpaceLabel.Padding = new Padding(0);
+                freeSpaceLabel.ForeColor = Color.DarkGray;
+                drivePanel.Controls.Add(freeSpaceLabel);
+
+                // Use System.Windows.Forms.ProgressBar
+                System.Windows.Forms.ProgressBar spaceProgressBar = new System.Windows.Forms.ProgressBar();
                 spaceProgressBar.Maximum = 100;
                 spaceProgressBar.Minimum = 0;
                 spaceProgressBar.Value = (int)((drive.TotalSize - drive.AvailableFreeSpace) * 100 / drive.TotalSize);
-                spaceProgressBar.Location = new Point(10, 80);
-                spaceProgressBar.Width = 170;
+                spaceProgressBar.Location = new Point(20, 190);
+                spaceProgressBar.Width = 205;
+                spaceProgressBar.Height = 6;
+                spaceProgressBar.Style = ProgressBarStyle.Continuous;
+                spaceProgressBar.MarqueeAnimationSpeed = 0;
                 drivePanel.Controls.Add(spaceProgressBar);
 
-                int imageCount = 10;
-                int documentCount = 10;
+                // Find your GroupBox (replace "groupBox1" with the actual name of your GroupBox)
+                Panel myBackPanel = backpanel;
 
-                // LOGIC HERE PLEASE
+                // Add the panel to the GroupBox
+                myBackPanel.Controls.Add(drivePanel);
 
-                Label imageCountLabel = new Label();
-                imageCountLabel.Text = $"Images: {imageCount}";
-                imageCountLabel.Location = new Point(10, 120);
-                drivePanel.Controls.Add(imageCountLabel);
-
-                Label documentCountLabel = new Label();
-                documentCountLabel.Text = $"Documents: {documentCount}";
-                documentCountLabel.Location = new Point(10, 150);
-                drivePanel.Controls.Add(documentCountLabel);
-
-                this.Controls.Add(drivePanel);
-                x += 220;
+                
+                x += 280;
             }
         }
 
@@ -237,6 +287,29 @@ namespace fileanalyzer
             Console.WriteLine("Processed {0} files in {1} milliseconds", fileCount, sw.ElapsedMilliseconds);
         }
 
+        static string ConvertBytes(long bytes)
+        {
+            const long kilobyte = 1024;
+            const long megabyte = kilobyte * 1024;
+            const long gigabyte = megabyte * 1024;
+
+            if (bytes < kilobyte)
+            {
+                return $"{bytes} B";
+            }
+            else if (bytes < megabyte)
+            {
+                return $"{bytes / (double)kilobyte:F2} KB";
+            }
+            else if (bytes < gigabyte)
+            {
+                return $"{bytes / (double)megabyte:F2} MB";
+            }
+            else
+            {
+                return $"{bytes / (double)gigabyte:F2} GB";
+            }
+        }
 
 
 

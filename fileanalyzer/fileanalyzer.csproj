@@ -143,4 +143,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>taskkill /IM fileanalyzer.exe /F</PreBuildEvent>
+  </PropertyGroup>
 </Project>
