@@ -32,6 +32,7 @@
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.driveGroupBox = new System.Windows.Forms.GroupBox();
+            this.backpanel = new System.Windows.Forms.Panel();
             this.dashboardPanel = new System.Windows.Forms.TabPage();
             this.groupBoxForResuts = new System.Windows.Forms.GroupBox();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -74,8 +75,76 @@
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
-            this.backpanel = new System.Windows.Forms.Panel();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.bannerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.bigsizefileGroupBox = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.largeSizeFoldersListview = new System.Windows.Forms.ListView();
+            this.largeSizeFileListview = new System.Windows.Forms.ListView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.picturePanel = new System.Windows.Forms.Panel();
+            this.Pictures = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureSize = new System.Windows.Forms.Label();
+            this.totalPictures = new System.Windows.Forms.Label();
+            this.videoPanel = new System.Windows.Forms.Panel();
+            this.videoSize = new System.Windows.Forms.Label();
+            this.totalVideos = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.musicPanel = new System.Windows.Forms.Panel();
+            this.audioSize = new System.Windows.Forms.Label();
+            this.totalAudios = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.documentPanel = new System.Windows.Forms.Panel();
+            this.docSize = new System.Windows.Forms.Label();
+            this.totalDoc = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.downloadPanel = new System.Windows.Forms.Panel();
+            this.downloadSize = new System.Windows.Forms.Label();
+            this.totalDownload = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.desktopPanel = new System.Windows.Forms.Panel();
+            this.desktopSize = new System.Windows.Forms.Label();
+            this.totalDesktop = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.screenshotPanel = new System.Windows.Forms.Panel();
+            this.screenshotSize = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tempPanel = new System.Windows.Forms.Panel();
+            this.tempSize = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.temp2Panel = new System.Windows.Forms.Panel();
+            this.temp2Size = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.recyclebinPanel = new System.Windows.Forms.Panel();
+            this.RecyclebinSize = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.pictureButton = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.videoButton = new System.Windows.Forms.Button();
+            this.musicButton = new System.Windows.Forms.Button();
+            this.docButton = new System.Windows.Forms.Button();
+            this.downloadButton = new System.Windows.Forms.Button();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.screenshotButton = new System.Windows.Forms.Button();
+            this.tempButton = new System.Windows.Forms.Button();
+            this.temp2Button = new System.Windows.Forms.Button();
+            this.recyclebinButton = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.driveGroupBox.SuspendLayout();
@@ -87,12 +156,40 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.backpanel.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.bannerFlowPanel.SuspendLayout();
+            this.bigsizefileGroupBox.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.picturePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.videoPanel.SuspendLayout();
+            this.musicPanel.SuspendLayout();
+            this.documentPanel.SuspendLayout();
+            this.downloadPanel.SuspendLayout();
+            this.desktopPanel.SuspendLayout();
+            this.screenshotPanel.SuspendLayout();
+            this.tempPanel.SuspendLayout();
+            this.temp2Panel.SuspendLayout();
+            this.recyclebinPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTabControl
             // 
             this.mainTabControl.Alignment = System.Windows.Forms.TabAlignment.Left;
+            this.mainTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mainTabControl.Controls.Add(this.tabPage2);
             this.mainTabControl.Controls.Add(this.tabPage1);
             this.mainTabControl.Controls.Add(this.dashboardPanel);
             this.mainTabControl.ItemSize = new System.Drawing.Size(100, 120);
@@ -121,10 +218,22 @@
             this.driveGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.driveGroupBox.Location = new System.Drawing.Point(6, 14);
             this.driveGroupBox.Name = "driveGroupBox";
-            this.driveGroupBox.Size = new System.Drawing.Size(1784, 1038);
+            this.driveGroupBox.Size = new System.Drawing.Size(1784, 1012);
             this.driveGroupBox.TabIndex = 0;
             this.driveGroupBox.TabStop = false;
             this.driveGroupBox.Text = "Drives";
+            // 
+            // backpanel
+            // 
+            this.backpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.backpanel.AutoScroll = true;
+            this.backpanel.BackColor = System.Drawing.Color.Transparent;
+            this.backpanel.Location = new System.Drawing.Point(9, 23);
+            this.backpanel.Name = "backpanel";
+            this.backpanel.Size = new System.Drawing.Size(1757, 952);
+            this.backpanel.TabIndex = 1;
             // 
             // dashboardPanel
             // 
@@ -645,27 +754,802 @@
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
             // 
-            // backpanel
+            // tabPage2
             // 
-            this.backpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.backpanel.BackColor = System.Drawing.Color.Transparent;
-            this.backpanel.Controls.Add(this.label1);
-            this.backpanel.Location = new System.Drawing.Point(9, 23);
-            this.backpanel.Name = "backpanel";
-            this.backpanel.Size = new System.Drawing.Size(1757, 1011);
-            this.backpanel.TabIndex = 1;
+            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage2.Controls.Add(this.desktopPanel);
+            this.tabPage2.Controls.Add(this.downloadPanel);
+            this.tabPage2.Controls.Add(this.documentPanel);
+            this.tabPage2.Controls.Add(this.musicPanel);
+            this.tabPage2.Controls.Add(this.videoPanel);
+            this.tabPage2.Controls.Add(this.recyclebinPanel);
+            this.tabPage2.Controls.Add(this.temp2Panel);
+            this.tabPage2.Controls.Add(this.tempPanel);
+            this.tabPage2.Controls.Add(this.screenshotPanel);
+            this.tabPage2.Controls.Add(this.picturePanel);
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.bigsizefileGroupBox);
+            this.tabPage2.Controls.Add(this.bannerFlowPanel);
+            this.tabPage2.Location = new System.Drawing.Point(124, 4);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(1793, 1048);
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Dashboard1";
+            // 
+            // bannerFlowPanel
+            // 
+            this.bannerFlowPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(237)))), ((int)(((byte)(201)))));
+            this.bannerFlowPanel.Controls.Add(this.label1);
+            this.bannerFlowPanel.Controls.Add(this.label3);
+            this.bannerFlowPanel.Controls.Add(this.button2);
+            this.bannerFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.bannerFlowPanel.Location = new System.Drawing.Point(18, 16);
+            this.bannerFlowPanel.Name = "bannerFlowPanel";
+            this.bannerFlowPanel.Size = new System.Drawing.Size(1004, 364);
+            this.bannerFlowPanel.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(329, 280);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 30.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label1.Location = new System.Drawing.Point(60, 60);
+            this.label1.Margin = new System.Windows.Forms.Padding(60, 60, 3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 20);
+            this.label1.Size = new System.Drawing.Size(562, 47);
             this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.label1.Text = "Clear More space in One-Click";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Roboto Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label3.Location = new System.Drawing.Point(120, 127);
+            this.label3.Margin = new System.Windows.Forms.Padding(120, 20, 3, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(437, 23);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Clear Folders like Temp, %Temp%. Deletes log files.";
+            // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Roboto", 13.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.button2.Location = new System.Drawing.Point(480, 220);
+            this.button2.Margin = new System.Windows.Forms.Padding(480, 70, 3, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(162, 48);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Clear";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // bigsizefileGroupBox
+            // 
+            this.bigsizefileGroupBox.Controls.Add(this.tabPage3);
+            this.bigsizefileGroupBox.Controls.Add(this.tabPage4);
+            this.bigsizefileGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bigsizefileGroupBox.Location = new System.Drawing.Point(1052, 16);
+            this.bigsizefileGroupBox.Name = "bigsizefileGroupBox";
+            this.bigsizefileGroupBox.SelectedIndex = 0;
+            this.bigsizefileGroupBox.Size = new System.Drawing.Size(713, 364);
+            this.bigsizefileGroupBox.TabIndex = 1;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.largeSizeFoldersListview);
+            this.tabPage3.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage3.Location = new System.Drawing.Point(4, 26);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(705, 334);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Large size folders";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.largeSizeFileListview);
+            this.tabPage4.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage4.Location = new System.Drawing.Point(4, 26);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(705, 334);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Larger size file";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // largeSizeFoldersListview
+            // 
+            this.largeSizeFoldersListview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.largeSizeFoldersListview.HideSelection = false;
+            this.largeSizeFoldersListview.Location = new System.Drawing.Point(3, 6);
+            this.largeSizeFoldersListview.Name = "largeSizeFoldersListview";
+            this.largeSizeFoldersListview.Size = new System.Drawing.Size(696, 326);
+            this.largeSizeFoldersListview.TabIndex = 0;
+            this.largeSizeFoldersListview.UseCompatibleStateImageBehavior = false;
+            // 
+            // largeSizeFileListview
+            // 
+            this.largeSizeFileListview.BackColor = System.Drawing.Color.White;
+            this.largeSizeFileListview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.largeSizeFileListview.HideSelection = false;
+            this.largeSizeFileListview.Location = new System.Drawing.Point(6, 6);
+            this.largeSizeFileListview.Name = "largeSizeFileListview";
+            this.largeSizeFileListview.Size = new System.Drawing.Size(693, 326);
+            this.largeSizeFileListview.TabIndex = 0;
+            this.largeSizeFileListview.UseCompatibleStateImageBehavior = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Roboto", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(18, 415);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(155, 41);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Folder(s)";
+            // 
+            // picturePanel
+            // 
+            this.picturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(245)))));
+            this.picturePanel.Controls.Add(this.pictureButton);
+            this.picturePanel.Controls.Add(this.pictureBox1);
+            this.picturePanel.Controls.Add(this.pictureSize);
+            this.picturePanel.Controls.Add(this.totalPictures);
+            this.picturePanel.Controls.Add(this.Pictures);
+            this.picturePanel.ForeColor = System.Drawing.Color.White;
+            this.picturePanel.Location = new System.Drawing.Point(22, 471);
+            this.picturePanel.Name = "picturePanel";
+            this.picturePanel.Size = new System.Drawing.Size(244, 200);
+            this.picturePanel.TabIndex = 3;
+            // 
+            // Pictures
+            // 
+            this.Pictures.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.Pictures.AutoSize = true;
+            this.Pictures.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Pictures.Location = new System.Drawing.Point(89, 11);
+            this.Pictures.Name = "Pictures";
+            this.Pictures.Size = new System.Drawing.Size(68, 19);
+            this.Pictures.TabIndex = 0;
+            this.Pictures.Text = "Pictures";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureSize
+            // 
+            this.pictureSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.pictureSize.AutoSize = true;
+            this.pictureSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pictureSize.Location = new System.Drawing.Point(127, 67);
+            this.pictureSize.Name = "pictureSize";
+            this.pictureSize.Size = new System.Drawing.Size(78, 25);
+            this.pictureSize.TabIndex = 0;
+            this.pictureSize.Text = "NA GB";
+            // 
+            // totalPictures
+            // 
+            this.totalPictures.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalPictures.AutoSize = true;
+            this.totalPictures.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalPictures.Location = new System.Drawing.Point(75, 116);
+            this.totalPictures.Name = "totalPictures";
+            this.totalPictures.Size = new System.Drawing.Size(155, 17);
+            this.totalPictures.TabIndex = 0;
+            this.totalPictures.Text = "Total Files Not Available";
+            // 
+            // videoPanel
+            // 
+            this.videoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(196)))), ((int)(((byte)(35)))));
+            this.videoPanel.Controls.Add(this.videoButton);
+            this.videoPanel.Controls.Add(this.videoSize);
+            this.videoPanel.Controls.Add(this.pictureBox2);
+            this.videoPanel.Controls.Add(this.totalVideos);
+            this.videoPanel.Controls.Add(this.label11);
+            this.videoPanel.ForeColor = System.Drawing.Color.White;
+            this.videoPanel.Location = new System.Drawing.Point(309, 471);
+            this.videoPanel.Name = "videoPanel";
+            this.videoPanel.Size = new System.Drawing.Size(244, 200);
+            this.videoPanel.TabIndex = 3;
+            // 
+            // videoSize
+            // 
+            this.videoSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.videoSize.AutoSize = true;
+            this.videoSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.videoSize.Location = new System.Drawing.Point(127, 67);
+            this.videoSize.Name = "videoSize";
+            this.videoSize.Size = new System.Drawing.Size(78, 25);
+            this.videoSize.TabIndex = 0;
+            this.videoSize.Text = "NA GB";
+            // 
+            // totalVideos
+            // 
+            this.totalVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalVideos.AutoSize = true;
+            this.totalVideos.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalVideos.Location = new System.Drawing.Point(75, 116);
+            this.totalVideos.Name = "totalVideos";
+            this.totalVideos.Size = new System.Drawing.Size(155, 17);
+            this.totalVideos.TabIndex = 0;
+            this.totalVideos.Text = "Total Files Not Available";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(89, 11);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 19);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "Videos";
+            // 
+            // musicPanel
+            // 
+            this.musicPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(203)))), ((int)(((byte)(232)))));
+            this.musicPanel.Controls.Add(this.musicButton);
+            this.musicPanel.Controls.Add(this.audioSize);
+            this.musicPanel.Controls.Add(this.pictureBox3);
+            this.musicPanel.Controls.Add(this.totalAudios);
+            this.musicPanel.Controls.Add(this.label14);
+            this.musicPanel.ForeColor = System.Drawing.Color.White;
+            this.musicPanel.Location = new System.Drawing.Point(591, 471);
+            this.musicPanel.Name = "musicPanel";
+            this.musicPanel.Size = new System.Drawing.Size(244, 200);
+            this.musicPanel.TabIndex = 3;
+            // 
+            // audioSize
+            // 
+            this.audioSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.audioSize.AutoSize = true;
+            this.audioSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.audioSize.Location = new System.Drawing.Point(127, 67);
+            this.audioSize.Name = "audioSize";
+            this.audioSize.Size = new System.Drawing.Size(78, 25);
+            this.audioSize.TabIndex = 0;
+            this.audioSize.Text = "NA GB";
+            // 
+            // totalAudios
+            // 
+            this.totalAudios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalAudios.AutoSize = true;
+            this.totalAudios.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalAudios.Location = new System.Drawing.Point(75, 116);
+            this.totalAudios.Name = "totalAudios";
+            this.totalAudios.Size = new System.Drawing.Size(155, 17);
+            this.totalAudios.TabIndex = 0;
+            this.totalAudios.Text = "Total Files Not Available";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(89, 11);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 19);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "Musics";
+            // 
+            // documentPanel
+            // 
+            this.documentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(144)))), ((int)(((byte)(98)))));
+            this.documentPanel.Controls.Add(this.docButton);
+            this.documentPanel.Controls.Add(this.docSize);
+            this.documentPanel.Controls.Add(this.pictureBox4);
+            this.documentPanel.Controls.Add(this.totalDoc);
+            this.documentPanel.Controls.Add(this.label17);
+            this.documentPanel.ForeColor = System.Drawing.Color.White;
+            this.documentPanel.Location = new System.Drawing.Point(875, 471);
+            this.documentPanel.Name = "documentPanel";
+            this.documentPanel.Size = new System.Drawing.Size(244, 200);
+            this.documentPanel.TabIndex = 3;
+            // 
+            // docSize
+            // 
+            this.docSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.docSize.AutoSize = true;
+            this.docSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.docSize.Location = new System.Drawing.Point(127, 67);
+            this.docSize.Name = "docSize";
+            this.docSize.Size = new System.Drawing.Size(78, 25);
+            this.docSize.TabIndex = 0;
+            this.docSize.Text = "NA GB";
+            // 
+            // totalDoc
+            // 
+            this.totalDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalDoc.AutoSize = true;
+            this.totalDoc.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalDoc.Location = new System.Drawing.Point(75, 116);
+            this.totalDoc.Name = "totalDoc";
+            this.totalDoc.Size = new System.Drawing.Size(155, 17);
+            this.totalDoc.TabIndex = 0;
+            this.totalDoc.Text = "Total Files Not Available";
+            // 
+            // label17
+            // 
+            this.label17.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(89, 11);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(90, 19);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Documents";
+            // 
+            // downloadPanel
+            // 
+            this.downloadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.downloadPanel.Controls.Add(this.downloadButton);
+            this.downloadPanel.Controls.Add(this.downloadSize);
+            this.downloadPanel.Controls.Add(this.pictureBox5);
+            this.downloadPanel.Controls.Add(this.totalDownload);
+            this.downloadPanel.Controls.Add(this.label20);
+            this.downloadPanel.ForeColor = System.Drawing.Color.White;
+            this.downloadPanel.Location = new System.Drawing.Point(1164, 471);
+            this.downloadPanel.Name = "downloadPanel";
+            this.downloadPanel.Size = new System.Drawing.Size(244, 200);
+            this.downloadPanel.TabIndex = 3;
+            // 
+            // downloadSize
+            // 
+            this.downloadSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.downloadSize.AutoSize = true;
+            this.downloadSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.downloadSize.Location = new System.Drawing.Point(129, 67);
+            this.downloadSize.Name = "downloadSize";
+            this.downloadSize.Size = new System.Drawing.Size(78, 25);
+            this.downloadSize.TabIndex = 0;
+            this.downloadSize.Text = "NA GB";
+            // 
+            // totalDownload
+            // 
+            this.totalDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalDownload.AutoSize = true;
+            this.totalDownload.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalDownload.Location = new System.Drawing.Point(77, 116);
+            this.totalDownload.Name = "totalDownload";
+            this.totalDownload.Size = new System.Drawing.Size(155, 17);
+            this.totalDownload.TabIndex = 0;
+            this.totalDownload.Text = "Total Files Not Available";
+            // 
+            // label20
+            // 
+            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(94, 11);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(80, 19);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "Download";
+            // 
+            // desktopPanel
+            // 
+            this.desktopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
+            this.desktopPanel.Controls.Add(this.desktopSize);
+            this.desktopPanel.Controls.Add(this.pictureBox6);
+            this.desktopPanel.Controls.Add(this.totalDesktop);
+            this.desktopPanel.Controls.Add(this.label23);
+            this.desktopPanel.ForeColor = System.Drawing.Color.White;
+            this.desktopPanel.Location = new System.Drawing.Point(1449, 471);
+            this.desktopPanel.Name = "desktopPanel";
+            this.desktopPanel.Size = new System.Drawing.Size(244, 200);
+            this.desktopPanel.TabIndex = 3;
+            // 
+            // desktopSize
+            // 
+            this.desktopSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.desktopSize.AutoSize = true;
+            this.desktopSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.desktopSize.Location = new System.Drawing.Point(127, 67);
+            this.desktopSize.Name = "desktopSize";
+            this.desktopSize.Size = new System.Drawing.Size(78, 25);
+            this.desktopSize.TabIndex = 0;
+            this.desktopSize.Text = "NA GB";
+            // 
+            // totalDesktop
+            // 
+            this.totalDesktop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalDesktop.AutoSize = true;
+            this.totalDesktop.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalDesktop.Location = new System.Drawing.Point(75, 116);
+            this.totalDesktop.Name = "totalDesktop";
+            this.totalDesktop.Size = new System.Drawing.Size(155, 17);
+            this.totalDesktop.TabIndex = 0;
+            this.totalDesktop.Text = "Total Files Not Available";
+            // 
+            // label23
+            // 
+            this.label23.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(89, 11);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(68, 19);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "Desktop";
+            // 
+            // screenshotPanel
+            // 
+            this.screenshotPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(244)))));
+            this.screenshotPanel.Controls.Add(this.screenshotButton);
+            this.screenshotPanel.Controls.Add(this.screenshotSize);
+            this.screenshotPanel.Controls.Add(this.pictureBox7);
+            this.screenshotPanel.Controls.Add(this.label8);
+            this.screenshotPanel.Controls.Add(this.label9);
+            this.screenshotPanel.Location = new System.Drawing.Point(22, 711);
+            this.screenshotPanel.Name = "screenshotPanel";
+            this.screenshotPanel.Size = new System.Drawing.Size(244, 200);
+            this.screenshotPanel.TabIndex = 3;
+            // 
+            // screenshotSize
+            // 
+            this.screenshotSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.screenshotSize.AutoSize = true;
+            this.screenshotSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.screenshotSize.Location = new System.Drawing.Point(127, 78);
+            this.screenshotSize.Name = "screenshotSize";
+            this.screenshotSize.Size = new System.Drawing.Size(78, 25);
+            this.screenshotSize.TabIndex = 0;
+            this.screenshotSize.Text = "NA GB";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(75, 124);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(155, 17);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Total Files Not Available";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(89, 11);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(96, 19);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Screenshots";
+            // 
+            // tempPanel
+            // 
+            this.tempPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
+            this.tempPanel.Controls.Add(this.tempButton);
+            this.tempPanel.Controls.Add(this.tempSize);
+            this.tempPanel.Controls.Add(this.pictureBox8);
+            this.tempPanel.Controls.Add(this.label12);
+            this.tempPanel.Controls.Add(this.label13);
+            this.tempPanel.Location = new System.Drawing.Point(309, 711);
+            this.tempPanel.Name = "tempPanel";
+            this.tempPanel.Size = new System.Drawing.Size(244, 200);
+            this.tempPanel.TabIndex = 3;
+            // 
+            // tempSize
+            // 
+            this.tempSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.tempSize.AutoSize = true;
+            this.tempSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tempSize.Location = new System.Drawing.Point(127, 78);
+            this.tempSize.Name = "tempSize";
+            this.tempSize.Size = new System.Drawing.Size(78, 25);
+            this.tempSize.TabIndex = 0;
+            this.tempSize.Text = "NA GB";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(75, 124);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(155, 17);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "Total Files Not Available";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(89, 11);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(49, 19);
+            this.label13.TabIndex = 0;
+            this.label13.Text = "Temp";
+            // 
+            // temp2Panel
+            // 
+            this.temp2Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(59)))));
+            this.temp2Panel.Controls.Add(this.temp2Button);
+            this.temp2Panel.Controls.Add(this.temp2Size);
+            this.temp2Panel.Controls.Add(this.pictureBox9);
+            this.temp2Panel.Controls.Add(this.label16);
+            this.temp2Panel.Controls.Add(this.label18);
+            this.temp2Panel.Location = new System.Drawing.Point(591, 711);
+            this.temp2Panel.Name = "temp2Panel";
+            this.temp2Panel.Size = new System.Drawing.Size(244, 200);
+            this.temp2Panel.TabIndex = 3;
+            // 
+            // temp2Size
+            // 
+            this.temp2Size.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.temp2Size.AutoSize = true;
+            this.temp2Size.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.temp2Size.Location = new System.Drawing.Point(127, 78);
+            this.temp2Size.Name = "temp2Size";
+            this.temp2Size.Size = new System.Drawing.Size(78, 25);
+            this.temp2Size.TabIndex = 0;
+            this.temp2Size.Text = "NA GB";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(75, 124);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(155, 17);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Total Files Not Available";
+            // 
+            // label18
+            // 
+            this.label18.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(63, 11);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(118, 19);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "%Temp% folder";
+            // 
+            // recyclebinPanel
+            // 
+            this.recyclebinPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(188)))), ((int)(((byte)(212)))));
+            this.recyclebinPanel.Controls.Add(this.recyclebinButton);
+            this.recyclebinPanel.Controls.Add(this.RecyclebinSize);
+            this.recyclebinPanel.Controls.Add(this.pictureBox11);
+            this.recyclebinPanel.Controls.Add(this.label21);
+            this.recyclebinPanel.Controls.Add(this.label22);
+            this.recyclebinPanel.Location = new System.Drawing.Point(875, 711);
+            this.recyclebinPanel.Name = "recyclebinPanel";
+            this.recyclebinPanel.Size = new System.Drawing.Size(244, 200);
+            this.recyclebinPanel.TabIndex = 3;
+            // 
+            // RecyclebinSize
+            // 
+            this.RecyclebinSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.RecyclebinSize.AutoSize = true;
+            this.RecyclebinSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RecyclebinSize.Location = new System.Drawing.Point(127, 78);
+            this.RecyclebinSize.Name = "RecyclebinSize";
+            this.RecyclebinSize.Size = new System.Drawing.Size(78, 25);
+            this.RecyclebinSize.TabIndex = 0;
+            this.RecyclebinSize.Text = "NA GB";
+            // 
+            // label21
+            // 
+            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(75, 124);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(155, 17);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Total Files Not Available";
+            // 
+            // label22
+            // 
+            this.label22.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(89, 11);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(90, 19);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Recycle Bin";
+            // 
+            // pictureButton
+            // 
+            this.pictureButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureButton.Location = new System.Drawing.Point(145, 136);
+            this.pictureButton.Name = "pictureButton";
+            this.pictureButton.Size = new System.Drawing.Size(85, 29);
+            this.pictureButton.TabIndex = 2;
+            this.pictureButton.Text = "Clear";
+            this.pictureButton.UseVisualStyleBackColor = true;
+            this.pictureButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox3.TabIndex = 1;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox4.TabIndex = 1;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox5.TabIndex = 1;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(28, 49);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox6.TabIndex = 1;
+            this.pictureBox6.TabStop = false;
+            // 
+            // videoButton
+            // 
+            this.videoButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.videoButton.Location = new System.Drawing.Point(145, 136);
+            this.videoButton.Name = "videoButton";
+            this.videoButton.Size = new System.Drawing.Size(85, 29);
+            this.videoButton.TabIndex = 2;
+            this.videoButton.Text = "Clear";
+            this.videoButton.UseVisualStyleBackColor = true;
+            this.videoButton.Click += new System.EventHandler(this.clearVideosFolder);
+            // 
+            // musicButton
+            // 
+            this.musicButton.ForeColor = System.Drawing.Color.Black;
+            this.musicButton.Location = new System.Drawing.Point(145, 136);
+            this.musicButton.Name = "musicButton";
+            this.musicButton.Size = new System.Drawing.Size(85, 29);
+            this.musicButton.TabIndex = 2;
+            this.musicButton.Text = "Clear";
+            this.musicButton.UseVisualStyleBackColor = true;
+            this.musicButton.Click += new System.EventHandler(this.clearMusicsFolder);
+            // 
+            // docButton
+            // 
+            this.docButton.ForeColor = System.Drawing.Color.Black;
+            this.docButton.Location = new System.Drawing.Point(145, 136);
+            this.docButton.Name = "docButton";
+            this.docButton.Size = new System.Drawing.Size(85, 29);
+            this.docButton.TabIndex = 2;
+            this.docButton.Text = "Clear";
+            this.docButton.UseVisualStyleBackColor = true;
+            this.docButton.Click += new System.EventHandler(this.clearDocumentsFolder);
+            // 
+            // downloadButton
+            // 
+            this.downloadButton.ForeColor = System.Drawing.Color.Black;
+            this.downloadButton.Location = new System.Drawing.Point(147, 136);
+            this.downloadButton.Name = "downloadButton";
+            this.downloadButton.Size = new System.Drawing.Size(85, 29);
+            this.downloadButton.TabIndex = 2;
+            this.downloadButton.Text = "Clear";
+            this.downloadButton.UseVisualStyleBackColor = true;
+            this.downloadButton.Click += new System.EventHandler(this.clearDownloadFolder);
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
+            this.pictureBox7.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox7.TabIndex = 1;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox8.TabIndex = 1;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+            this.pictureBox9.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox9.TabIndex = 1;
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+            this.pictureBox11.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox11.TabIndex = 1;
+            this.pictureBox11.TabStop = false;
+            // 
+            // screenshotButton
+            // 
+            this.screenshotButton.Location = new System.Drawing.Point(145, 153);
+            this.screenshotButton.Name = "screenshotButton";
+            this.screenshotButton.Size = new System.Drawing.Size(85, 29);
+            this.screenshotButton.TabIndex = 2;
+            this.screenshotButton.Text = "Clear";
+            this.screenshotButton.UseVisualStyleBackColor = true;
+            this.screenshotButton.Click += new System.EventHandler(this.clearScreenshotsFolder);
+            // 
+            // tempButton
+            // 
+            this.tempButton.Location = new System.Drawing.Point(145, 153);
+            this.tempButton.Name = "tempButton";
+            this.tempButton.Size = new System.Drawing.Size(85, 29);
+            this.tempButton.TabIndex = 2;
+            this.tempButton.Text = "Clear";
+            this.tempButton.UseVisualStyleBackColor = true;
+            this.tempButton.Click += new System.EventHandler(this.clearTempFolder);
+            // 
+            // temp2Button
+            // 
+            this.temp2Button.Location = new System.Drawing.Point(145, 153);
+            this.temp2Button.Name = "temp2Button";
+            this.temp2Button.Size = new System.Drawing.Size(85, 29);
+            this.temp2Button.TabIndex = 2;
+            this.temp2Button.Text = "Clear";
+            this.temp2Button.UseVisualStyleBackColor = true;
+            this.temp2Button.Click += new System.EventHandler(this.clearTemp2Folder);
+            // 
+            // recyclebinButton
+            // 
+            this.recyclebinButton.Location = new System.Drawing.Point(145, 153);
+            this.recyclebinButton.Name = "recyclebinButton";
+            this.recyclebinButton.Size = new System.Drawing.Size(85, 29);
+            this.recyclebinButton.TabIndex = 2;
+            this.recyclebinButton.Text = "Clear";
+            this.recyclebinButton.UseVisualStyleBackColor = true;
+            this.recyclebinButton.Click += new System.EventHandler(this.clearRecycleBin);
             // 
             // Form3
             // 
@@ -675,6 +1559,7 @@
             this.Controls.Add(this.mainTabControl);
             this.Name = "Form3";
             this.Text = "Form3";
+            this.Load += new System.EventHandler(this.Form3_Load);
             this.mainTabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.driveGroupBox.ResumeLayout(false);
@@ -691,8 +1576,43 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.backpanel.ResumeLayout(false);
-            this.backpanel.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.bannerFlowPanel.ResumeLayout(false);
+            this.bannerFlowPanel.PerformLayout();
+            this.bigsizefileGroupBox.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.picturePanel.ResumeLayout(false);
+            this.picturePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.videoPanel.ResumeLayout(false);
+            this.videoPanel.PerformLayout();
+            this.musicPanel.ResumeLayout(false);
+            this.musicPanel.PerformLayout();
+            this.documentPanel.ResumeLayout(false);
+            this.documentPanel.PerformLayout();
+            this.downloadPanel.ResumeLayout(false);
+            this.downloadPanel.PerformLayout();
+            this.desktopPanel.ResumeLayout(false);
+            this.desktopPanel.PerformLayout();
+            this.screenshotPanel.ResumeLayout(false);
+            this.screenshotPanel.PerformLayout();
+            this.tempPanel.ResumeLayout(false);
+            this.tempPanel.PerformLayout();
+            this.temp2Panel.ResumeLayout(false);
+            this.temp2Panel.PerformLayout();
+            this.recyclebinPanel.ResumeLayout(false);
+            this.recyclebinPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -745,6 +1665,75 @@
         private System.Windows.Forms.Button selectAllButton;
         private System.Windows.Forms.GroupBox driveGroupBox;
         private System.Windows.Forms.Panel backpanel;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.FlowLayoutPanel bannerFlowPanel;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TabControl bigsizefileGroupBox;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.ListView largeSizeFoldersListview;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.ListView largeSizeFileListview;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel picturePanel;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label Pictures;
+        private System.Windows.Forms.Label pictureSize;
+        private System.Windows.Forms.Label totalPictures;
+        private System.Windows.Forms.Panel desktopPanel;
+        private System.Windows.Forms.Label desktopSize;
+        private System.Windows.Forms.Label totalDesktop;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Panel downloadPanel;
+        private System.Windows.Forms.Label downloadSize;
+        private System.Windows.Forms.Label totalDownload;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Panel documentPanel;
+        private System.Windows.Forms.Label docSize;
+        private System.Windows.Forms.Label totalDoc;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Panel musicPanel;
+        private System.Windows.Forms.Label audioSize;
+        private System.Windows.Forms.Label totalAudios;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Panel videoPanel;
+        private System.Windows.Forms.Label videoSize;
+        private System.Windows.Forms.Label totalVideos;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel recyclebinPanel;
+        private System.Windows.Forms.Label RecyclebinSize;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Panel temp2Panel;
+        private System.Windows.Forms.Label temp2Size;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Panel tempPanel;
+        private System.Windows.Forms.Label tempSize;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel screenshotPanel;
+        private System.Windows.Forms.Label screenshotSize;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button pictureButton;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.Button downloadButton;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Button docButton;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Button musicButton;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button videoButton;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox11;
+        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.Button screenshotButton;
+        private System.Windows.Forms.PictureBox pictureBox7;
+        private System.Windows.Forms.Button recyclebinButton;
+        private System.Windows.Forms.Button temp2Button;
+        private System.Windows.Forms.Button tempButton;
     }
 }

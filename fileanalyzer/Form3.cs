@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 // ... (existing code)
 
@@ -58,6 +59,7 @@ namespace fileanalyzer
             //    this.Controls.Add(mainTabControl);
 
             GenerateDriveCards();
+            
         }
 
         private void openFolderBrowser(object sender, EventArgs e)
@@ -886,5 +888,86 @@ namespace fileanalyzer
             //groupBox1.Size = new Size(200, 150); // Set the size of the groupBox1
         }
 
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            makeCornerRound(bannerFlowPanel, 7);
+            makeCornerRound(picturePanel, 7);
+            makeCornerRound(musicPanel, 7);
+            makeCornerRound(videoPanel, 7);
+            makeCornerRound(documentPanel, 7);
+            makeCornerRound(downloadPanel, 7);
+            makeCornerRound(desktopPanel, 7);
+            makeCornerRound(screenshotPanel, 7);
+            makeCornerRound(tempPanel, 7);
+            makeCornerRound(temp2Panel, 7);
+            makeCornerRound(recyclebinPanel, 7);
+            makeCornerRound(bigsizefileGroupBox, 7);
+        }
+
+        static void DeleteFolderContents(string folderPath)
+        {
+            try
+            {
+                foreach (string file in Directory.GetFiles(folderPath))
+                {
+                    File.Delete(file);
+                }
+
+                foreach (string subDir in Directory.GetDirectories(folderPath))
+                {
+                    DeleteFolderContents(subDir);
+                    Directory.Delete(subDir);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
+
+        private void clearPictureFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\"+ Environment.UserName + @"\Pictures");
+        }
+
+        private void clearVideosFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Videos");
+        }
+
+        private void clearMusicsFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Musics");
+        }
+
+        private void clearDocumentsFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Documents");
+        }
+
+        private void clearDownloadFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Downloads");
+        }
+
+        private void clearDesktopFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Destop");
+        }
+
+        private void clearScreenshotsFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots");
+        }
+
+        private void clearTempFolder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"\C:\Windows\Temp");
+        }
+
+        private void clearTemp2Folder(object sender, EventArgs e)
+        {
+            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp");
+        }
     }
 }

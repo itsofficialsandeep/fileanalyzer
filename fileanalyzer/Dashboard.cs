@@ -36,9 +36,15 @@ namespace fileanalyzer
 
             int x = 20, y = 25;
 
-            foreach (DriveInfo drive in allDrives)
+            foreach(DriveInfo drive in allDrives)
             {
+                //DriveInfo drive = new DriveInfo(@"G:\");
                 Panel drivePanel = new Panel();
+                drivePanel.Dock = DockStyle.Left | DockStyle.Top;
+                drivePanel.Anchor = AnchorStyles.Left;
+
+                EnsurePanelVisible(drivePanel);
+
                 // Set panel properties
                 drivePanel.BackColor = Color.LightGray; // Set panel background color
 
@@ -105,11 +111,20 @@ namespace fileanalyzer
 
                 // Find your GroupBox (replace "groupBox1" with the actual name of your GroupBox)
                 Panel myBackPanel = backpanel;
+                // Assuming you have a panel named panel1
+               // backpanel.AutoScroll = true;
+                myBackPanel.HorizontalScroll.Visible = true;
 
                 // Add the panel to the GroupBox
                 myBackPanel.Controls.Add(drivePanel);
 
-                diskInfo(drivePanel, @"E:\SANDEEP_KUMAR",drive);
+
+
+
+                diskInfo(drivePanel, @"G:\", drive);
+
+//                Thread thread = new Thread(() => diskInfo(drivePanel, @"E:\SANDEEP_KUMAR", drive));
+//                thread.Start();
 
                 x += 280;
             }
@@ -119,10 +134,10 @@ namespace fileanalyzer
         {
             try
             {
-                int fileCount = 0;
-                int imageCount = 0;
-                int videoCount = 0;
-                int docCount = 0;
+                long fileCount = 0;
+                long imageCount = 0;
+                long videoCount = 0;
+                long docCount = 0;
                 long totalImageSize = 0;
                 long totalVideoSize = 0;
                 long totalDocSize = 0;
@@ -161,10 +176,12 @@ namespace fileanalyzer
                             }
                         }
                     }
-                    catch (FileNotFoundException) { }
-                    catch (IOException) { }
-                    catch (UnauthorizedAccessException) { }
-                    catch (System.Security.SecurityException) { }
+                    catch (Exception ex) {
+                        Console.WriteLine("Exception Message: " + ex.Message);
+                        Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                        Debug.WriteLine("Source: " + ex.Source);
+                        Debug.WriteLine("Target Site: " + ex.TargetSite);
+                    }
                 });
 
              // DETAILS OF SPACE USED BY IMAGES
@@ -209,14 +226,13 @@ namespace fileanalyzer
                 System.Windows.Forms.ProgressBar ImagespaceProgressBar = new System.Windows.Forms.ProgressBar();
                 ImagespaceProgressBar.Maximum = 100;
                 ImagespaceProgressBar.Minimum = 0;
-                ImagespaceProgressBar.Value = (int)(totalImageSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
+                ImagespaceProgressBar.Value = (int)(totalImageSize * 100 / (driveInfo.TotalSize - driveInfo.AvailableFreeSpace));
                 ImagespaceProgressBar.Location = new Point(20, 190);
                 ImagespaceProgressBar.Width = 205;
                 ImagespaceProgressBar.Height = 1;
                 ImagespaceProgressBar.Style = ProgressBarStyle.Continuous;
                 ImagespaceProgressBar.MarqueeAnimationSpeed = 0;
                 control.Controls.Add(ImagespaceProgressBar);
-
 
                 // DETAILS OF SPACE USED BY VIDEOS
                 PictureBox videospictureBox = new PictureBox();
@@ -318,24 +334,18 @@ namespace fileanalyzer
                 docspaceProgressBar.Style = ProgressBarStyle.Continuous;
                 docspaceProgressBar.MarqueeAnimationSpeed = 0;
                 control.Controls.Add(docspaceProgressBar);
+
             }
-            catch (ArgumentException)
+            catch (Exception ex)
             {
-                MessageBox.Show(@"The directory 'C:\Program Files' does not exist.");
+                // Accessing exception details
+                Debug.WriteLine("Exception Message: " + ex.Message);
+                Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                Debug.WriteLine("Source: " + ex.Source);
+                Debug.WriteLine("Target Site: " + ex.TargetSite);
+
+                MessageBox.Show(ex.Message + "----"+ ex.StackTrace+"----"+ ex.Source+"------"+ ex.TargetSite);
             }
-        }
-
-
-        public static string FormatBytes(long bytes)
-        {
-            const long kb = 1024;
-            const long mb = kb * 1024;
-            const long gb = mb * 1024;
-
-            if (bytes >= gb) return $"{bytes / gb} GB";
-            if (bytes >= mb) return $"{bytes / mb} MB";
-            if (bytes >= kb) return $"{bytes / kb} KB";
-            return $"{bytes} Bytes";
         }
 
         public static void TraverseTreeParallelForEach(string root, Action<string> action)
@@ -352,8 +362,7 @@ namespace fileanalyzer
 
             if (!Directory.Exists(root))
             {
-                throw new ArgumentException(
-                    "The given root directory doesn't exist.", nameof(root));
+                throw new ArgumentException("The given root directory doesn't exist.", nameof(root));
             }
             dirs.Push(root);
 
@@ -478,6 +487,24 @@ namespace fileanalyzer
         }
 
 
+        private void EnsurePanelVisible(Panel panel)
+        {
+            // Get the form's client rectangle to determine visible area
+            Rectangle screenRect = this.ClientRectangle;
 
+            // Check if the panel's location is out of bounds
+            if (!screenRect.Contains(panel.Bounds))
+            {
+                // Adjust panel position to keep it within the visible area
+                int newX = Math.Min(Math.Max(panel.Left, screenRect.Left), screenRect.Right - panel.Width);
+                int newY = Math.Min(Math.Max(panel.Top, screenRect.Top), screenRect.Bottom - panel.Height);
+
+                panel.Location = new Point(newX, newY);
+            }
+        }
+
+        
     }
+
+    
 }
