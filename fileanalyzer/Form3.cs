@@ -4,14 +4,18 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using File = System.IO.File;
 
 // ... (existing code)
 
@@ -34,6 +38,12 @@ namespace fileanalyzer
         private ListViewColumnSorter lvwColumnSorter;
         private string pathToSearch;
         string searchPattern = "*.*";
+
+
+        // variable to save searched files folders list so that we dont need to serch all the directories again
+        public List<string> SearchedFolders { get; set; }
+        public List<string> SearchedFiles { get; set; }
+        public int TotalItems { get; set; }
 
         public Form3()
         {
@@ -58,7 +68,15 @@ namespace fileanalyzer
             //   mainTabControl.TabPages.Add("tabKey2", "TabText2", "key2");      // icon using ImageIndex
             //    this.Controls.Add(mainTabControl);
 
-            GenerateDriveCards();
+
+
+
+            SearchedFolders = new List<string>();
+            SearchedFiles = new List<string>();
+            TotalItems = 0;
+
+
+        GenerateDriveCards();
             
         }
 
@@ -248,7 +266,7 @@ namespace fileanalyzer
         {
             using (var md5 = MD5.Create())
             {
-                using (var stream = File.OpenRead(filePath))
+                using (var stream = System.IO.File.OpenRead(filePath))
                 {
                     byte[] hashBytes = md5.ComputeHash(stream);
                     return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
@@ -452,7 +470,7 @@ namespace fileanalyzer
                 string filePath = selectedItem.Text;
 
                 // Open the file using the default associated program
-                if (File.Exists(filePath))
+                if (System.IO.File.Exists(filePath))
                 {
                     System.Diagnostics.Process.Start(filePath);
                 }
@@ -890,6 +908,8 @@ namespace fileanalyzer
 
         private void Form3_Load(object sender, EventArgs e)
         {
+            // Hide a specific tab by index (replace 1 with the index of the tab you want to hide)            
+
             makeCornerRound(bannerFlowPanel, 7);
             makeCornerRound(picturePanel, 7);
             makeCornerRound(musicPanel, 7);
@@ -904,70 +924,280 @@ namespace fileanalyzer
             makeCornerRound(bigsizefileGroupBox, 7);
         }
 
+        private void oneClickClear(object sender, EventArgs e)
+        {
+
+        }
+
         static void DeleteFolderContents(string folderPath)
         {
             try
             {
                 foreach (string file in Directory.GetFiles(folderPath))
                 {
-                    File.Delete(file);
+                    try
+                    {
+                        if (File.Exists(file))
+                        {
+                            File.Delete(file);
+                        }
+                    }
+                    catch (UnauthorizedAccessException)
+                    {
+                        // File is inaccessible; skip deletion
+                        // Log or handle the inaccessible file scenario as needed
+                    }
                 }
 
                 foreach (string subDir in Directory.GetDirectories(folderPath))
                 {
                     DeleteFolderContents(subDir);
-                    Directory.Delete(subDir);
+                    if (Directory.GetFiles(subDir).Length == 0 && Directory.GetDirectories(subDir).Length == 0)
+                    {
+                        Directory.Delete(subDir);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void clearPictureFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\"+ Environment.UserName + @"\Pictures");
+            string confirmationMessage = $"Are you sure you want to clear Picture folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures");
+            }            
         }
 
         private void clearVideosFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Videos");
+            string confirmationMessage = $"Are you sure you want to clear Videos folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Videos");
+
+            }
+
         }
 
         private void clearMusicsFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Musics");
+            string confirmationMessage = $"Are you sure you want to clear music folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Musics");
+            }
+
         }
 
         private void clearDocumentsFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Documents");
+            string confirmationMessage = $"Are you sure you want to clear Document folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Documents");
+            }
+
         }
 
         private void clearDownloadFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Downloads");
+            string confirmationMessage = $"Are you sure you want to clear download folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Downloads");
+            }
+
         }
 
         private void clearDesktopFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Destop");
+            string confirmationMessage = $"Are you sure you want to clear desktop folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Destop");
+            }
+
         }
 
         private void clearScreenshotsFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots");
+            string confirmationMessage = $"Are you sure you want to clear screenshot folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots");
+            }
+
         }
 
         private void clearTempFolder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"\C:\Windows\Temp");
+            string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Windows\Temp\");
+            }
+
         }
 
         private void clearTemp2Folder(object sender, EventArgs e)
         {
-            DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp");
+            string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
+
+            // Show confirmation dialog
+            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp");
+            }
+
+        }
+
+        private async void oneClickClearButton_Click(object sender, EventArgs e)
+        {
+            long totalNumberOfFilesProcessed = 0;
+            long totalNumberOfFilesDeleted = 0 ;
+            long totalSizeOfFiles = 0 ;
+
+            await Task.Run(() =>
+            {
+                //  DELETE THE TEMP FOLDERS
+                string[] folders = { @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp", @"C:\Windows\Temp\" };
+                foreach (string folder in folders) {
+                    try
+                    {
+                        foreach (string file in Directory.GetFiles(folder,"*.*",SearchOption.AllDirectories))
+                        {
+                            try
+                            {
+                                if (File.Exists(file))
+                                {
+                                    File.Delete(file);
+                                    oneClickDeletingFilename.Text = file;
+                                }
+                            }
+                            catch (UnauthorizedAccessException)
+                            {
+                                // File is inaccessible; skip deletion
+                                // Log or handle the inaccessible file scenario as needed
+                            }
+                        }
+
+                        foreach (string subDir in Directory.GetDirectories(folder))
+                        {
+                            DeleteFolderContents(subDir);
+                            if (Directory.GetFiles(subDir).Length == 0 && Directory.GetDirectories(subDir).Length == 0)
+                            {
+                                Directory.Delete(subDir,true);                                
+                                oneClickDeletingFilename.Text = subDir;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+
+                // DELETE DULICATE FILES
+                var filesByHash = new Dictionary<string, List<string>>();
+
+                DriveInfo[] allDrives = DriveInfo.GetDrives();
+                foreach (DriveInfo d in allDrives)    
+                {
+
+                        // LOOP THROUGH ALL FILES IN THE DRIVE
+                        foreach (var filePath in Directory.GetFiles(d.Name))
+                        {
+                            FileInfo fileinfo = new FileInfo(filePath);
+
+                            string[] specificExtensions = { ".tmp", ".cache", ".log", ".old", ".temp", ".dump", "thumbs.db", ".DS_Store", ".partial",".crdownload" };
+
+                            // Loop through files with specific extensions in the directory
+                            if (filePath.EndsWith(specificExtensions[0]) || filePath.EndsWith(specificExtensions[1])
+                                || filePath.EndsWith(specificExtensions[2]) || filePath.EndsWith(specificExtensions[3])
+                                || filePath.EndsWith(specificExtensions[4]) || filePath.EndsWith(specificExtensions[5])
+                                || filePath.EndsWith(specificExtensions[6])
+                                || fileinfo.Length < 1024
+                                ){
+
+                                // DELETE THE FILES THAT MATCHES THE CONDITIONS
+                                File.Delete(filePath);
+                                oneClickDeletingFilename.Text = filePath;
+                            }else{
+                                // CREATE A DICTRIONARIES OF SAME FILES
+                                string fileHash = CalculateMD5(filePath);
+
+                                if (!filesByHash.ContainsKey(fileHash))
+                                {
+                                    filesByHash[fileHash] = new List<string>();
+                                }
+
+                                filesByHash[fileHash].Add(filePath);
+
+                                var duplicates = new Dictionary<string, List<string>>();
+
+                                foreach (var entry in filesByHash)
+                                {
+                                    if (entry.Value.Count > 1)
+                                    {
+                                        duplicates[entry.Key] = entry.Value;
+                                    }
+                                }
+
+                                foreach (var duplicateGroup in duplicates.Values)
+                                {
+                                    // Keep the first file and delete the rest
+                                    for (int i = 1; i < duplicateGroup.Count; i++)
+                                    {
+                                        File.Delete(duplicateGroup[i]);
+                                        oneClickDeletingFilename.Text = duplicateGroup[i];
+                                    }
+                                }
+                            }
+                        }
+
+                }
+
+            });
+
         }
     }
 }
