@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 
 namespace fileanalyzer
@@ -82,8 +83,8 @@ namespace fileanalyzer
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                pathToSearch = dialog.SelectedPath;
-                pathTextBox.Text = pathToSearch;
+                pathTextBox.Text = dialog.SelectedPath;
+                pathToSearch = pathTextBox.Text;
 
             }
         }
@@ -91,7 +92,7 @@ namespace fileanalyzer
         private void analyze_click(object sender, EventArgs e)
         {
 
-            if (Directory.Exists(pathToSearch))
+            if (Directory.Exists(pathTextBox.Text))
             {
                 string imageExtensions = "";
                 string videoExtensions = "";
@@ -901,9 +902,25 @@ namespace fileanalyzer
             //groupBox1.Size = new Size(200, 150); // Set the size of the groupBox1
         }
 
-        private void Form3_Load(object sender, EventArgs e)
+        private async void Form3_Load(object sender, EventArgs e)
         {
-            // Hide a specific tab by index (replace 1 with the index of the tab you want to hide)            
+            await Task.Run(() => {                
+
+       /**         pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
+                videoSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Videos", totalVideos));
+                audioSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Musics", totalAudios));
+                docSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Documents", totalDoc));
+                downloadSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Download", totalDownload));
+                desktopSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Desktop", totalDesktop));
+                screenshotSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots",totalScreenshots));
+                tempSize.Text = ConvertBytes(GetFolderSize(@"C:\Windows\Temp\",totalTemp));
+                temp2Size.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp",totalTemp2));
+                recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin",totalRecyclebin)); // Path to Recycle Bin
+       **/
+                loadLargeFilesListview();
+
+                largeSizeFolders();
+            });
 
             makeCornerRound(bannerFlowPanel, 7);
             makeCornerRound(picturePanel, 7);
@@ -917,6 +934,41 @@ namespace fileanalyzer
             makeCornerRound(temp2Panel, 7);
             makeCornerRound(recyclebinPanel, 7);
             makeCornerRound(bigsizefileGroupBox, 7);
+        }
+
+        static long GetFolderSize(string folderPath,Control control)
+        {
+            long size = 0;
+            int totalFiles = 0;
+
+            try {
+                // Check if the folder exists
+                if (Directory.Exists(folderPath))
+                {
+                    // Get the files in the directory and sum up their sizes
+                    string[] files = Directory.GetFiles(folderPath);
+                    foreach (string file in files)
+                    {
+                        FileInfo fileInfo = new FileInfo(file);
+                        size += fileInfo.Length;
+                        totalFiles++;                        
+                    }
+
+                    // Get subdirectories and recursively calculate their sizes
+                    string[] subDirectories = Directory.GetDirectories(folderPath);
+                    foreach (string subDir in subDirectories)
+                    {
+                        size += GetFolderSize(subDir,control);
+                    }
+                }
+            }
+            catch (Exception ex){
+                // Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.Message);
+            }
+
+            control.Text = totalFiles + "";
+            return size;
         }
 
         private void oneClickClear(object sender, EventArgs e)
@@ -1085,6 +1137,8 @@ namespace fileanalyzer
 
         }
 
+
+
         private async void oneClickClearButton_Click(object sender, EventArgs e)
         {
             
@@ -1104,7 +1158,7 @@ namespace fileanalyzer
                 {
                     if (drive.IsReady)
                     {
-                        totalAvailableSpaceBerforeButtonClick += drive.TotalFreeSpace;
+                        totalAvailableSpaceBerforeButtonClick += drive.AvailableFreeSpace;
                     }
                 }
 
@@ -1167,19 +1221,23 @@ namespace fileanalyzer
                             if (filePath.EndsWith(specificExtensions[0]) || filePath.EndsWith(specificExtensions[1])
                                 || filePath.EndsWith(specificExtensions[2]) || filePath.EndsWith(specificExtensions[3])
                                 || filePath.EndsWith(specificExtensions[4]) || filePath.EndsWith(specificExtensions[5])
-                                || filePath.EndsWith(specificExtensions[6])
+                                || filePath.EndsWith(specificExtensions[6]) || filePath.EndsWith(specificExtensions[7])
+                                || filePath.EndsWith(specificExtensions[8]) || filePath.EndsWith(specificExtensions[9])
                                 || fileinfo.Length < 1024
                                 ){
 
-                                // DELETE THE FILES THAT MATCHES THE CONDITIONS
-                                File.Delete(filePath);
-                                oneClickDeletingFilename.Text = filePath;
+                                try{   
+                                    // DELETE THE FILES THAT MATCHES THE CONDITIONS
+                                    File.Delete(filePath);
+                                    oneClickDeletingFilename.Text = filePath;
+                                } catch (Exception ex) { 
+                                    MessageBox.Show("custom4 :==>"+ex.Message); 
+                                }
                             }else{
-                                // CREATE A DICTRIONARIES OF SAME FILES
+                                // CREATE A DICTIONARIES OF SAME FILES
                                 string fileHash = CalculateMD5(filePath);
 
-                                if (!filesByHash.ContainsKey(fileHash))
-                                {
+                                if (!filesByHash.ContainsKey(fileHash)){
                                     filesByHash[fileHash] = new List<string>();
                                 }
 
@@ -1187,25 +1245,27 @@ namespace fileanalyzer
 
                                 var duplicates = new Dictionary<string, List<string>>();
 
-                                foreach (var entry in filesByHash)
-                                {
+                                foreach (var entry in filesByHash){
                                     if (entry.Value.Count > 1)
                                     {
                                         duplicates[entry.Key] = entry.Value;
                                     }
                                 }
 
-                                foreach (var duplicateGroup in duplicates.Values)
-                                {
+                                foreach (var duplicateGroup in duplicates.Values){
                                     // Keep the first file and delete the rest
-                                    for (int i = 1; i < duplicateGroup.Count; i++)
-                                    {
+                                    for (int i = 1; i < duplicateGroup.Count; i++){
+                                    try {
                                         File.Delete(duplicateGroup[i]);
                                         oneClickDeletingFilename.Text = duplicateGroup[i];
 
                                         FileInfo fileInfo = new FileInfo(duplicateGroup[i]);
                                         spaceClearedLabel.Text = ConvertBytes(fileInfo.Length);
-                                }
+                                    }catch(Exception ex){
+                                        Console.WriteLine(ex.ToString());
+                                    }
+
+                                    }
                                 }
                             }
                         }
@@ -1217,18 +1277,207 @@ namespace fileanalyzer
                 {
                     if (drive.IsReady)
                     {
-                        totalAvialableSpaceAfterProcessingFiles += drive.TotalFreeSpace;
+                        totalAvialableSpaceAfterProcessingFiles += drive.AvailableFreeSpace;
                     }
                 }
 
                 // set the label
 
-                totalSpaceCleared = totalAvailableSpaceBerforeButtonClick - totalAvialableSpaceAfterProcessingFiles;
+                totalSpaceCleared = totalAvialableSpaceAfterProcessingFiles - totalAvailableSpaceBerforeButtonClick;
                 spaceClearedLabel.Text =  ConvertBytes(totalSpaceCleared);
                 oneClickDeletingFilename.Text = "Done";
 
             });
 
         }
+
+        // display largest files in dashboard
+        public void loadLargeFilesListview()
+        {
+            List<string> drives = Environment.GetLogicalDrives().ToList();
+            List<FileData> largestFiles = new List<FileData>();
+
+            foreach (string drive in drives.Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase) ))
+            {
+                try
+                {
+                    // Recursively get all files in the drive
+                    List<string> files = Directory.GetFiles(drive, "*", SearchOption.AllDirectories).ToList();
+
+                    // Calculate size for each file and sort them
+                    List<FileData> driveFiles = files.Select(file =>
+                    {
+                        FileInfo fileInfo = new FileInfo(file);
+                        return new FileData { FilePath = file, FileSize = fileInfo.Length };
+                    }).OrderByDescending(file => file.FileSize).ToList();
+
+                    // Combine with existing largestFiles
+                    largestFiles = largestFiles.Concat(driveFiles).OrderByDescending(file => file.FileSize).Take(100).ToList();
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // Handle exceptions if access is denied
+                    MessageBox.Show($"Access denied to {drive}");
+                }
+                catch (Exception ex)
+                {
+                    // Handle other exceptions if any
+                    MessageBox.Show($"Error while scanning {drive}: {ex.Message}");
+                }
+            }
+
+            largeSizeFileListview.View = View.Details;
+            largeSizeFileListview.Columns.Add("File Path", 400);
+            largeSizeFileListview.Columns.Add("File Size", 80);
+            largeSizeFileListview.Columns.Add("Created At", 150);
+
+            foreach (FileData file in largestFiles)
+            {
+                ListViewItem item = new ListViewItem(file.FilePath);
+                item.SubItems.Add(ConvertBytes(file.FileSize));
+                
+                FileInfo fileInfo = new FileInfo(file.FilePath);
+                item.SubItems.Add(fileInfo.CreationTime + "");
+
+                largeSizeFileListview.Items.Add(item);
+            }
+        }
+
+        public class FileData
+        {
+            public string FilePath { get; set; }
+            public long FileSize { get; set; }
+        }
+
+        /// <summary>
+        /// ////////////////////////////////////////////////////////////////
+        /// </summary>
+        // SORTING LARGE SIZE FOLDERS
+
+        public void largeSizeFolders()
+        {
+
+            largeSizeFoldersListview.View = View.Details;
+
+            largeSizeFoldersListview.Columns.Add("Folder Path", 400);
+            largeSizeFoldersListview.Columns.Add("Folder Size", 150);
+
+            var folders = GetFoldersWithLargestSize(50);
+
+            foreach (var folder in folders)
+            {
+                ListViewItem item = new ListViewItem(folder.Key);
+                item.SubItems.Add(ConvertBytes(folder.Value));
+
+                largeSizeFoldersListview.Items.Add(item);
+            }
+
+            // Add the ListView to a form or display it in your application
+        }
+
+        static Dictionary<string, long> GetFoldersWithLargestSize(int count)
+        {
+            Dictionary<string, long> folders = new Dictionary<string, long>();
+
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            try {
+                foreach (var drive in drives.Where(d => d.IsReady && d.DriveType == DriveType.Fixed && !d.Name.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
+                {
+                    DirectoryInfo di = new DirectoryInfo(drive.RootDirectory.FullName);
+
+                    foreach (var dir in di.EnumerateDirectories("*", SearchOption.AllDirectories))
+                    {
+                        long folderSize = GetDirectorySize(dir.FullName);
+
+                        if (!folders.ContainsKey(dir.FullName))
+                        {
+                            folders.Add(dir.FullName, folderSize);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+
+            return folders.OrderByDescending(f => f.Value).Take(count).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+
+        static long GetDirectorySize(string directoryPath)
+        {
+            long size = 0;
+
+            try
+            {
+                DirectoryInfo directoryInfo = new DirectoryInfo(directoryPath);
+
+                if (directoryInfo.Exists)
+                {
+                    foreach (var file in directoryInfo.EnumerateFiles("*", SearchOption.AllDirectories))
+                    {
+                        size += file.Length;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return size;
+        }
+
+        //////////////////////////////////////////////////////////////////////////////////
+        // ADDING RIGHT CLICK ON "LARGE SIZE FOLDER" LISTVIEW 
+
+        private void listView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
+                if (item != null)
+                {
+                    var menu = new ContextMenu();
+                    var analyzeMenuItem = new MenuItem("Analyze");
+                    analyzeMenuItem.Click += (s, args) =>
+                    {
+                        // Get the data associated with the clicked item
+                        string folderPath = item.Text; // Replace with data extraction logic
+
+                        // Open a specific tab in the TabControl and pass the data
+                        OpenSpecificTabWithData(folderPath, sender, e);
+                    };
+                    menu.MenuItems.Add(analyzeMenuItem);
+
+                    // Display the context menu at the clicked position
+                    menu.Show(largeSizeFoldersListview, e.Location);
+                }
+            }
+        }
+
+        private void OpenSpecificTabWithData(string folderPath, object sender, MouseEventArgs e)
+        {
+            // Logic to open a specific tab in the TabControl with the provided data
+            // For example:
+            mainTabControl.SelectedIndex = 2; // Change 1 to the index of the desired tab
+
+            // Perform actions with the provided data
+            pathTextBox.Text = folderPath;
+            pathToSearch = folderPath;
+
+            imageCheckBox.Checked = true;
+            videoCheckBox.Checked = true;
+            audioCheckbox.Checked = true;
+            appCheckbox.Checked = true;
+            appFilesCheckbox.Checked = true;
+            documentCheckbox.Checked = true;
+            zipCheckbox.Checked = true;
+            otherCheckBox.Checked = true;
+            allCheckbox.Checked = true;
+
+            analyze_click(sender, e);
+        }
+
     }
 }

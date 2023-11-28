@@ -468,7 +468,7 @@ namespace fileanalyzer
 
             if (bytes < kilobyte)
             {
-                return $"{bytes} B";
+                return $"{bytes} Bytes";
             }
             else if (bytes < megabyte)
             {

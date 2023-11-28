@@ -62,27 +62,27 @@
             this.label11 = new System.Windows.Forms.Label();
             this.recyclebinPanel = new System.Windows.Forms.Panel();
             this.recyclebinButton = new System.Windows.Forms.Button();
-            this.RecyclebinSize = new System.Windows.Forms.Label();
+            this.recyclebinSize = new System.Windows.Forms.Label();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.label21 = new System.Windows.Forms.Label();
+            this.totalRecyclebin = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.temp2Panel = new System.Windows.Forms.Panel();
             this.temp2Button = new System.Windows.Forms.Button();
             this.temp2Size = new System.Windows.Forms.Label();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.totalTemp2 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tempPanel = new System.Windows.Forms.Panel();
             this.tempButton = new System.Windows.Forms.Button();
             this.tempSize = new System.Windows.Forms.Label();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.label12 = new System.Windows.Forms.Label();
+            this.totalTemp = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.screenshotPanel = new System.Windows.Forms.Panel();
             this.screenshotButton = new System.Windows.Forms.Button();
             this.screenshotSize = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.totalScreenshots = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.picturePanel = new System.Windows.Forms.Panel();
             this.pictureButton = new System.Windows.Forms.Button();
@@ -97,9 +97,18 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.largeSizeFileListview = new System.Windows.Forms.ListView();
             this.bannerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.spaceClearedLabel = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.oneClickDeletingFilename = new System.Windows.Forms.Label();
@@ -148,15 +157,6 @@
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label10 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
-            this.spaceClearedLabel = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -183,6 +183,11 @@
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.bannerFlowPanel.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
+            this.flowLayoutPanel6.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.driveGroupBox.SuspendLayout();
@@ -194,11 +199,6 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel3.SuspendLayout();
-            this.flowLayoutPanel4.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
-            this.flowLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -244,12 +244,12 @@
             // 
             // desktopPanel
             // 
-            this.desktopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
+            this.desktopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(212)))), ((int)(((byte)(226)))));
             this.desktopPanel.Controls.Add(this.desktopSize);
             this.desktopPanel.Controls.Add(this.pictureBox6);
             this.desktopPanel.Controls.Add(this.totalDesktop);
             this.desktopPanel.Controls.Add(this.label23);
-            this.desktopPanel.ForeColor = System.Drawing.Color.White;
+            this.desktopPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
             this.desktopPanel.Location = new System.Drawing.Point(1449, 471);
             this.desktopPanel.Name = "desktopPanel";
             this.desktopPanel.Size = new System.Drawing.Size(244, 200);
@@ -291,22 +291,23 @@
             // 
             this.label23.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.Black;
             this.label23.Location = new System.Drawing.Point(89, 11);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(68, 19);
+            this.label23.Size = new System.Drawing.Size(67, 19);
             this.label23.TabIndex = 0;
             this.label23.Text = "Desktop";
             // 
             // downloadPanel
             // 
-            this.downloadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.downloadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(233)))), ((int)(((byte)(255)))));
             this.downloadPanel.Controls.Add(this.downloadButton);
             this.downloadPanel.Controls.Add(this.downloadSize);
             this.downloadPanel.Controls.Add(this.pictureBox5);
             this.downloadPanel.Controls.Add(this.totalDownload);
             this.downloadPanel.Controls.Add(this.label20);
-            this.downloadPanel.ForeColor = System.Drawing.Color.White;
+            this.downloadPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
             this.downloadPanel.Location = new System.Drawing.Point(1164, 471);
             this.downloadPanel.Name = "downloadPanel";
             this.downloadPanel.Size = new System.Drawing.Size(244, 200);
@@ -359,22 +360,23 @@
             // 
             this.label20.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.Black;
             this.label20.Location = new System.Drawing.Point(94, 11);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(80, 19);
+            this.label20.Size = new System.Drawing.Size(81, 19);
             this.label20.TabIndex = 0;
             this.label20.Text = "Download";
             // 
             // documentPanel
             // 
-            this.documentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(144)))), ((int)(((byte)(98)))));
+            this.documentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(216)))), ((int)(((byte)(200)))));
             this.documentPanel.Controls.Add(this.docButton);
             this.documentPanel.Controls.Add(this.docSize);
             this.documentPanel.Controls.Add(this.pictureBox4);
             this.documentPanel.Controls.Add(this.totalDoc);
             this.documentPanel.Controls.Add(this.label17);
-            this.documentPanel.ForeColor = System.Drawing.Color.White;
+            this.documentPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(144)))), ((int)(((byte)(98)))));
             this.documentPanel.Location = new System.Drawing.Point(875, 471);
             this.documentPanel.Name = "documentPanel";
             this.documentPanel.Size = new System.Drawing.Size(244, 200);
@@ -427,7 +429,8 @@
             // 
             this.label17.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.Black;
             this.label17.Location = new System.Drawing.Point(89, 11);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(90, 19);
@@ -436,13 +439,13 @@
             // 
             // musicPanel
             // 
-            this.musicPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(203)))), ((int)(((byte)(232)))));
+            this.musicPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(247)))), ((int)(((byte)(255)))));
             this.musicPanel.Controls.Add(this.musicButton);
             this.musicPanel.Controls.Add(this.audioSize);
             this.musicPanel.Controls.Add(this.pictureBox3);
             this.musicPanel.Controls.Add(this.totalAudios);
             this.musicPanel.Controls.Add(this.label14);
-            this.musicPanel.ForeColor = System.Drawing.Color.White;
+            this.musicPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(203)))), ((int)(((byte)(232)))));
             this.musicPanel.Location = new System.Drawing.Point(591, 471);
             this.musicPanel.Name = "musicPanel";
             this.musicPanel.Size = new System.Drawing.Size(244, 200);
@@ -495,7 +498,8 @@
             // 
             this.label14.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.Black;
             this.label14.Location = new System.Drawing.Point(89, 11);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(60, 19);
@@ -504,13 +508,13 @@
             // 
             // videoPanel
             // 
-            this.videoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(196)))), ((int)(((byte)(35)))));
+            this.videoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(199)))));
             this.videoPanel.Controls.Add(this.videoButton);
             this.videoPanel.Controls.Add(this.videoSize);
             this.videoPanel.Controls.Add(this.pictureBox2);
             this.videoPanel.Controls.Add(this.totalVideos);
             this.videoPanel.Controls.Add(this.label11);
-            this.videoPanel.ForeColor = System.Drawing.Color.White;
+            this.videoPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(145)))), ((int)(((byte)(0)))));
             this.videoPanel.Location = new System.Drawing.Point(309, 471);
             this.videoPanel.Name = "videoPanel";
             this.videoPanel.Size = new System.Drawing.Size(244, 200);
@@ -563,21 +567,23 @@
             // 
             this.label11.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.Black;
             this.label11.Location = new System.Drawing.Point(89, 11);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(58, 19);
+            this.label11.Size = new System.Drawing.Size(57, 19);
             this.label11.TabIndex = 0;
             this.label11.Text = "Videos";
             // 
             // recyclebinPanel
             // 
-            this.recyclebinPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(188)))), ((int)(((byte)(212)))));
+            this.recyclebinPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(250)))), ((int)(((byte)(255)))));
             this.recyclebinPanel.Controls.Add(this.recyclebinButton);
-            this.recyclebinPanel.Controls.Add(this.RecyclebinSize);
+            this.recyclebinPanel.Controls.Add(this.recyclebinSize);
             this.recyclebinPanel.Controls.Add(this.pictureBox11);
-            this.recyclebinPanel.Controls.Add(this.label21);
+            this.recyclebinPanel.Controls.Add(this.totalRecyclebin);
             this.recyclebinPanel.Controls.Add(this.label22);
+            this.recyclebinPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(146)))));
             this.recyclebinPanel.Location = new System.Drawing.Point(875, 711);
             this.recyclebinPanel.Name = "recyclebinPanel";
             this.recyclebinPanel.Size = new System.Drawing.Size(244, 200);
@@ -593,16 +599,16 @@
             this.recyclebinButton.UseVisualStyleBackColor = true;
             this.recyclebinButton.Click += new System.EventHandler(this.clearRecycleBin);
             // 
-            // RecyclebinSize
+            // recyclebinSize
             // 
-            this.RecyclebinSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.RecyclebinSize.AutoSize = true;
-            this.RecyclebinSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RecyclebinSize.Location = new System.Drawing.Point(127, 78);
-            this.RecyclebinSize.Name = "RecyclebinSize";
-            this.RecyclebinSize.Size = new System.Drawing.Size(78, 25);
-            this.RecyclebinSize.TabIndex = 0;
-            this.RecyclebinSize.Text = "NA GB";
+            this.recyclebinSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.recyclebinSize.AutoSize = true;
+            this.recyclebinSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recyclebinSize.Location = new System.Drawing.Point(127, 78);
+            this.recyclebinSize.Name = "recyclebinSize";
+            this.recyclebinSize.Size = new System.Drawing.Size(78, 25);
+            this.recyclebinSize.TabIndex = 0;
+            this.recyclebinSize.Text = "NA GB";
             // 
             // pictureBox11
             // 
@@ -613,23 +619,24 @@
             this.pictureBox11.TabIndex = 1;
             this.pictureBox11.TabStop = false;
             // 
-            // label21
+            // totalRecyclebin
             // 
-            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.totalRecyclebin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(75, 124);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(155, 17);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "Total Files Not Available";
+            this.totalRecyclebin.AutoSize = true;
+            this.totalRecyclebin.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalRecyclebin.Location = new System.Drawing.Point(75, 124);
+            this.totalRecyclebin.Name = "totalRecyclebin";
+            this.totalRecyclebin.Size = new System.Drawing.Size(155, 17);
+            this.totalRecyclebin.TabIndex = 0;
+            this.totalRecyclebin.Text = "Total Files Not Available";
             // 
             // label22
             // 
             this.label22.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.ForeColor = System.Drawing.Color.Black;
             this.label22.Location = new System.Drawing.Point(89, 11);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(90, 19);
@@ -638,12 +645,13 @@
             // 
             // temp2Panel
             // 
-            this.temp2Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(235)))), ((int)(((byte)(59)))));
+            this.temp2Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(222)))));
             this.temp2Panel.Controls.Add(this.temp2Button);
             this.temp2Panel.Controls.Add(this.temp2Size);
             this.temp2Panel.Controls.Add(this.pictureBox9);
-            this.temp2Panel.Controls.Add(this.label16);
+            this.temp2Panel.Controls.Add(this.totalTemp2);
             this.temp2Panel.Controls.Add(this.label18);
+            this.temp2Panel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(155)))), ((int)(((byte)(0)))));
             this.temp2Panel.Location = new System.Drawing.Point(591, 711);
             this.temp2Panel.Name = "temp2Panel";
             this.temp2Panel.Size = new System.Drawing.Size(244, 200);
@@ -679,23 +687,24 @@
             this.pictureBox9.TabIndex = 1;
             this.pictureBox9.TabStop = false;
             // 
-            // label16
+            // totalTemp2
             // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.totalTemp2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(75, 124);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(155, 17);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Total Files Not Available";
+            this.totalTemp2.AutoSize = true;
+            this.totalTemp2.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTemp2.Location = new System.Drawing.Point(75, 124);
+            this.totalTemp2.Name = "totalTemp2";
+            this.totalTemp2.Size = new System.Drawing.Size(155, 17);
+            this.totalTemp2.TabIndex = 0;
+            this.totalTemp2.Text = "Total Files Not Available";
             // 
             // label18
             // 
             this.label18.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Black;
             this.label18.Location = new System.Drawing.Point(63, 11);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(118, 19);
@@ -704,12 +713,13 @@
             // 
             // tempPanel
             // 
-            this.tempPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
+            this.tempPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(213)))), ((int)(((byte)(227)))));
             this.tempPanel.Controls.Add(this.tempButton);
             this.tempPanel.Controls.Add(this.tempSize);
             this.tempPanel.Controls.Add(this.pictureBox8);
-            this.tempPanel.Controls.Add(this.label12);
+            this.tempPanel.Controls.Add(this.totalTemp);
             this.tempPanel.Controls.Add(this.label13);
+            this.tempPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
             this.tempPanel.Location = new System.Drawing.Point(309, 711);
             this.tempPanel.Name = "tempPanel";
             this.tempPanel.Size = new System.Drawing.Size(244, 200);
@@ -745,23 +755,24 @@
             this.pictureBox8.TabIndex = 1;
             this.pictureBox8.TabStop = false;
             // 
-            // label12
+            // totalTemp
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.totalTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(75, 124);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(155, 17);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "Total Files Not Available";
+            this.totalTemp.AutoSize = true;
+            this.totalTemp.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalTemp.Location = new System.Drawing.Point(75, 124);
+            this.totalTemp.Name = "totalTemp";
+            this.totalTemp.Size = new System.Drawing.Size(155, 17);
+            this.totalTemp.TabIndex = 0;
+            this.totalTemp.Text = "Total Files Not Available";
             // 
             // label13
             // 
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(89, 11);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(49, 19);
@@ -770,12 +781,13 @@
             // 
             // screenshotPanel
             // 
-            this.screenshotPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(244)))));
+            this.screenshotPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(242)))), ((int)(((byte)(255)))));
             this.screenshotPanel.Controls.Add(this.screenshotButton);
             this.screenshotPanel.Controls.Add(this.screenshotSize);
             this.screenshotPanel.Controls.Add(this.pictureBox7);
-            this.screenshotPanel.Controls.Add(this.label8);
+            this.screenshotPanel.Controls.Add(this.totalScreenshots);
             this.screenshotPanel.Controls.Add(this.label9);
+            this.screenshotPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(244)))));
             this.screenshotPanel.Location = new System.Drawing.Point(22, 711);
             this.screenshotPanel.Name = "screenshotPanel";
             this.screenshotPanel.Size = new System.Drawing.Size(244, 200);
@@ -811,23 +823,24 @@
             this.pictureBox7.TabIndex = 1;
             this.pictureBox7.TabStop = false;
             // 
-            // label8
+            // totalScreenshots
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.totalScreenshots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(75, 124);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(155, 17);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Total Files Not Available";
+            this.totalScreenshots.AutoSize = true;
+            this.totalScreenshots.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalScreenshots.Location = new System.Drawing.Point(75, 124);
+            this.totalScreenshots.Name = "totalScreenshots";
+            this.totalScreenshots.Size = new System.Drawing.Size(155, 17);
+            this.totalScreenshots.TabIndex = 0;
+            this.totalScreenshots.Text = "Total Files Not Available";
             // 
             // label9
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.Black;
             this.label9.Location = new System.Drawing.Point(89, 11);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(96, 19);
@@ -836,13 +849,13 @@
             // 
             // picturePanel
             // 
-            this.picturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(245)))));
+            this.picturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(198)))), ((int)(((byte)(255)))));
             this.picturePanel.Controls.Add(this.pictureButton);
             this.picturePanel.Controls.Add(this.pictureBox1);
             this.picturePanel.Controls.Add(this.pictureSize);
             this.picturePanel.Controls.Add(this.totalPictures);
             this.picturePanel.Controls.Add(this.Pictures);
-            this.picturePanel.ForeColor = System.Drawing.Color.White;
+            this.picturePanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(245)))));
             this.picturePanel.Location = new System.Drawing.Point(22, 471);
             this.picturePanel.Name = "picturePanel";
             this.picturePanel.Size = new System.Drawing.Size(244, 200);
@@ -895,10 +908,11 @@
             // 
             this.Pictures.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Pictures.AutoSize = true;
-            this.Pictures.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Pictures.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Pictures.ForeColor = System.Drawing.Color.Black;
             this.Pictures.Location = new System.Drawing.Point(89, 11);
             this.Pictures.Name = "Pictures";
-            this.Pictures.Size = new System.Drawing.Size(68, 19);
+            this.Pictures.Size = new System.Drawing.Size(66, 19);
             this.Pictures.TabIndex = 0;
             this.Pictures.Text = "Pictures";
             // 
@@ -944,6 +958,7 @@
             this.largeSizeFoldersListview.Size = new System.Drawing.Size(696, 326);
             this.largeSizeFoldersListview.TabIndex = 0;
             this.largeSizeFoldersListview.UseCompatibleStateImageBehavior = false;
+            this.largeSizeFoldersListview.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDown);
             // 
             // tabPage4
             // 
@@ -954,7 +969,7 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(705, 334);
             this.tabPage4.TabIndex = 1;
-            this.tabPage4.Text = "Larger size file";
+            this.tabPage4.Text = "Large size files";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // largeSizeFileListview
@@ -979,17 +994,28 @@
             this.bannerFlowPanel.Size = new System.Drawing.Size(1004, 364);
             this.bannerFlowPanel.TabIndex = 0;
             // 
-            // label1
+            // flowLayoutPanel3
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 30.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.label1.Location = new System.Drawing.Point(678, 60);
-            this.label1.Margin = new System.Windows.Forms.Padding(60, 60, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(562, 47);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Clear More space in One-Click";
+            this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel4);
+            this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel5);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1001, 299);
+            this.flowLayoutPanel3.TabIndex = 5;
+            // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.Controls.Add(this.label3);
+            this.flowLayoutPanel4.Controls.Add(this.label10);
+            this.flowLayoutPanel4.Controls.Add(this.label7);
+            this.flowLayoutPanel4.Controls.Add(this.flowLayoutPanel2);
+            this.flowLayoutPanel4.Controls.Add(this.label1);
+            this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 25);
+            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 25, 3, 3);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(627, 228);
+            this.flowLayoutPanel4.TabIndex = 0;
             // 
             // label3
             // 
@@ -1003,6 +1029,18 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Clear more space in one click.";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Roboto Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label10.Location = new System.Drawing.Point(65, 87);
+            this.label10.Margin = new System.Windows.Forms.Padding(65, 20, 3, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(550, 23);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Clear Folders like Temp, %Temp%. Deletes log file, duplicate files,";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -1015,11 +1053,90 @@
             this.label7.TabIndex = 1;
             this.label7.Text = "0 Byte files and related redundant files.";
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.button2);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 153);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(581, 56);
+            this.flowLayoutPanel2.TabIndex = 4;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Font = new System.Drawing.Font("Times New Roman", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.button2.Location = new System.Drawing.Point(400, 0);
+            this.button2.Margin = new System.Windows.Forms.Padding(400, 0, 3, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(162, 48);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Clear";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.oneClickClearButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 30.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label1.Location = new System.Drawing.Point(678, 60);
+            this.label1.Margin = new System.Windows.Forms.Padding(60, 60, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(562, 47);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Clear More space in One-Click";
+            // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.Controls.Add(this.flowLayoutPanel6);
+            this.flowLayoutPanel5.Controls.Add(this.label24);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(636, 40);
+            this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(3, 40, 3, 3);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(351, 183);
+            this.flowLayoutPanel5.TabIndex = 0;
+            // 
+            // flowLayoutPanel6
+            // 
+            this.flowLayoutPanel6.Controls.Add(this.spaceClearedLabel);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(348, 86);
+            this.flowLayoutPanel6.TabIndex = 0;
+            // 
+            // spaceClearedLabel
+            // 
+            this.spaceClearedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.spaceClearedLabel.AutoSize = true;
+            this.spaceClearedLabel.Font = new System.Drawing.Font("Times New Roman", 45F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.spaceClearedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(50)))));
+            this.spaceClearedLabel.Location = new System.Drawing.Point(3, 15);
+            this.spaceClearedLabel.Margin = new System.Windows.Forms.Padding(3, 15, 3, 0);
+            this.spaceClearedLabel.Name = "spaceClearedLabel";
+            this.spaceClearedLabel.Size = new System.Drawing.Size(215, 68);
+            this.spaceClearedLabel.TabIndex = 0;
+            this.spaceClearedLabel.Text = "0 Bytes";
+            // 
+            // label24
+            // 
+            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Times New Roman", 60F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label24.Location = new System.Drawing.Point(0, 92);
+            this.label24.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(309, 90);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Cleared";
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.label6);
             this.flowLayoutPanel1.Controls.Add(this.oneClickDeletingFilename);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 273);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 308);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1001, 32);
             this.flowLayoutPanel1.TabIndex = 3;
@@ -1599,105 +1716,6 @@
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
             // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Controls.Add(this.button2);
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 153);
-            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(581, 56);
-            this.flowLayoutPanel2.TabIndex = 4;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Font = new System.Drawing.Font("Roboto", 13.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.button2.Location = new System.Drawing.Point(400, 0);
-            this.button2.Margin = new System.Windows.Forms.Padding(400, 0, 3, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(162, 48);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Clear";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.oneClickClearButton_Click);
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel4);
-            this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel5);
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1001, 264);
-            this.flowLayoutPanel3.TabIndex = 5;
-            // 
-            // flowLayoutPanel4
-            // 
-            this.flowLayoutPanel4.Controls.Add(this.label3);
-            this.flowLayoutPanel4.Controls.Add(this.label10);
-            this.flowLayoutPanel4.Controls.Add(this.label7);
-            this.flowLayoutPanel4.Controls.Add(this.flowLayoutPanel2);
-            this.flowLayoutPanel4.Controls.Add(this.label1);
-            this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 25);
-            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 25, 3, 3);
-            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(627, 228);
-            this.flowLayoutPanel4.TabIndex = 0;
-            // 
-            // flowLayoutPanel5
-            // 
-            this.flowLayoutPanel5.Controls.Add(this.flowLayoutPanel6);
-            this.flowLayoutPanel5.Controls.Add(this.label24);
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(636, 3);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(351, 250);
-            this.flowLayoutPanel5.TabIndex = 0;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Roboto Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.label10.Location = new System.Drawing.Point(65, 87);
-            this.label10.Margin = new System.Windows.Forms.Padding(65, 20, 3, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(550, 23);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Clear Folders like Temp, %Temp%. Deletes log file, duplicate files,";
-            // 
-            // flowLayoutPanel6
-            // 
-            this.flowLayoutPanel6.Controls.Add(this.spaceClearedLabel);
-            this.flowLayoutPanel6.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(348, 129);
-            this.flowLayoutPanel6.TabIndex = 0;
-            // 
-            // spaceClearedLabel
-            // 
-            this.spaceClearedLabel.AutoSize = true;
-            this.spaceClearedLabel.Font = new System.Drawing.Font("Times New Roman", 65F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.spaceClearedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.spaceClearedLabel.Location = new System.Drawing.Point(3, 30);
-            this.spaceClearedLabel.Margin = new System.Windows.Forms.Padding(3, 30, 3, 0);
-            this.spaceClearedLabel.Name = "spaceClearedLabel";
-            this.spaceClearedLabel.Size = new System.Drawing.Size(248, 98);
-            this.spaceClearedLabel.TabIndex = 0;
-            this.spaceClearedLabel.Text = "0 MB";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Times New Roman", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.label24.Location = new System.Drawing.Point(15, 135);
-            this.label24.Margin = new System.Windows.Forms.Padding(15, 0, 3, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(208, 62);
-            this.label24.TabIndex = 0;
-            this.label24.Text = "Cleared";
-            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1744,6 +1762,14 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.bannerFlowPanel.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel4.PerformLayout();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
+            this.flowLayoutPanel6.ResumeLayout(false);
+            this.flowLayoutPanel6.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
@@ -1761,14 +1787,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.flowLayoutPanel4.ResumeLayout(false);
-            this.flowLayoutPanel4.PerformLayout();
-            this.flowLayoutPanel5.ResumeLayout(false);
-            this.flowLayoutPanel5.PerformLayout();
-            this.flowLayoutPanel6.ResumeLayout(false);
-            this.flowLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1857,20 +1875,20 @@
         private System.Windows.Forms.Label totalVideos;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel recyclebinPanel;
-        private System.Windows.Forms.Label RecyclebinSize;
-        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label recyclebinSize;
+        private System.Windows.Forms.Label totalRecyclebin;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Panel temp2Panel;
         private System.Windows.Forms.Label temp2Size;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label totalTemp2;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Panel tempPanel;
         private System.Windows.Forms.Label tempSize;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label totalTemp;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel screenshotPanel;
         private System.Windows.Forms.Label screenshotSize;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label totalScreenshots;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button pictureButton;
         private System.Windows.Forms.PictureBox pictureBox6;
