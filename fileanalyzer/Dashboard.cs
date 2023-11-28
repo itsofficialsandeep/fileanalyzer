@@ -118,9 +118,7 @@ namespace fileanalyzer
                 // Add the panel to the GroupBox
                 myBackPanel.Controls.Add(drivePanel);
 
-
-
-
+                // NOTE: In case of C: drive, search only specific directories like Picture, Music, AppData not all the directories..
                 diskInfo(drivePanel, @"G:\", drive);
 
 //                Thread thread = new Thread(() => diskInfo(drivePanel, @"E:\SANDEEP_KUMAR", drive));

@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 
 namespace fileanalyzer
 {
+    // save the searched files
     public partial class Form3 : Form
     {
 

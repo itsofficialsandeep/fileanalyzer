@@ -99,7 +99,7 @@
             this.bannerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.oneClickClearButton = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.oneClickDeletingFilename = new System.Windows.Forms.Label();
@@ -148,8 +148,15 @@
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
-            this.oneClickSpaceCleared = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
+            this.spaceClearedLabel = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -187,6 +194,11 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
+            this.flowLayoutPanel5.SuspendLayout();
+            this.flowLayoutPanel6.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -959,12 +971,8 @@
             // bannerFlowPanel
             // 
             this.bannerFlowPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(237)))), ((int)(((byte)(201)))));
-            this.bannerFlowPanel.Controls.Add(this.label1);
-            this.bannerFlowPanel.Controls.Add(this.label3);
-            this.bannerFlowPanel.Controls.Add(this.label7);
-            this.bannerFlowPanel.Controls.Add(this.oneClickClearButton);
+            this.bannerFlowPanel.Controls.Add(this.flowLayoutPanel3);
             this.bannerFlowPanel.Controls.Add(this.flowLayoutPanel1);
-            this.bannerFlowPanel.Controls.Add(this.oneClickSpaceCleared);
             this.bannerFlowPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.bannerFlowPanel.Location = new System.Drawing.Point(18, 16);
             this.bannerFlowPanel.Name = "bannerFlowPanel";
@@ -976,7 +984,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 30.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.label1.Location = new System.Drawing.Point(60, 60);
+            this.label1.Location = new System.Drawing.Point(678, 60);
             this.label1.Margin = new System.Windows.Forms.Padding(60, 60, 3, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(562, 47);
@@ -986,33 +994,32 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Roboto Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Times New Roman", 30.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.label3.Location = new System.Drawing.Point(65, 127);
+            this.label3.Location = new System.Drawing.Point(65, 20);
             this.label3.Margin = new System.Windows.Forms.Padding(65, 20, 3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(550, 23);
+            this.label3.Size = new System.Drawing.Size(538, 47);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Clear Folders like Temp, %Temp%. Deletes log file, duplicate files,";
+            this.label3.Text = "Clear more space in one click.";
             // 
-            // oneClickClearButton
+            // label7
             // 
-            this.oneClickClearButton.Font = new System.Drawing.Font("Roboto", 13.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oneClickClearButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.oneClickClearButton.Location = new System.Drawing.Point(480, 248);
-            this.oneClickClearButton.Margin = new System.Windows.Forms.Padding(480, 70, 3, 3);
-            this.oneClickClearButton.Name = "oneClickClearButton";
-            this.oneClickClearButton.Size = new System.Drawing.Size(162, 48);
-            this.oneClickClearButton.TabIndex = 2;
-            this.oneClickClearButton.Text = "Clear";
-            this.oneClickClearButton.UseVisualStyleBackColor = true;
-            this.oneClickClearButton.Click += new System.EventHandler(this.oneClickClearButton_Click);
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Roboto Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label7.Location = new System.Drawing.Point(65, 115);
+            this.label7.Margin = new System.Windows.Forms.Padding(65, 5, 3, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(333, 23);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "0 Byte files and related redundant files.";
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.label6);
             this.flowLayoutPanel1.Controls.Add(this.oneClickDeletingFilename);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 302);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 273);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1001, 32);
             this.flowLayoutPanel1.TabIndex = 3;
@@ -1592,28 +1599,104 @@
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
             // 
-            // oneClickSpaceCleared
+            // flowLayoutPanel2
             // 
-            this.oneClickSpaceCleared.AutoSize = true;
-            this.oneClickSpaceCleared.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.oneClickSpaceCleared.Location = new System.Drawing.Point(1072, 10);
-            this.oneClickSpaceCleared.Margin = new System.Windows.Forms.Padding(65, 10, 3, 0);
-            this.oneClickSpaceCleared.Name = "oneClickSpaceCleared";
-            this.oneClickSpaceCleared.Size = new System.Drawing.Size(112, 19);
-            this.oneClickSpaceCleared.TabIndex = 0;
-            this.oneClickSpaceCleared.Text = "Space cleared:";
+            this.flowLayoutPanel2.Controls.Add(this.button2);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 153);
+            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(3, 15, 3, 3);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(581, 56);
+            this.flowLayoutPanel2.TabIndex = 4;
             // 
-            // label7
+            // button2
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Roboto Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
-            this.label7.Location = new System.Drawing.Point(65, 155);
-            this.label7.Margin = new System.Windows.Forms.Padding(65, 5, 3, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(333, 23);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "0 Byte files and related redundant files.";
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Font = new System.Drawing.Font("Roboto", 13.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.button2.Location = new System.Drawing.Point(400, 0);
+            this.button2.Margin = new System.Windows.Forms.Padding(400, 0, 3, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(162, 48);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Clear";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.oneClickClearButton_Click);
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel4);
+            this.flowLayoutPanel3.Controls.Add(this.flowLayoutPanel5);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1001, 264);
+            this.flowLayoutPanel3.TabIndex = 5;
+            // 
+            // flowLayoutPanel4
+            // 
+            this.flowLayoutPanel4.Controls.Add(this.label3);
+            this.flowLayoutPanel4.Controls.Add(this.label10);
+            this.flowLayoutPanel4.Controls.Add(this.label7);
+            this.flowLayoutPanel4.Controls.Add(this.flowLayoutPanel2);
+            this.flowLayoutPanel4.Controls.Add(this.label1);
+            this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 25);
+            this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(3, 25, 3, 3);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(627, 228);
+            this.flowLayoutPanel4.TabIndex = 0;
+            // 
+            // flowLayoutPanel5
+            // 
+            this.flowLayoutPanel5.Controls.Add(this.flowLayoutPanel6);
+            this.flowLayoutPanel5.Controls.Add(this.label24);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(636, 3);
+            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(351, 250);
+            this.flowLayoutPanel5.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Roboto Light", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label10.Location = new System.Drawing.Point(65, 87);
+            this.label10.Margin = new System.Windows.Forms.Padding(65, 20, 3, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(550, 23);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Clear Folders like Temp, %Temp%. Deletes log file, duplicate files,";
+            // 
+            // flowLayoutPanel6
+            // 
+            this.flowLayoutPanel6.Controls.Add(this.spaceClearedLabel);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel6.Name = "flowLayoutPanel6";
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(348, 129);
+            this.flowLayoutPanel6.TabIndex = 0;
+            // 
+            // spaceClearedLabel
+            // 
+            this.spaceClearedLabel.AutoSize = true;
+            this.spaceClearedLabel.Font = new System.Drawing.Font("Times New Roman", 65F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.spaceClearedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.spaceClearedLabel.Location = new System.Drawing.Point(3, 30);
+            this.spaceClearedLabel.Margin = new System.Windows.Forms.Padding(3, 30, 3, 0);
+            this.spaceClearedLabel.Name = "spaceClearedLabel";
+            this.spaceClearedLabel.Size = new System.Drawing.Size(248, 98);
+            this.spaceClearedLabel.TabIndex = 0;
+            this.spaceClearedLabel.Text = "0 MB";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Times New Roman", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(96)))), ((int)(((byte)(27)))));
+            this.label24.Location = new System.Drawing.Point(15, 135);
+            this.label24.Margin = new System.Windows.Forms.Padding(15, 0, 3, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(208, 62);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Cleared";
             // 
             // Form3
             // 
@@ -1661,7 +1744,6 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.bannerFlowPanel.ResumeLayout(false);
-            this.bannerFlowPanel.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
@@ -1679,6 +1761,14 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel4.PerformLayout();
+            this.flowLayoutPanel5.ResumeLayout(false);
+            this.flowLayoutPanel5.PerformLayout();
+            this.flowLayoutPanel6.ResumeLayout(false);
+            this.flowLayoutPanel6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1735,7 +1825,6 @@
         private System.Windows.Forms.FlowLayoutPanel bannerFlowPanel;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button oneClickClearButton;
         private System.Windows.Forms.TabControl bigsizefileGroupBox;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.ListView largeSizeFoldersListview;
@@ -1804,7 +1893,15 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label oneClickDeletingFilename;
-        private System.Windows.Forms.Label oneClickSpaceCleared;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
+        private System.Windows.Forms.Label spaceClearedLabel;
+        private System.Windows.Forms.Label label24;
     }
 }

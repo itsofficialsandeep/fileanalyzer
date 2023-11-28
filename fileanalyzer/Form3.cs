@@ -12,12 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using File = System.IO.File;
-
-// ... (existing code)
 
 namespace fileanalyzer
 {
@@ -1092,12 +1087,27 @@ namespace fileanalyzer
 
         private async void oneClickClearButton_Click(object sender, EventArgs e)
         {
+            
+            long totalAvailableSpaceBerforeButtonClick = 0;
+            long totalAvialableSpaceAfterProcessingFiles = 0;
+            long totalSpaceCleared = 0;
+
             long totalNumberOfFilesProcessed = 0;
             long totalNumberOfFilesDeleted = 0 ;
             long totalSizeOfFiles = 0 ;
 
             await Task.Run(() =>
             {
+                DriveInfo[] allDrives = DriveInfo.GetDrives();
+                // record the space avaiable in machine before clearing the file
+                foreach (DriveInfo drive in allDrives)
+                {
+                    if (drive.IsReady)
+                    {
+                        totalAvailableSpaceBerforeButtonClick += drive.TotalFreeSpace;
+                    }
+                }
+
                 //  DELETE THE TEMP FOLDERS
                 string[] folders = { @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp", @"C:\Windows\Temp\" };
                 foreach (string folder in folders) {
@@ -1109,14 +1119,19 @@ namespace fileanalyzer
                             {
                                 if (File.Exists(file))
                                 {
-                                    File.Delete(file);
+                                    try { File.Delete(file); } catch (Exception ex){
+                                        MessageBox.Show("Custom:==>" + ex.Message);
+                                    }
+                                    
                                     oneClickDeletingFilename.Text = file;
+
+                                    FileInfo fileInfo = new FileInfo(file);
+                                    spaceClearedLabel.Text = ConvertBytes(fileInfo.Length);
                                 }
                             }
-                            catch (UnauthorizedAccessException)
+                            catch (Exception ex)
                             {
-                                // File is inaccessible; skip deletion
-                                // Log or handle the inaccessible file scenario as needed
+                                MessageBox.Show("Custom2:==>" + ex.Message);
                             }
                         }
 
@@ -1129,22 +1144,20 @@ namespace fileanalyzer
                                 oneClickDeletingFilename.Text = subDir;
                             }
                         }
-                    }
-                    catch (Exception ex)
+                    }catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show("Custom3:==>" + ex.Message);
                     }
                 }
 
                 // DELETE DULICATE FILES
                 var filesByHash = new Dictionary<string, List<string>>();
 
-                DriveInfo[] allDrives = DriveInfo.GetDrives();
-                foreach (DriveInfo d in allDrives)    
+              // process all the avaiable drives for redundant files
+              //  foreach (DriveInfo d in allDrives)    
                 {
-
                         // LOOP THROUGH ALL FILES IN THE DRIVE
-                        foreach (var filePath in Directory.GetFiles(d.Name))
+                        foreach (var filePath in Directory.GetFiles(@"C:\Users\SANDEEP\Desktop\sandeep"))
                         {
                             FileInfo fileinfo = new FileInfo(filePath);
 
@@ -1189,12 +1202,30 @@ namespace fileanalyzer
                                     {
                                         File.Delete(duplicateGroup[i]);
                                         oneClickDeletingFilename.Text = duplicateGroup[i];
-                                    }
+
+                                        FileInfo fileInfo = new FileInfo(duplicateGroup[i]);
+                                        spaceClearedLabel.Text = ConvertBytes(fileInfo.Length);
+                                }
                                 }
                             }
                         }
 
                 }
+
+                // calculate the space after processing (deleting) files
+                foreach (DriveInfo drive in allDrives)
+                {
+                    if (drive.IsReady)
+                    {
+                        totalAvialableSpaceAfterProcessingFiles += drive.TotalFreeSpace;
+                    }
+                }
+
+                // set the label
+
+                totalSpaceCleared = totalAvailableSpaceBerforeButtonClick - totalAvialableSpaceAfterProcessingFiles;
+                spaceClearedLabel.Text =  ConvertBytes(totalSpaceCleared);
+                oneClickDeletingFilename.Text = "Done";
 
             });
 
