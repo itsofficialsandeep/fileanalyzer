@@ -157,6 +157,16 @@
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
+            this.analyzePictureFolderButton = new System.Windows.Forms.Button();
+            this.analyzeVideosFolderButton = new System.Windows.Forms.Button();
+            this.analyzeMusicFolderButton = new System.Windows.Forms.Button();
+            this.analyzeDocFolderButton = new System.Windows.Forms.Button();
+            this.analyzeDownloadFolderButton = new System.Windows.Forms.Button();
+            this.analyzeDesktopFolderButton = new System.Windows.Forms.Button();
+            this.analyzeScreenshotFolderButton = new System.Windows.Forms.Button();
+            this.analyzeTempFolderButton = new System.Windows.Forms.Button();
+            this.analyzeTemp2FolderButton = new System.Windows.Forms.Button();
+            this.analyzeRecyclebinFolderButton = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -245,6 +255,7 @@
             // desktopPanel
             // 
             this.desktopPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(212)))), ((int)(((byte)(226)))));
+            this.desktopPanel.Controls.Add(this.analyzeDesktopFolderButton);
             this.desktopPanel.Controls.Add(this.desktopSize);
             this.desktopPanel.Controls.Add(this.pictureBox6);
             this.desktopPanel.Controls.Add(this.totalDesktop);
@@ -262,9 +273,9 @@
             this.desktopSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.desktopSize.Location = new System.Drawing.Point(127, 67);
             this.desktopSize.Name = "desktopSize";
-            this.desktopSize.Size = new System.Drawing.Size(78, 25);
+            this.desktopSize.Size = new System.Drawing.Size(60, 25);
             this.desktopSize.TabIndex = 0;
-            this.desktopSize.Text = "NA GB";
+            this.desktopSize.Text = "0 GB";
             // 
             // pictureBox6
             // 
@@ -302,6 +313,7 @@
             // downloadPanel
             // 
             this.downloadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(233)))), ((int)(((byte)(255)))));
+            this.downloadPanel.Controls.Add(this.analyzeDownloadFolderButton);
             this.downloadPanel.Controls.Add(this.downloadButton);
             this.downloadPanel.Controls.Add(this.downloadSize);
             this.downloadPanel.Controls.Add(this.pictureBox5);
@@ -331,9 +343,9 @@
             this.downloadSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadSize.Location = new System.Drawing.Point(129, 67);
             this.downloadSize.Name = "downloadSize";
-            this.downloadSize.Size = new System.Drawing.Size(78, 25);
+            this.downloadSize.Size = new System.Drawing.Size(60, 25);
             this.downloadSize.TabIndex = 0;
-            this.downloadSize.Text = "NA GB";
+            this.downloadSize.Text = "0 GB";
             // 
             // pictureBox5
             // 
@@ -371,6 +383,7 @@
             // documentPanel
             // 
             this.documentPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(216)))), ((int)(((byte)(200)))));
+            this.documentPanel.Controls.Add(this.analyzeDocFolderButton);
             this.documentPanel.Controls.Add(this.docButton);
             this.documentPanel.Controls.Add(this.docSize);
             this.documentPanel.Controls.Add(this.pictureBox4);
@@ -400,9 +413,9 @@
             this.docSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.docSize.Location = new System.Drawing.Point(127, 67);
             this.docSize.Name = "docSize";
-            this.docSize.Size = new System.Drawing.Size(78, 25);
+            this.docSize.Size = new System.Drawing.Size(60, 25);
             this.docSize.TabIndex = 0;
-            this.docSize.Text = "NA GB";
+            this.docSize.Text = "0 GB";
             // 
             // pictureBox4
             // 
@@ -440,6 +453,7 @@
             // musicPanel
             // 
             this.musicPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(247)))), ((int)(((byte)(255)))));
+            this.musicPanel.Controls.Add(this.analyzeMusicFolderButton);
             this.musicPanel.Controls.Add(this.musicButton);
             this.musicPanel.Controls.Add(this.audioSize);
             this.musicPanel.Controls.Add(this.pictureBox3);
@@ -469,9 +483,9 @@
             this.audioSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.audioSize.Location = new System.Drawing.Point(127, 67);
             this.audioSize.Name = "audioSize";
-            this.audioSize.Size = new System.Drawing.Size(78, 25);
+            this.audioSize.Size = new System.Drawing.Size(60, 25);
             this.audioSize.TabIndex = 0;
-            this.audioSize.Text = "NA GB";
+            this.audioSize.Text = "0 GB";
             // 
             // pictureBox3
             // 
@@ -509,6 +523,7 @@
             // videoPanel
             // 
             this.videoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(242)))), ((int)(((byte)(199)))));
+            this.videoPanel.Controls.Add(this.analyzeVideosFolderButton);
             this.videoPanel.Controls.Add(this.videoButton);
             this.videoPanel.Controls.Add(this.videoSize);
             this.videoPanel.Controls.Add(this.pictureBox2);
@@ -538,9 +553,9 @@
             this.videoSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.videoSize.Location = new System.Drawing.Point(127, 67);
             this.videoSize.Name = "videoSize";
-            this.videoSize.Size = new System.Drawing.Size(78, 25);
+            this.videoSize.Size = new System.Drawing.Size(60, 25);
             this.videoSize.TabIndex = 0;
-            this.videoSize.Text = "NA GB";
+            this.videoSize.Text = "0 GB";
             // 
             // pictureBox2
             // 
@@ -578,6 +593,7 @@
             // recyclebinPanel
             // 
             this.recyclebinPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(250)))), ((int)(((byte)(255)))));
+            this.recyclebinPanel.Controls.Add(this.analyzeRecyclebinFolderButton);
             this.recyclebinPanel.Controls.Add(this.recyclebinButton);
             this.recyclebinPanel.Controls.Add(this.recyclebinSize);
             this.recyclebinPanel.Controls.Add(this.pictureBox11);
@@ -606,9 +622,9 @@
             this.recyclebinSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.recyclebinSize.Location = new System.Drawing.Point(127, 78);
             this.recyclebinSize.Name = "recyclebinSize";
-            this.recyclebinSize.Size = new System.Drawing.Size(78, 25);
+            this.recyclebinSize.Size = new System.Drawing.Size(60, 25);
             this.recyclebinSize.TabIndex = 0;
-            this.recyclebinSize.Text = "NA GB";
+            this.recyclebinSize.Text = "0 GB";
             // 
             // pictureBox11
             // 
@@ -646,6 +662,7 @@
             // temp2Panel
             // 
             this.temp2Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(222)))));
+            this.temp2Panel.Controls.Add(this.analyzeTemp2FolderButton);
             this.temp2Panel.Controls.Add(this.temp2Button);
             this.temp2Panel.Controls.Add(this.temp2Size);
             this.temp2Panel.Controls.Add(this.pictureBox9);
@@ -674,9 +691,9 @@
             this.temp2Size.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.temp2Size.Location = new System.Drawing.Point(127, 78);
             this.temp2Size.Name = "temp2Size";
-            this.temp2Size.Size = new System.Drawing.Size(78, 25);
+            this.temp2Size.Size = new System.Drawing.Size(60, 25);
             this.temp2Size.TabIndex = 0;
-            this.temp2Size.Text = "NA GB";
+            this.temp2Size.Text = "0 GB";
             // 
             // pictureBox9
             // 
@@ -714,6 +731,7 @@
             // tempPanel
             // 
             this.tempPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(213)))), ((int)(((byte)(227)))));
+            this.tempPanel.Controls.Add(this.analyzeTempFolderButton);
             this.tempPanel.Controls.Add(this.tempButton);
             this.tempPanel.Controls.Add(this.tempSize);
             this.tempPanel.Controls.Add(this.pictureBox8);
@@ -742,9 +760,9 @@
             this.tempSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tempSize.Location = new System.Drawing.Point(127, 78);
             this.tempSize.Name = "tempSize";
-            this.tempSize.Size = new System.Drawing.Size(78, 25);
+            this.tempSize.Size = new System.Drawing.Size(60, 25);
             this.tempSize.TabIndex = 0;
-            this.tempSize.Text = "NA GB";
+            this.tempSize.Text = "0 GB";
             // 
             // pictureBox8
             // 
@@ -782,6 +800,7 @@
             // screenshotPanel
             // 
             this.screenshotPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(242)))), ((int)(((byte)(255)))));
+            this.screenshotPanel.Controls.Add(this.analyzeScreenshotFolderButton);
             this.screenshotPanel.Controls.Add(this.screenshotButton);
             this.screenshotPanel.Controls.Add(this.screenshotSize);
             this.screenshotPanel.Controls.Add(this.pictureBox7);
@@ -810,9 +829,9 @@
             this.screenshotSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.screenshotSize.Location = new System.Drawing.Point(127, 78);
             this.screenshotSize.Name = "screenshotSize";
-            this.screenshotSize.Size = new System.Drawing.Size(78, 25);
+            this.screenshotSize.Size = new System.Drawing.Size(60, 25);
             this.screenshotSize.TabIndex = 0;
-            this.screenshotSize.Text = "NA GB";
+            this.screenshotSize.Text = "0 GB";
             // 
             // pictureBox7
             // 
@@ -850,6 +869,7 @@
             // picturePanel
             // 
             this.picturePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(198)))), ((int)(((byte)(255)))));
+            this.picturePanel.Controls.Add(this.analyzePictureFolderButton);
             this.picturePanel.Controls.Add(this.pictureButton);
             this.picturePanel.Controls.Add(this.pictureBox1);
             this.picturePanel.Controls.Add(this.pictureSize);
@@ -888,9 +908,9 @@
             this.pictureSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pictureSize.Location = new System.Drawing.Point(127, 67);
             this.pictureSize.Name = "pictureSize";
-            this.pictureSize.Size = new System.Drawing.Size(78, 25);
+            this.pictureSize.Size = new System.Drawing.Size(60, 25);
             this.pictureSize.TabIndex = 0;
-            this.pictureSize.Text = "NA GB";
+            this.pictureSize.Text = "0 GB";
             // 
             // totalPictures
             // 
@@ -1716,6 +1736,116 @@
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
             // 
+            // analyzePictureFolderButton
+            // 
+            this.analyzePictureFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzePictureFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzePictureFolderButton.Name = "analyzePictureFolderButton";
+            this.analyzePictureFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzePictureFolderButton.TabIndex = 2;
+            this.analyzePictureFolderButton.Text = "Analyze";
+            this.analyzePictureFolderButton.UseVisualStyleBackColor = true;
+            this.analyzePictureFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeVideosFolderButton
+            // 
+            this.analyzeVideosFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeVideosFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeVideosFolderButton.Name = "analyzeVideosFolderButton";
+            this.analyzeVideosFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeVideosFolderButton.TabIndex = 2;
+            this.analyzeVideosFolderButton.Text = "Analyze";
+            this.analyzeVideosFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeVideosFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeMusicFolderButton
+            // 
+            this.analyzeMusicFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeMusicFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeMusicFolderButton.Name = "analyzeMusicFolderButton";
+            this.analyzeMusicFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeMusicFolderButton.TabIndex = 2;
+            this.analyzeMusicFolderButton.Text = "Analyze";
+            this.analyzeMusicFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeMusicFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeDocFolderButton
+            // 
+            this.analyzeDocFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeDocFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeDocFolderButton.Name = "analyzeDocFolderButton";
+            this.analyzeDocFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeDocFolderButton.TabIndex = 2;
+            this.analyzeDocFolderButton.Text = "Analyze";
+            this.analyzeDocFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDocFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeDownloadFolderButton
+            // 
+            this.analyzeDownloadFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeDownloadFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeDownloadFolderButton.Name = "analyzeDownloadFolderButton";
+            this.analyzeDownloadFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeDownloadFolderButton.TabIndex = 2;
+            this.analyzeDownloadFolderButton.Text = "Analyze";
+            this.analyzeDownloadFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDownloadFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeDesktopFolderButton
+            // 
+            this.analyzeDesktopFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeDesktopFolderButton.Location = new System.Drawing.Point(28, 136);
+            this.analyzeDesktopFolderButton.Name = "analyzeDesktopFolderButton";
+            this.analyzeDesktopFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeDesktopFolderButton.TabIndex = 2;
+            this.analyzeDesktopFolderButton.Text = "Analyze";
+            this.analyzeDesktopFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDesktopFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeScreenshotFolderButton
+            // 
+            this.analyzeScreenshotFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeScreenshotFolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeScreenshotFolderButton.Name = "analyzeScreenshotFolderButton";
+            this.analyzeScreenshotFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeScreenshotFolderButton.TabIndex = 2;
+            this.analyzeScreenshotFolderButton.Text = "Analyze";
+            this.analyzeScreenshotFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeScreenshotFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeTempFolderButton
+            // 
+            this.analyzeTempFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeTempFolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeTempFolderButton.Name = "analyzeTempFolderButton";
+            this.analyzeTempFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeTempFolderButton.TabIndex = 2;
+            this.analyzeTempFolderButton.Text = "Analyze";
+            this.analyzeTempFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeTempFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeTemp2FolderButton
+            // 
+            this.analyzeTemp2FolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeTemp2FolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeTemp2FolderButton.Name = "analyzeTemp2FolderButton";
+            this.analyzeTemp2FolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeTemp2FolderButton.TabIndex = 2;
+            this.analyzeTemp2FolderButton.Text = "Analyze";
+            this.analyzeTemp2FolderButton.UseVisualStyleBackColor = true;
+            this.analyzeTemp2FolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
+            // analyzeRecyclebinFolderButton
+            // 
+            this.analyzeRecyclebinFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeRecyclebinFolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeRecyclebinFolderButton.Name = "analyzeRecyclebinFolderButton";
+            this.analyzeRecyclebinFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeRecyclebinFolderButton.TabIndex = 2;
+            this.analyzeRecyclebinFolderButton.Text = "Analyze";
+            this.analyzeRecyclebinFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeRecyclebinFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1921,5 +2051,15 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel6;
         private System.Windows.Forms.Label spaceClearedLabel;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Button analyzePictureFolderButton;
+        private System.Windows.Forms.Button analyzeDesktopFolderButton;
+        private System.Windows.Forms.Button analyzeDownloadFolderButton;
+        private System.Windows.Forms.Button analyzeDocFolderButton;
+        private System.Windows.Forms.Button analyzeMusicFolderButton;
+        private System.Windows.Forms.Button analyzeVideosFolderButton;
+        private System.Windows.Forms.Button analyzeRecyclebinFolderButton;
+        private System.Windows.Forms.Button analyzeTemp2FolderButton;
+        private System.Windows.Forms.Button analyzeTempFolderButton;
+        private System.Windows.Forms.Button analyzeScreenshotFolderButton;
     }
 }

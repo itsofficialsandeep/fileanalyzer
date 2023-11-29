@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 
@@ -904,21 +905,21 @@ namespace fileanalyzer
 
         private async void Form3_Load(object sender, EventArgs e)
         {
-            await Task.Run(() => {                
+            await Task.Run(() => {
 
-       /**         pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
-                videoSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Videos", totalVideos));
-                audioSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Musics", totalAudios));
-                docSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Documents", totalDoc));
-                downloadSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Download", totalDownload));
-                desktopSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Desktop", totalDesktop));
-                screenshotSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots",totalScreenshots));
-                tempSize.Text = ConvertBytes(GetFolderSize(@"C:\Windows\Temp\",totalTemp));
-                temp2Size.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp",totalTemp2));
-                recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin",totalRecyclebin)); // Path to Recycle Bin
-       **/
-                loadLargeFilesListview();
-
+                /**         pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
+                         videoSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Videos", totalVideos));
+                         audioSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Musics", totalAudios));
+                         docSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Documents", totalDoc));
+                         downloadSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Download", totalDownload));
+                         desktopSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Desktop", totalDesktop));
+                         screenshotSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots",totalScreenshots));
+                         tempSize.Text = ConvertBytes(GetFolderSize(@"C:\Windows\Temp\",totalTemp));
+                         temp2Size.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp",totalTemp2));
+                         recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin",totalRecyclebin)); // Path to Recycle Bin
+                
+                         loadLargeFilesListview();
+                **/
                 largeSizeFolders();
             });
 
@@ -967,7 +968,7 @@ namespace fileanalyzer
                 MessageBox.Show(ex.Message);
             }
 
-            control.Text = totalFiles + "";
+            control.Text = totalFiles + " Files";
             return size;
         }
 
@@ -1440,15 +1441,100 @@ namespace fileanalyzer
                 {
                     var menu = new ContextMenu();
                     var analyzeMenuItem = new MenuItem("Analyze");
+                    var openInExplorer = new MenuItem("Open in Explorer");
+                    var deleteFolder = new MenuItem("Delete");
+
                     analyzeMenuItem.Click += (s, args) =>
                     {
+                       
                         // Get the data associated with the clicked item
                         string folderPath = item.Text; // Replace with data extraction logic
 
                         // Open a specific tab in the TabControl and pass the data
                         OpenSpecificTabWithData(folderPath, sender, e);
                     };
+
+                    openInExplorer.Click += (s, args) =>
+                    {
+                        // Get the data associated with the clicked item
+                        string folderPath = item.Text; // Replace with data extraction logic
+
+                        // Open the folder using the default file explorer
+                        Process.Start("explorer.exe", folderPath);
+                    };
+
+                    deleteFolder.Click += (s, args) =>
+                    {
+                        // Get the data associated with the clicked item
+                        string folderPath = item.Text; // Replace with data extraction logic
+
+                        string confirmationMessage = $"Are you sure you want to delete {folderPath} ?";
+
+                        // Show confirmation dialog
+                        DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if(result == DialogResult.Yes)
+                        {
+                            // Open the folder using the default file explorer
+                            Directory.Delete(folderPath);
+                        }
+
+                    };
+
+
                     menu.MenuItems.Add(analyzeMenuItem);
+                    menu.MenuItems.Add(deleteFolder);
+                    menu.MenuItems.Add(openInExplorer);
+
+                    // Display the context menu at the clicked position
+                    menu.Show(largeSizeFoldersListview, e.Location);
+                }
+            }
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ///  menu item for large file listview
+        private void largeFilesListviewMenu(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
+                if (item != null)
+                {
+                    var menu = new ContextMenu();
+                    var openInExplorer = new MenuItem("Open in Explorer");
+                    var deleteFile = new MenuItem("Delete");
+
+                    openInExplorer.Click += (s, args) =>
+                    {
+                        // Get the data associated with the clicked item
+                        string filePath = item.Text; // Replace with data extraction logic
+
+                        // Open the folder using the default file explorer
+                        Process.Start("explorer.exe", filePath);
+                    };
+
+                    deleteFile.Click += (s, args) =>
+                    {
+                        // Get the data associated with the clicked item
+                        string filePath = item.Text; // Replace with data extraction logic
+
+                        string confirmationMessage = $"Are you sure you want to delete {filePath} ?";
+
+                        // Show confirmation dialog
+                        DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            // Open the folder using the default file explorer
+                            File.Delete(filePath);
+                        }
+
+                    };
+
+
+                    menu.MenuItems.Add(deleteFile);
+                    menu.MenuItems.Add(openInExplorer);
 
                     // Display the context menu at the clicked position
                     menu.Show(largeSizeFoldersListview, e.Location);
