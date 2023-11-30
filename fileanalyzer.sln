@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fileanalyzer", "fileanalyze
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Folder-Analyzer-Installer", "Folder-Analyzer-Installer\Folder-Analyzer-Installer.vdproj", "{45CE6AFC-EC6F-4BE2-A8EA-386AA90CCA56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemMonitorService", "FileSystemMonitorService\FileSystemMonitorService.csproj", "{1CA7B2C8-9C7C-4A71-B8C5-7359945F76CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{67CA7290-497A-4FCA-BD70-9879DA19C7E9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45CE6AFC-EC6F-4BE2-A8EA-386AA90CCA56}.Debug|Any CPU.ActiveCfg = Debug
 		{45CE6AFC-EC6F-4BE2-A8EA-386AA90CCA56}.Release|Any CPU.ActiveCfg = Release
+		{1CA7B2C8-9C7C-4A71-B8C5-7359945F76CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA7B2C8-9C7C-4A71-B8C5-7359945F76CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA7B2C8-9C7C-4A71-B8C5-7359945F76CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA7B2C8-9C7C-4A71-B8C5-7359945F76CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
