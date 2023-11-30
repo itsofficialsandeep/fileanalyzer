@@ -9,10 +9,12 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static fileanalyzer.Form3;
 using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 
@@ -73,8 +75,8 @@ namespace fileanalyzer
             TotalItems = 0;
 
 
-        GenerateDriveCards();
-            
+            GenerateDriveCards();
+
         }
 
         private void openFolderBrowser(object sender, EventArgs e)
@@ -918,8 +920,9 @@ namespace fileanalyzer
                          temp2Size.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp",totalTemp2));
                          recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin",totalRecyclebin)); // Path to Recycle Bin
                 
-                         loadLargeFilesListview();
+                         
                 **/
+                loadLargeFilesListview();
                 largeSizeFolders();
             });
 
@@ -937,12 +940,13 @@ namespace fileanalyzer
             makeCornerRound(bigsizefileGroupBox, 7);
         }
 
-        static long GetFolderSize(string folderPath,Control control)
+        static long GetFolderSize(string folderPath, Control control)
         {
             long size = 0;
             int totalFiles = 0;
 
-            try {
+            try
+            {
                 // Check if the folder exists
                 if (Directory.Exists(folderPath))
                 {
@@ -952,18 +956,19 @@ namespace fileanalyzer
                     {
                         FileInfo fileInfo = new FileInfo(file);
                         size += fileInfo.Length;
-                        totalFiles++;                        
+                        totalFiles++;
                     }
 
                     // Get subdirectories and recursively calculate their sizes
                     string[] subDirectories = Directory.GetDirectories(folderPath);
                     foreach (string subDir in subDirectories)
                     {
-                        size += GetFolderSize(subDir,control);
+                        size += GetFolderSize(subDir, control);
                     }
                 }
             }
-            catch (Exception ex){
+            catch (Exception ex)
+            {
                 // Console.WriteLine(ex.ToString());
                 MessageBox.Show(ex.Message);
             }
@@ -1022,7 +1027,7 @@ namespace fileanalyzer
             if (result == DialogResult.Yes)
             {
                 DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures");
-            }            
+            }
         }
 
         private void clearVideosFolder(object sender, EventArgs e)
@@ -1091,7 +1096,7 @@ namespace fileanalyzer
 
             if (result == DialogResult.Yes)
             {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Destop");
+                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Desktop");
             }
 
         }
@@ -1142,14 +1147,14 @@ namespace fileanalyzer
 
         private async void oneClickClearButton_Click(object sender, EventArgs e)
         {
-            
+
             long totalAvailableSpaceBerforeButtonClick = 0;
             long totalAvialableSpaceAfterProcessingFiles = 0;
             long totalSpaceCleared = 0;
 
             long totalNumberOfFilesProcessed = 0;
-            long totalNumberOfFilesDeleted = 0 ;
-            long totalSizeOfFiles = 0 ;
+            long totalNumberOfFilesDeleted = 0;
+            long totalSizeOfFiles = 0;
 
             await Task.Run(() =>
             {
@@ -1165,19 +1170,22 @@ namespace fileanalyzer
 
                 //  DELETE THE TEMP FOLDERS
                 string[] folders = { @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp", @"C:\Windows\Temp\" };
-                foreach (string folder in folders) {
+                foreach (string folder in folders)
+                {
                     try
                     {
-                        foreach (string file in Directory.GetFiles(folder,"*.*",SearchOption.AllDirectories))
+                        foreach (string file in Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories))
                         {
                             try
                             {
                                 if (File.Exists(file))
                                 {
-                                    try { File.Delete(file); } catch (Exception ex){
+                                    try { File.Delete(file); }
+                                    catch (Exception ex)
+                                    {
                                         MessageBox.Show("Custom:==>" + ex.Message);
                                     }
-                                    
+
                                     oneClickDeletingFilename.Text = file;
 
                                     FileInfo fileInfo = new FileInfo(file);
@@ -1195,11 +1203,12 @@ namespace fileanalyzer
                             DeleteFolderContents(subDir);
                             if (Directory.GetFiles(subDir).Length == 0 && Directory.GetDirectories(subDir).Length == 0)
                             {
-                                Directory.Delete(subDir,true);                                
+                                Directory.Delete(subDir, true);
                                 oneClickDeletingFilename.Text = subDir;
                             }
                         }
-                    }catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         MessageBox.Show("Custom3:==>" + ex.Message);
                     }
@@ -1208,68 +1217,81 @@ namespace fileanalyzer
                 // DELETE DULICATE FILES
                 var filesByHash = new Dictionary<string, List<string>>();
 
-              // process all the avaiable drives for redundant files
-              //  foreach (DriveInfo d in allDrives)    
+                // process all the avaiable drives for redundant files
+                //  foreach (DriveInfo d in allDrives)    
                 {
-                        // LOOP THROUGH ALL FILES IN THE DRIVE
-                        foreach (var filePath in Directory.GetFiles(@"C:\Users\SANDEEP\Desktop\sandeep"))
+                    // LOOP THROUGH ALL FILES IN THE DRIVE
+                    foreach (var filePath in Directory.GetFiles(@"C:\Users\SANDEEP\Desktop\sandeep"))
+                    {
+                        FileInfo fileinfo = new FileInfo(filePath);
+
+                        string[] specificExtensions = { ".tmp", ".cache", ".log", ".old", ".temp", ".dump", "thumbs.db", ".DS_Store", ".partial", ".crdownload" };
+
+                        // Loop through files with specific extensions in the directory
+                        if (filePath.EndsWith(specificExtensions[0]) || filePath.EndsWith(specificExtensions[1])
+                            || filePath.EndsWith(specificExtensions[2]) || filePath.EndsWith(specificExtensions[3])
+                            || filePath.EndsWith(specificExtensions[4]) || filePath.EndsWith(specificExtensions[5])
+                            || filePath.EndsWith(specificExtensions[6]) || filePath.EndsWith(specificExtensions[7])
+                            || filePath.EndsWith(specificExtensions[8]) || filePath.EndsWith(specificExtensions[9])
+                            || fileinfo.Length < 1024
+                            )
                         {
-                            FileInfo fileinfo = new FileInfo(filePath);
 
-                            string[] specificExtensions = { ".tmp", ".cache", ".log", ".old", ".temp", ".dump", "thumbs.db", ".DS_Store", ".partial",".crdownload" };
+                            try
+                            {
+                                // DELETE THE FILES THAT MATCHES THE CONDITIONS
+                                File.Delete(filePath);
+                                oneClickDeletingFilename.Text = filePath;
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("custom4 :==>" + ex.Message);
+                            }
+                        }
+                        else
+                        {
+                            // CREATE A DICTIONARIES OF SAME FILES
+                            string fileHash = CalculateMD5(filePath);
 
-                            // Loop through files with specific extensions in the directory
-                            if (filePath.EndsWith(specificExtensions[0]) || filePath.EndsWith(specificExtensions[1])
-                                || filePath.EndsWith(specificExtensions[2]) || filePath.EndsWith(specificExtensions[3])
-                                || filePath.EndsWith(specificExtensions[4]) || filePath.EndsWith(specificExtensions[5])
-                                || filePath.EndsWith(specificExtensions[6]) || filePath.EndsWith(specificExtensions[7])
-                                || filePath.EndsWith(specificExtensions[8]) || filePath.EndsWith(specificExtensions[9])
-                                || fileinfo.Length < 1024
-                                ){
+                            if (!filesByHash.ContainsKey(fileHash))
+                            {
+                                filesByHash[fileHash] = new List<string>();
+                            }
 
-                                try{   
-                                    // DELETE THE FILES THAT MATCHES THE CONDITIONS
-                                    File.Delete(filePath);
-                                    oneClickDeletingFilename.Text = filePath;
-                                } catch (Exception ex) { 
-                                    MessageBox.Show("custom4 :==>"+ex.Message); 
+                            filesByHash[fileHash].Add(filePath);
+
+                            var duplicates = new Dictionary<string, List<string>>();
+
+                            foreach (var entry in filesByHash)
+                            {
+                                if (entry.Value.Count > 1)
+                                {
+                                    duplicates[entry.Key] = entry.Value;
                                 }
-                            }else{
-                                // CREATE A DICTIONARIES OF SAME FILES
-                                string fileHash = CalculateMD5(filePath);
+                            }
 
-                                if (!filesByHash.ContainsKey(fileHash)){
-                                    filesByHash[fileHash] = new List<string>();
-                                }
-
-                                filesByHash[fileHash].Add(filePath);
-
-                                var duplicates = new Dictionary<string, List<string>>();
-
-                                foreach (var entry in filesByHash){
-                                    if (entry.Value.Count > 1)
+                            foreach (var duplicateGroup in duplicates.Values)
+                            {
+                                // Keep the first file and delete the rest
+                                for (int i = 1; i < duplicateGroup.Count; i++)
+                                {
+                                    try
                                     {
-                                        duplicates[entry.Key] = entry.Value;
-                                    }
-                                }
-
-                                foreach (var duplicateGroup in duplicates.Values){
-                                    // Keep the first file and delete the rest
-                                    for (int i = 1; i < duplicateGroup.Count; i++){
-                                    try {
                                         File.Delete(duplicateGroup[i]);
                                         oneClickDeletingFilename.Text = duplicateGroup[i];
 
                                         FileInfo fileInfo = new FileInfo(duplicateGroup[i]);
                                         spaceClearedLabel.Text = ConvertBytes(fileInfo.Length);
-                                    }catch(Exception ex){
+                                    }
+                                    catch (Exception ex)
+                                    {
                                         Console.WriteLine(ex.ToString());
                                     }
 
-                                    }
                                 }
                             }
                         }
+                    }
 
                 }
 
@@ -1285,46 +1307,69 @@ namespace fileanalyzer
                 // set the label
 
                 totalSpaceCleared = totalAvialableSpaceAfterProcessingFiles - totalAvailableSpaceBerforeButtonClick;
-                spaceClearedLabel.Text =  ConvertBytes(totalSpaceCleared);
+                spaceClearedLabel.Text = ConvertBytes(totalSpaceCleared);
                 oneClickDeletingFilename.Text = "Done";
 
             });
 
         }
 
-        // display largest files in dashboard
+        //[START] belongs to Largest file listview
+        [Serializable]
+        public class LargestFileData
+        {
+            public string LargestFilePath { get; set; }
+            public long LargestFileSize { get; set; }
+        }
+
         public void loadLargeFilesListview()
         {
-            List<string> drives = Environment.GetLogicalDrives().ToList();
-            List<FileData> largestFiles = new List<FileData>();
+            List<LargestFileData> largestFiles;
 
-            foreach (string drive in drives.Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase) ))
+            if (File.Exists(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep"))
             {
-                try
-                {
-                    // Recursively get all files in the drive
-                    List<string> files = Directory.GetFiles(drive, "*", SearchOption.AllDirectories).ToList();
+                // Load the list from the file if it exists
+                largestFiles = DeserializeListFromFile();
+                MessageBox.Show("Found for files..");
+            }
+            else
+            {
 
-                    // Calculate size for each file and sort them
-                    List<FileData> driveFiles = files.Select(file =>
+                MessageBox.Show("not Found for files..");
+
+                // Create the list by recursively getting all files in the drive
+                List<string> drives = Environment.GetLogicalDrives().ToList();
+                largestFiles = new List<LargestFileData>();
+
+                foreach (string drive in drives.Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
+                {
+                    try
                     {
-                        FileInfo fileInfo = new FileInfo(file);
-                        return new FileData { FilePath = file, FileSize = fileInfo.Length };
-                    }).OrderByDescending(file => file.FileSize).ToList();
+                        List<string> files = Directory.GetFiles(drive, "*", SearchOption.AllDirectories).ToList();
 
-                    // Combine with existing largestFiles
-                    largestFiles = largestFiles.Concat(driveFiles).OrderByDescending(file => file.FileSize).Take(100).ToList();
+                        List<LargestFileData> driveFiles = files.Select(file =>
+                        {
+                            FileInfo fileInfo = new FileInfo(file);
+                            return new LargestFileData { LargestFilePath = file, LargestFileSize = fileInfo.Length };
+                        }).OrderByDescending(file => file.LargestFileSize).ToList();
+
+                        largestFiles = largestFiles.Concat(driveFiles)
+                            .OrderByDescending(file => file.LargestFileSize)
+                            .Take(100)
+                            .ToList();
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Console.WriteLine($"Access denied: {ex.Message}");
+                    }
+                    catch (DirectoryNotFoundException ex)
+                    {
+                        Console.WriteLine($"Directory not found: {ex.Message}");
+                    }
                 }
-                catch (UnauthorizedAccessException)
-                {
-                    // Handle exceptions if access is denied
-                    MessageBox.Show($"Access denied to {drive}");
-                }
-                catch (Exception ex)
-                {
-                    // Handle other exceptions if any
-                    MessageBox.Show($"Error while scanning {drive}: {ex.Message}");
-                }
+
+                // Store the list in the file for future use
+                SerializeListToFile(largestFiles);
             }
 
             largeSizeFileListview.View = View.Details;
@@ -1332,23 +1377,51 @@ namespace fileanalyzer
             largeSizeFileListview.Columns.Add("File Size", 80);
             largeSizeFileListview.Columns.Add("Created At", 150);
 
-            foreach (FileData file in largestFiles)
+            foreach (LargestFileData file in largestFiles)
             {
-                ListViewItem item = new ListViewItem(file.FilePath);
-                item.SubItems.Add(ConvertBytes(file.FileSize));
-                
-                FileInfo fileInfo = new FileInfo(file.FilePath);
+                ListViewItem item = new ListViewItem(file.LargestFilePath);
+                item.SubItems.Add(ConvertBytes(file.LargestFileSize));
+
+                FileInfo fileInfo = new FileInfo(file.LargestFilePath);
                 item.SubItems.Add(fileInfo.CreationTime + "");
 
                 largeSizeFileListview.Items.Add(item);
             }
         }
 
-        public class FileData
+        static void SerializeListToFile(List<LargestFileData> list)
         {
-            public string FilePath { get; set; }
-            public long FileSize { get; set; }
+            try
+            {
+                using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Create))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, list);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error serializing list: {ex.Message}");
+            }
         }
+
+        static List<LargestFileData> DeserializeListFromFile()
+        {
+            try
+            {
+                using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Open))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    return (List<LargestFileData>)formatter.Deserialize(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deserializing list: {ex.Message}");
+                return new List<LargestFileData>();
+            }
+        }
+        //[END] belongs to Largest file listview
 
         /// <summary>
         /// ////////////////////////////////////////////////////////////////
@@ -1357,9 +1430,7 @@ namespace fileanalyzer
 
         public void largeSizeFolders()
         {
-
             largeSizeFoldersListview.View = View.Details;
-
             largeSizeFoldersListview.Columns.Add("Folder Path", 400);
             largeSizeFoldersListview.Columns.Add("Folder Size", 150);
 
@@ -1367,8 +1438,8 @@ namespace fileanalyzer
 
             foreach (var folder in folders)
             {
-                ListViewItem item = new ListViewItem(folder.Key);
-                item.SubItems.Add(ConvertBytes(folder.Value));
+                ListViewItem item = new ListViewItem(folder.FolderPath);
+                item.SubItems.Add(ConvertBytes(folder.FolderSize));
 
                 largeSizeFoldersListview.Items.Add(item);
             }
@@ -1376,33 +1447,52 @@ namespace fileanalyzer
             // Add the ListView to a form or display it in your application
         }
 
-        static Dictionary<string, long> GetFoldersWithLargestSize(int count)
+        static List<FolderData> GetFoldersWithLargestSize(int count)
         {
-            Dictionary<string, long> folders = new Dictionary<string, long>();
+            List<FolderData> folders = new List<FolderData>();
 
-            DriveInfo[] drives = DriveInfo.GetDrives();
+            // Check if the file exists, if it does, deserialize the list from the file
+            string path = @"C:\Program Files (x86)\SANDEEP\largestFolderList.txt2";
+            if (File.Exists(path))
+            {
+                folders = DeserializeListFromFile(path);
+                MessageBox.Show("Found for folder..");
+            }
+            else
+            {
+                MessageBox.Show("Not Found for folder..");
+                DriveInfo[] drives = DriveInfo.GetDrives();
 
-            try {
                 foreach (var drive in drives.Where(d => d.IsReady && d.DriveType == DriveType.Fixed && !d.Name.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
                 {
-                    DirectoryInfo di = new DirectoryInfo(drive.RootDirectory.FullName);
-
-                    foreach (var dir in di.EnumerateDirectories("*", SearchOption.AllDirectories))
+                    try
                     {
-                        long folderSize = GetDirectorySize(dir.FullName);
+                        DirectoryInfo di = new DirectoryInfo(drive.RootDirectory.FullName);
 
-                        if (!folders.ContainsKey(dir.FullName))
+                        foreach (var dir in di.EnumerateDirectories("*", SearchOption.AllDirectories))
                         {
-                            folders.Add(dir.FullName, folderSize);
+                            long folderSize = GetDirectorySize(dir.FullName);
+
+                            folders.Add(new FolderData { FolderPath = dir.FullName, FolderSize = folderSize });
                         }
                     }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Console.WriteLine($"Access denied: {ex.Message}");
+                    }
+                    catch (DirectoryNotFoundException ex)
+                    {
+                        Console.WriteLine($"Directory not found: {ex.Message}");
+                    }
+
                 }
-            }
-            catch (Exception ex) {
-                MessageBox.Show(ex.Message);
+
+                // Store the list in the file for future use
+                SerializeListToFile(path, folders);
             }
 
-            return folders.OrderByDescending(f => f.Value).Take(count).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+            return folders.OrderByDescending(f => f.FolderSize).Take(count).ToList();
         }
 
         static long GetDirectorySize(string directoryPath)
@@ -1423,10 +1513,53 @@ namespace fileanalyzer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                // MessageBox.Show("1506:"+ex.Message);
+                Debug.WriteLine(ex.Message);
             }
 
             return size;
+        }
+
+        static void SerializeListToFile(string filePath, List<FolderData> list)
+        {
+            try
+            {
+                using (Stream stream = File.Open(filePath, FileMode.Create))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, list);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                //  MessageBox.Show("1524:"+ex.Message);
+            }
+        }
+
+        static List<FolderData> DeserializeListFromFile(string filePath)
+        {
+            try
+            {
+                using (Stream stream = File.Open(filePath, FileMode.Open))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+                    return (List<FolderData>)formatter.Deserialize(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                //  MessageBox.Show("1504:" + ex.Message);
+                return new List<FolderData>();
+            }
+        }
+
+        [Serializable]
+        public class FolderData
+        {
+            public string FolderPath { get; set; }
+            public long FolderSize { get; set; }
         }
 
         //////////////////////////////////////////////////////////////////////////////////
@@ -1446,7 +1579,7 @@ namespace fileanalyzer
 
                     analyzeMenuItem.Click += (s, args) =>
                     {
-                       
+
                         // Get the data associated with the clicked item
                         string folderPath = item.Text; // Replace with data extraction logic
 
@@ -1473,7 +1606,7 @@ namespace fileanalyzer
                         // Show confirmation dialog
                         DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                        if(result == DialogResult.Yes)
+                        if (result == DialogResult.Yes)
                         {
                             // Open the folder using the default file explorer
                             Directory.Delete(folderPath);
@@ -1563,6 +1696,68 @@ namespace fileanalyzer
             allCheckbox.Checked = true;
 
             analyze_click(sender, e);
+        }
+
+        private void folderPanelClick(object sender, MouseEventArgs e)
+        {
+            if (sender is Panel clickedPanel)
+            {
+                string panel = clickedPanel.Name;
+
+                switch (panel)
+                {
+                    case "picturePanel":
+                        // Code to handle picturePanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\Pictures");
+
+                        break;
+                    case "musicPanel":
+                        // Code to handle audioPanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\Music");
+
+                        break;
+                    case "videoPanel":
+                        // Code to handle videoPanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\Videos");
+
+                        break;
+                    case "documentPanel":
+                        // Code to handle documentPanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\Documents");
+
+                        break;
+                    case "downloadPanel":
+                        // Code to handle folderPanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\Downloads");
+
+                        break;
+                    case "desktopPanel":
+                        // Code to handle settingsPanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\Desktop");
+
+                        break;
+                    case "screenshotPanel":
+                        // Code to handle toolsPanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots");
+
+                        break;
+                    case "tempPanel":
+                        // Code to handle helpPanel click
+                        Process.Start("explorer.exe", @"C:\Windows\Temp\");
+
+                        break;
+                    case "temp2Panel":
+                        // Code to handle aboutPanel click
+                        Process.Start("explorer.exe", @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp");
+
+                        break;
+                    default:
+                        // Default case if the panel doesn't match any known name
+                        Process.Start("explorer.exe", "shell:RecycleBinFolder");
+                        break;
+                }
+
+            }
         }
 
     }

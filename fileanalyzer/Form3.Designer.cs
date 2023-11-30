@@ -32,59 +32,69 @@
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.desktopPanel = new System.Windows.Forms.Panel();
+            this.analyzeDesktopFolderButton = new System.Windows.Forms.Button();
             this.desktopSize = new System.Windows.Forms.Label();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.totalDesktop = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.downloadPanel = new System.Windows.Forms.Panel();
+            this.analyzeDownloadFolderButton = new System.Windows.Forms.Button();
             this.downloadButton = new System.Windows.Forms.Button();
             this.downloadSize = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.totalDownload = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.documentPanel = new System.Windows.Forms.Panel();
+            this.analyzeDocFolderButton = new System.Windows.Forms.Button();
             this.docButton = new System.Windows.Forms.Button();
             this.docSize = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.totalDoc = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.musicPanel = new System.Windows.Forms.Panel();
+            this.analyzeMusicFolderButton = new System.Windows.Forms.Button();
             this.musicButton = new System.Windows.Forms.Button();
             this.audioSize = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.totalAudios = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.videoPanel = new System.Windows.Forms.Panel();
+            this.analyzeVideosFolderButton = new System.Windows.Forms.Button();
             this.videoButton = new System.Windows.Forms.Button();
             this.videoSize = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.totalVideos = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.recyclebinPanel = new System.Windows.Forms.Panel();
+            this.analyzeRecyclebinFolderButton = new System.Windows.Forms.Button();
             this.recyclebinButton = new System.Windows.Forms.Button();
             this.recyclebinSize = new System.Windows.Forms.Label();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.totalRecyclebin = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.temp2Panel = new System.Windows.Forms.Panel();
+            this.analyzeTemp2FolderButton = new System.Windows.Forms.Button();
             this.temp2Button = new System.Windows.Forms.Button();
             this.temp2Size = new System.Windows.Forms.Label();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.totalTemp2 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tempPanel = new System.Windows.Forms.Panel();
+            this.analyzeTempFolderButton = new System.Windows.Forms.Button();
             this.tempButton = new System.Windows.Forms.Button();
             this.tempSize = new System.Windows.Forms.Label();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.totalTemp = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.screenshotPanel = new System.Windows.Forms.Panel();
+            this.analyzeScreenshotFolderButton = new System.Windows.Forms.Button();
             this.screenshotButton = new System.Windows.Forms.Button();
             this.screenshotSize = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.totalScreenshots = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.picturePanel = new System.Windows.Forms.Panel();
+            this.analyzePictureFolderButton = new System.Windows.Forms.Button();
             this.pictureButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureSize = new System.Windows.Forms.Label();
@@ -157,16 +167,6 @@
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
-            this.analyzePictureFolderButton = new System.Windows.Forms.Button();
-            this.analyzeVideosFolderButton = new System.Windows.Forms.Button();
-            this.analyzeMusicFolderButton = new System.Windows.Forms.Button();
-            this.analyzeDocFolderButton = new System.Windows.Forms.Button();
-            this.analyzeDownloadFolderButton = new System.Windows.Forms.Button();
-            this.analyzeDesktopFolderButton = new System.Windows.Forms.Button();
-            this.analyzeScreenshotFolderButton = new System.Windows.Forms.Button();
-            this.analyzeTempFolderButton = new System.Windows.Forms.Button();
-            this.analyzeTemp2FolderButton = new System.Windows.Forms.Button();
-            this.analyzeRecyclebinFolderButton = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -265,6 +265,18 @@
             this.desktopPanel.Name = "desktopPanel";
             this.desktopPanel.Size = new System.Drawing.Size(244, 200);
             this.desktopPanel.TabIndex = 3;
+            this.desktopPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeDesktopFolderButton
+            // 
+            this.analyzeDesktopFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.analyzeDesktopFolderButton.Location = new System.Drawing.Point(28, 136);
+            this.analyzeDesktopFolderButton.Name = "analyzeDesktopFolderButton";
+            this.analyzeDesktopFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeDesktopFolderButton.TabIndex = 2;
+            this.analyzeDesktopFolderButton.Text = "Analyze";
+            this.analyzeDesktopFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDesktopFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // desktopSize
             // 
@@ -324,6 +336,18 @@
             this.downloadPanel.Name = "downloadPanel";
             this.downloadPanel.Size = new System.Drawing.Size(244, 200);
             this.downloadPanel.TabIndex = 3;
+            this.downloadPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeDownloadFolderButton
+            // 
+            this.analyzeDownloadFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.analyzeDownloadFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeDownloadFolderButton.Name = "analyzeDownloadFolderButton";
+            this.analyzeDownloadFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeDownloadFolderButton.TabIndex = 2;
+            this.analyzeDownloadFolderButton.Text = "Analyze";
+            this.analyzeDownloadFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDownloadFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // downloadButton
             // 
@@ -394,6 +418,18 @@
             this.documentPanel.Name = "documentPanel";
             this.documentPanel.Size = new System.Drawing.Size(244, 200);
             this.documentPanel.TabIndex = 3;
+            this.documentPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeDocFolderButton
+            // 
+            this.analyzeDocFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(144)))), ((int)(((byte)(98)))));
+            this.analyzeDocFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeDocFolderButton.Name = "analyzeDocFolderButton";
+            this.analyzeDocFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeDocFolderButton.TabIndex = 2;
+            this.analyzeDocFolderButton.Text = "Analyze";
+            this.analyzeDocFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDocFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // docButton
             // 
@@ -464,6 +500,18 @@
             this.musicPanel.Name = "musicPanel";
             this.musicPanel.Size = new System.Drawing.Size(244, 200);
             this.musicPanel.TabIndex = 3;
+            this.musicPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeMusicFolderButton
+            // 
+            this.analyzeMusicFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(203)))), ((int)(((byte)(232)))));
+            this.analyzeMusicFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeMusicFolderButton.Name = "analyzeMusicFolderButton";
+            this.analyzeMusicFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeMusicFolderButton.TabIndex = 2;
+            this.analyzeMusicFolderButton.Text = "Analyze";
+            this.analyzeMusicFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeMusicFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // musicButton
             // 
@@ -534,10 +582,22 @@
             this.videoPanel.Name = "videoPanel";
             this.videoPanel.Size = new System.Drawing.Size(244, 200);
             this.videoPanel.TabIndex = 3;
+            this.videoPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeVideosFolderButton
+            // 
+            this.analyzeVideosFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(145)))), ((int)(((byte)(0)))));
+            this.analyzeVideosFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeVideosFolderButton.Name = "analyzeVideosFolderButton";
+            this.analyzeVideosFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeVideosFolderButton.TabIndex = 2;
+            this.analyzeVideosFolderButton.Text = "Analyze";
+            this.analyzeVideosFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeVideosFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // videoButton
             // 
-            this.videoButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.videoButton.ForeColor = System.Drawing.Color.Black;
             this.videoButton.Location = new System.Drawing.Point(145, 136);
             this.videoButton.Name = "videoButton";
             this.videoButton.Size = new System.Drawing.Size(85, 29);
@@ -604,9 +664,22 @@
             this.recyclebinPanel.Name = "recyclebinPanel";
             this.recyclebinPanel.Size = new System.Drawing.Size(244, 200);
             this.recyclebinPanel.TabIndex = 3;
+            this.recyclebinPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeRecyclebinFolderButton
+            // 
+            this.analyzeRecyclebinFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(146)))));
+            this.analyzeRecyclebinFolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeRecyclebinFolderButton.Name = "analyzeRecyclebinFolderButton";
+            this.analyzeRecyclebinFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeRecyclebinFolderButton.TabIndex = 2;
+            this.analyzeRecyclebinFolderButton.Text = "Analyze";
+            this.analyzeRecyclebinFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeRecyclebinFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // recyclebinButton
             // 
+            this.recyclebinButton.ForeColor = System.Drawing.Color.Black;
             this.recyclebinButton.Location = new System.Drawing.Point(145, 153);
             this.recyclebinButton.Name = "recyclebinButton";
             this.recyclebinButton.Size = new System.Drawing.Size(85, 29);
@@ -673,9 +746,22 @@
             this.temp2Panel.Name = "temp2Panel";
             this.temp2Panel.Size = new System.Drawing.Size(244, 200);
             this.temp2Panel.TabIndex = 3;
+            this.temp2Panel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeTemp2FolderButton
+            // 
+            this.analyzeTemp2FolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(155)))), ((int)(((byte)(0)))));
+            this.analyzeTemp2FolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeTemp2FolderButton.Name = "analyzeTemp2FolderButton";
+            this.analyzeTemp2FolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeTemp2FolderButton.TabIndex = 2;
+            this.analyzeTemp2FolderButton.Text = "Analyze";
+            this.analyzeTemp2FolderButton.UseVisualStyleBackColor = true;
+            this.analyzeTemp2FolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // temp2Button
             // 
+            this.temp2Button.ForeColor = System.Drawing.Color.Black;
             this.temp2Button.Location = new System.Drawing.Point(145, 153);
             this.temp2Button.Name = "temp2Button";
             this.temp2Button.Size = new System.Drawing.Size(85, 29);
@@ -742,9 +828,22 @@
             this.tempPanel.Name = "tempPanel";
             this.tempPanel.Size = new System.Drawing.Size(244, 200);
             this.tempPanel.TabIndex = 3;
+            this.tempPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeTempFolderButton
+            // 
+            this.analyzeTempFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
+            this.analyzeTempFolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeTempFolderButton.Name = "analyzeTempFolderButton";
+            this.analyzeTempFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeTempFolderButton.TabIndex = 2;
+            this.analyzeTempFolderButton.Text = "Analyze";
+            this.analyzeTempFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeTempFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // tempButton
             // 
+            this.tempButton.ForeColor = System.Drawing.Color.Black;
             this.tempButton.Location = new System.Drawing.Point(145, 153);
             this.tempButton.Name = "tempButton";
             this.tempButton.Size = new System.Drawing.Size(85, 29);
@@ -811,9 +910,22 @@
             this.screenshotPanel.Name = "screenshotPanel";
             this.screenshotPanel.Size = new System.Drawing.Size(244, 200);
             this.screenshotPanel.TabIndex = 3;
+            this.screenshotPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzeScreenshotFolderButton
+            // 
+            this.analyzeScreenshotFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(169)))), ((int)(((byte)(244)))));
+            this.analyzeScreenshotFolderButton.Location = new System.Drawing.Point(25, 153);
+            this.analyzeScreenshotFolderButton.Name = "analyzeScreenshotFolderButton";
+            this.analyzeScreenshotFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzeScreenshotFolderButton.TabIndex = 2;
+            this.analyzeScreenshotFolderButton.Text = "Analyze";
+            this.analyzeScreenshotFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeScreenshotFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // screenshotButton
             // 
+            this.screenshotButton.ForeColor = System.Drawing.Color.Black;
             this.screenshotButton.Location = new System.Drawing.Point(145, 153);
             this.screenshotButton.Name = "screenshotButton";
             this.screenshotButton.Size = new System.Drawing.Size(85, 29);
@@ -880,10 +992,22 @@
             this.picturePanel.Name = "picturePanel";
             this.picturePanel.Size = new System.Drawing.Size(244, 200);
             this.picturePanel.TabIndex = 3;
+            this.picturePanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // analyzePictureFolderButton
+            // 
+            this.analyzePictureFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(245)))));
+            this.analyzePictureFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzePictureFolderButton.Name = "analyzePictureFolderButton";
+            this.analyzePictureFolderButton.Size = new System.Drawing.Size(85, 29);
+            this.analyzePictureFolderButton.TabIndex = 2;
+            this.analyzePictureFolderButton.Text = "Analyze";
+            this.analyzePictureFolderButton.UseVisualStyleBackColor = true;
+            this.analyzePictureFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // pictureButton
             // 
-            this.pictureButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.pictureButton.ForeColor = System.Drawing.Color.Black;
             this.pictureButton.Location = new System.Drawing.Point(145, 136);
             this.pictureButton.Name = "pictureButton";
             this.pictureButton.Size = new System.Drawing.Size(85, 29);
@@ -1735,116 +1859,6 @@
             this.filesFound.Size = new System.Drawing.Size(68, 17);
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
-            // 
-            // analyzePictureFolderButton
-            // 
-            this.analyzePictureFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzePictureFolderButton.Location = new System.Drawing.Point(25, 136);
-            this.analyzePictureFolderButton.Name = "analyzePictureFolderButton";
-            this.analyzePictureFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzePictureFolderButton.TabIndex = 2;
-            this.analyzePictureFolderButton.Text = "Analyze";
-            this.analyzePictureFolderButton.UseVisualStyleBackColor = true;
-            this.analyzePictureFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeVideosFolderButton
-            // 
-            this.analyzeVideosFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeVideosFolderButton.Location = new System.Drawing.Point(25, 136);
-            this.analyzeVideosFolderButton.Name = "analyzeVideosFolderButton";
-            this.analyzeVideosFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeVideosFolderButton.TabIndex = 2;
-            this.analyzeVideosFolderButton.Text = "Analyze";
-            this.analyzeVideosFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeVideosFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeMusicFolderButton
-            // 
-            this.analyzeMusicFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeMusicFolderButton.Location = new System.Drawing.Point(25, 136);
-            this.analyzeMusicFolderButton.Name = "analyzeMusicFolderButton";
-            this.analyzeMusicFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeMusicFolderButton.TabIndex = 2;
-            this.analyzeMusicFolderButton.Text = "Analyze";
-            this.analyzeMusicFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeMusicFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeDocFolderButton
-            // 
-            this.analyzeDocFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeDocFolderButton.Location = new System.Drawing.Point(25, 136);
-            this.analyzeDocFolderButton.Name = "analyzeDocFolderButton";
-            this.analyzeDocFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeDocFolderButton.TabIndex = 2;
-            this.analyzeDocFolderButton.Text = "Analyze";
-            this.analyzeDocFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeDocFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeDownloadFolderButton
-            // 
-            this.analyzeDownloadFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeDownloadFolderButton.Location = new System.Drawing.Point(25, 136);
-            this.analyzeDownloadFolderButton.Name = "analyzeDownloadFolderButton";
-            this.analyzeDownloadFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeDownloadFolderButton.TabIndex = 2;
-            this.analyzeDownloadFolderButton.Text = "Analyze";
-            this.analyzeDownloadFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeDownloadFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeDesktopFolderButton
-            // 
-            this.analyzeDesktopFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeDesktopFolderButton.Location = new System.Drawing.Point(28, 136);
-            this.analyzeDesktopFolderButton.Name = "analyzeDesktopFolderButton";
-            this.analyzeDesktopFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeDesktopFolderButton.TabIndex = 2;
-            this.analyzeDesktopFolderButton.Text = "Analyze";
-            this.analyzeDesktopFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeDesktopFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeScreenshotFolderButton
-            // 
-            this.analyzeScreenshotFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeScreenshotFolderButton.Location = new System.Drawing.Point(25, 153);
-            this.analyzeScreenshotFolderButton.Name = "analyzeScreenshotFolderButton";
-            this.analyzeScreenshotFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeScreenshotFolderButton.TabIndex = 2;
-            this.analyzeScreenshotFolderButton.Text = "Analyze";
-            this.analyzeScreenshotFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeScreenshotFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeTempFolderButton
-            // 
-            this.analyzeTempFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeTempFolderButton.Location = new System.Drawing.Point(25, 153);
-            this.analyzeTempFolderButton.Name = "analyzeTempFolderButton";
-            this.analyzeTempFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeTempFolderButton.TabIndex = 2;
-            this.analyzeTempFolderButton.Text = "Analyze";
-            this.analyzeTempFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeTempFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeTemp2FolderButton
-            // 
-            this.analyzeTemp2FolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeTemp2FolderButton.Location = new System.Drawing.Point(25, 153);
-            this.analyzeTemp2FolderButton.Name = "analyzeTemp2FolderButton";
-            this.analyzeTemp2FolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeTemp2FolderButton.TabIndex = 2;
-            this.analyzeTemp2FolderButton.Text = "Analyze";
-            this.analyzeTemp2FolderButton.UseVisualStyleBackColor = true;
-            this.analyzeTemp2FolderButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // analyzeRecyclebinFolderButton
-            // 
-            this.analyzeRecyclebinFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeRecyclebinFolderButton.Location = new System.Drawing.Point(25, 153);
-            this.analyzeRecyclebinFolderButton.Name = "analyzeRecyclebinFolderButton";
-            this.analyzeRecyclebinFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeRecyclebinFolderButton.TabIndex = 2;
-            this.analyzeRecyclebinFolderButton.Text = "Analyze";
-            this.analyzeRecyclebinFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeRecyclebinFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // Form3
             // 
