@@ -167,6 +167,12 @@
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.appUninstallButton = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.InstalledAppsListview = new System.Windows.Forms.ListView();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -209,6 +215,8 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -220,6 +228,7 @@
             this.mainTabControl.Controls.Add(this.tabPage2);
             this.mainTabControl.Controls.Add(this.tabPage1);
             this.mainTabControl.Controls.Add(this.dashboardPanel);
+            this.mainTabControl.Controls.Add(this.tabPage5);
             this.mainTabControl.ItemSize = new System.Drawing.Size(100, 120);
             this.mainTabControl.Location = new System.Drawing.Point(2, 2);
             this.mainTabControl.Multiline = true;
@@ -1860,6 +1869,72 @@
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
             // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.panel1);
+            this.tabPage5.Location = new System.Drawing.Point(124, 4);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1793, 1048);
+            this.tabPage5.TabIndex = 3;
+            this.tabPage5.Text = "Apps";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Roboto Light", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Purple;
+            this.label8.Location = new System.Drawing.Point(22, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(173, 33);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Applications";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(25, 54);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(473, 17);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "To uninstall an application. Select an application and click Uninstall button";
+            // 
+            // appUninstallButton
+            // 
+            this.appUninstallButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.appUninstallButton.ForeColor = System.Drawing.Color.Red;
+            this.appUninstallButton.Location = new System.Drawing.Point(749, 35);
+            this.appUninstallButton.Name = "appUninstallButton";
+            this.appUninstallButton.Size = new System.Drawing.Size(136, 35);
+            this.appUninstallButton.TabIndex = 3;
+            this.appUninstallButton.Text = "Uninstall";
+            this.appUninstallButton.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.InstalledAppsListview);
+            this.panel1.Controls.Add(this.appUninstallButton);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Location = new System.Drawing.Point(7, 9);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1779, 1039);
+            this.panel1.TabIndex = 4;
+            // 
+            // InstalledAppsListview
+            // 
+            this.InstalledAppsListview.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstalledAppsListview.HideSelection = false;
+            this.InstalledAppsListview.Location = new System.Drawing.Point(28, 84);
+            this.InstalledAppsListview.Name = "InstalledAppsListview";
+            this.InstalledAppsListview.Size = new System.Drawing.Size(1727, 936);
+            this.InstalledAppsListview.TabIndex = 4;
+            this.InstalledAppsListview.UseCompatibleStateImageBehavior = false;
+            this.InstalledAppsListview.ItemActivate += new System.EventHandler(this.UninstallSelectedApp);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1931,6 +2006,9 @@
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2075,5 +2153,11 @@
         private System.Windows.Forms.Button analyzeTemp2FolderButton;
         private System.Windows.Forms.Button analyzeTempFolderButton;
         private System.Windows.Forms.Button analyzeScreenshotFolderButton;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button appUninstallButton;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListView InstalledAppsListview;
     }
 }

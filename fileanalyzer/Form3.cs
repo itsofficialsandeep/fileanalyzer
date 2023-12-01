@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -938,6 +939,10 @@ namespace fileanalyzer
             makeCornerRound(temp2Panel, 7);
             makeCornerRound(recyclebinPanel, 7);
             makeCornerRound(bigsizefileGroupBox, 7);
+
+            // [Start] code for Apps tab
+            DisplayInstalledAppsInListView(GetInstalledApps());
+            // [END] code for Apps tab
         }
 
         static long GetFolderSize(string folderPath, Control control)
@@ -1760,5 +1765,270 @@ namespace fileanalyzer
             }
         }
 
+        //[START] Code for Apps TAB
+        // Define an ImageList to store app icons
+        private ImageList appIconsImageList;
+
+        // Set up the ImageList with large icons
+        private void SetupAppIconsImageList()
+        {
+            appIconsImageList = new ImageList();
+            appIconsImageList.ImageSize = new Size(64, 64); // Set the icon size (adjust as needed)
+            InstalledAppsListview.LargeImageList = appIconsImageList;
+        }
+
+        // Load app icons and display them in the ListView
+        private void LoadAppIcons()
+        {
+            foreach (InstalledAppInfo appInfo in GetInstalledApps())
+            {
+                try {
+                    // Add the app icon to the ImageList
+                    appIconsImageList.Images.Add(IconFromFilePath(appInfo.InstallLocation));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+
+                }
+
+                // Add the app details to the ListView
+                ListViewItem item = new ListViewItem(appInfo.Name);
+                item.SubItems.Add(appInfo.Version);
+                // ... (add other app details to the ListViewItem as needed)
+                item.ImageIndex = appIconsImageList.Images.Count - 1; // Set the index of the added icon
+                item.Tag = appInfo; // Store the appInfo object in the ListViewItem's Tag property
+
+                InstalledAppsListview.Items.Add(item);
+            }
+        }
+
+        public Icon IconFromFilePath(string filePath)
+        {
+            Icon result = null;
+            try
+            {
+                result = Icon.ExtractAssociatedIcon(filePath);
+            }
+            catch { }
+            return result;
+        }
+
+
+
+        private Icon GetIconForRoot(string productName)
+        {
+            string producticon = "";
+            string InstallerKey = @"Installer\Products";
+            using (RegistryKey installkeys = Registry.ClassesRoot.OpenSubKey(InstallerKey))
+            {
+                foreach (string name in installkeys.GetSubKeyNames())
+                {
+                    using (RegistryKey product = installkeys.OpenSubKey(name))
+                    {
+                        if (product.GetValue("ProductName") != null)
+                        {
+                            if (productName == product.GetValue("ProductName").ToString())
+                            {
+                                if (product.GetValue("ProductIcon") != null)
+                                {
+                                    producticon = product.GetValue("ProductIcon").ToString();
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (Icon.ExtractAssociatedIcon(producticon) != null)
+                return Icon.ExtractAssociatedIcon(producticon);
+            else
+                return null;
+        }
+
+        private List<InstalledAppInfo> GetInstalledApps()
+        {
+            List<InstalledAppInfo> installedApps = new List<InstalledAppInfo>();
+
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
+            {
+                foreach (string subKeyName in key.GetSubKeyNames())
+                {
+                    using (RegistryKey subKey = key.OpenSubKey(subKeyName))
+                    {
+
+                        Icon ProductIcon;
+                        try
+                        {
+                            if (subKey.GetValue("DisplayName") != null)
+                            {
+
+                                if (subKey.GetValue("DisplayIcon") != null)
+                                {
+                                    ProductIcon = Icon.ExtractAssociatedIcon(subKey.GetValue("DisplayIcon").ToString());
+                                }
+                                else
+                                {
+                                    //get icon from HKEY_CLASSES_ROOT
+                                    ProductIcon = GetIconForRoot(subKey.GetValue("DisplayName").ToString());
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
+                        string name = subKey.GetValue("DisplayName") as string;
+                        string version = subKey.GetValue("DisplayVersion") as string;
+                        string publisher = subKey.GetValue("Publisher") as string;
+                        string installLocation = subKey.GetValue("InstallLocation") as string;
+                        string installDate = subKey.GetValue("InstallDate") as string;
+                        string estimatedSize = subKey.GetValue("EstimatedSize") as string;
+
+                        if (!string.IsNullOrEmpty(name))
+                        {
+                            installedApps.Add(new InstalledAppInfo
+                            {
+                                Name = name,
+                                Version = version,
+                                Publisher = publisher,
+                                InstallLocation = installLocation,
+                                InstallDate = installDate,
+                                EstimatedSize = estimatedSize
+                            });
+                        }
+                    }
+                }
+            }
+
+            return installedApps;
+        }
+
+        private void DisplayInstalledAppsInListView(List<InstalledAppInfo> installedApps)
+        {
+            InstalledAppsListview.View = View.Details;
+            InstalledAppsListview.Columns.Add("Icon", 100);
+            InstalledAppsListview.View = View.Details;
+            InstalledAppsListview.Columns.Add("Name", 350);
+            InstalledAppsListview.Columns.Add("Version", 125);
+            InstalledAppsListview.Columns.Add("Publisher", 150);
+            InstalledAppsListview.Columns.Add("Install Location", 450);
+            InstalledAppsListview.Columns.Add("Install Date", 100);
+            InstalledAppsListview.Columns.Add("Estimated Size", 120);
+
+            foreach (var appInfo in installedApps)
+            {
+                try
+                {
+        //            Icon appIcon = Icon.ExtractAssociatedIcon(appInfo.InstallLocation);
+        //            ImageList imageList = new ImageList();
+        //           imageList.Images.Add(appIcon.ToBitmap());
+
+                    ListViewItem item = new ListViewItem();
+                //    item.ImageIndex = imageList.Images.Count - 1; // Assign the index of the added icon
+                    item.SubItems.Add(appInfo.Name);
+                    item.SubItems.Add(appInfo.Version);
+                    item.SubItems.Add(appInfo.Publisher);
+                    item.SubItems.Add(appInfo.InstallLocation);
+                    item.SubItems.Add(appInfo.InstallDate);
+                    item.SubItems.Add(appInfo.EstimatedSize);
+
+                    InstalledAppsListview.Items.Add(item);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+        }
+
+        // Function to uninstall the selected application
+        static void UninstallSelectedApp(InstalledAppInfo selectedApp)
+        {
+            
+            if (!string.IsNullOrEmpty(selectedApp.Name))
+            {
+                // You can use the application's name or GUID to uninstall it
+                string uninstallKey = GetUninstallRegistryKey(selectedApp.Name);
+
+                if (!string.IsNullOrEmpty(uninstallKey))
+                {
+                    string uninstallString = Registry.GetValue(uninstallKey, "UninstallString", null) as string;
+
+                    if (!string.IsNullOrEmpty(uninstallString))
+                    {
+                        // Run the uninstall process
+                        System.Diagnostics.Process.Start("cmd.exe", $"/C {uninstallString}");
+                    }
+                    else
+                    {
+                        // Uninstall string not found
+                        MessageBox.Show("Uninstall string not found.");
+                    }
+                }
+                else
+                {
+                    // Uninstall key not found
+                    MessageBox.Show("Uninstall key not found.");
+                }
+            }
+        }
+
+        static string GetUninstallRegistryKey(string appName)
+        {
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
+            {
+                foreach (string subKeyName in key.GetSubKeyNames())
+                {
+                    using (RegistryKey subKey = key.OpenSubKey(subKeyName))
+                    {
+                        string name = subKey.GetValue("DisplayName") as string;
+
+                        if (!string.IsNullOrEmpty(name) && name == appName)
+                        {
+                            return subKeyName;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private void UninstallSelectedApp(object sender, EventArgs e)
+        {
+            if (InstalledAppsListview.SelectedItems.Count > 0)
+            {
+                // Get the selected app info from the ListView
+                InstalledAppInfo selectedApp = (InstalledAppInfo)InstalledAppsListview.SelectedItems[0].Tag;
+
+                // Call the UninstallSelectedApp function
+                UninstallSelectedApp(selectedApp);
+            }
+            else
+            {
+                MessageBox.Show("Please select an application to uninstall.");
+            }
+        }
+
+
+
+
+        // [END] Code for Apps Tab
     }
+
+    // [START] Code for Apps Tab
+    class InstalledAppInfo
+    {
+        public string Name { get; set; }
+        public string Version { get; set; }
+        public string Publisher { get; set; }
+        public string InstallLocation { get; set; }
+        public string InstallDate { get; set; }
+        public string EstimatedSize { get; set; }
+    }
+
+    // [END] Code for Apps Tab
 }
