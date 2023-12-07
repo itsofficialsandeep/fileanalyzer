@@ -127,12 +127,19 @@
             this.backpanel = new System.Windows.Forms.Panel();
             this.dashboardPanel = new System.Windows.Forms.TabPage();
             this.groupBoxForResuts = new System.Windows.Forms.GroupBox();
+            this.selectedFileSize = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.evenOddButton = new System.Windows.Forms.Button();
             this.deleteSelected = new System.Windows.Forms.Button();
             this.selectAllButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.smallFilesRadioButton = new System.Windows.Forms.RadioButton();
+            this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.extensionRadio = new System.Windows.Forms.RadioButton();
+            this.fileNameRadio = new System.Windows.Forms.RadioButton();
             this.extension = new System.Windows.Forms.TextBox();
             this.deleteFilesWithExtension = new System.Windows.Forms.Button();
             this.findFilesWithExtension = new System.Windows.Forms.Button();
@@ -140,13 +147,9 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.findOlderFilesButton = new System.Windows.Forms.Button();
             this.deleteOlderFilesButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.clearTempFolder1 = new System.Windows.Forms.Button();
-            this.clearTempFolder2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.progressLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.clearRecycleBinButton = new System.Windows.Forms.Button();
             this.deleteDuplicate = new System.Windows.Forms.Button();
             this.findDuplicate = new System.Windows.Forms.Button();
             this.analyze = new System.Windows.Forms.Button();
@@ -162,17 +165,17 @@
             this.otherCheckBox = new System.Windows.Forms.CheckBox();
             this.videoCheckBox = new System.Windows.Forms.CheckBox();
             this.imageCheckBox = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.smallFilesRadioButton = new System.Windows.Forms.RadioButton();
-            this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.totalFileSizeLabel = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.appUninstallButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.InstalledAppsListview = new System.Windows.Forms.ListView();
+            this.appUninstallButton = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -210,10 +213,11 @@
             this.dashboardPanel.SuspendLayout();
             this.groupBoxForResuts.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -226,8 +230,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.mainTabControl.Controls.Add(this.tabPage2);
-            this.mainTabControl.Controls.Add(this.tabPage1);
             this.mainTabControl.Controls.Add(this.dashboardPanel);
+            this.mainTabControl.Controls.Add(this.tabPage1);
             this.mainTabControl.Controls.Add(this.tabPage5);
             this.mainTabControl.ItemSize = new System.Drawing.Size(100, 120);
             this.mainTabControl.Location = new System.Drawing.Point(2, 2);
@@ -241,7 +245,6 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tabPage2.Controls.Add(this.desktopPanel);
             this.tabPage2.Controls.Add(this.downloadPanel);
             this.tabPage2.Controls.Add(this.documentPanel);
@@ -1365,6 +1368,8 @@
             // groupBoxForResuts
             // 
             this.groupBoxForResuts.BackColor = System.Drawing.Color.White;
+            this.groupBoxForResuts.Controls.Add(this.selectedFileSize);
+            this.groupBoxForResuts.Controls.Add(this.label15);
             this.groupBoxForResuts.Controls.Add(this.listView1);
             this.groupBoxForResuts.Controls.Add(this.evenOddButton);
             this.groupBoxForResuts.Controls.Add(this.deleteSelected);
@@ -1376,6 +1381,28 @@
             this.groupBoxForResuts.TabIndex = 6;
             this.groupBoxForResuts.TabStop = false;
             this.groupBoxForResuts.Text = "Files";
+            // 
+            // selectedFileSize
+            // 
+            this.selectedFileSize.AutoSize = true;
+            this.selectedFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectedFileSize.Location = new System.Drawing.Point(405, 701);
+            this.selectedFileSize.Name = "selectedFileSize";
+            this.selectedFileSize.Size = new System.Drawing.Size(40, 17);
+            this.selectedFileSize.TabIndex = 7;
+            this.selectedFileSize.Text = "0 MB";
+            this.selectedFileSize.Visible = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(330, 699);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(73, 17);
+            this.label15.TabIndex = 6;
+            this.label15.Text = "Total size:";
+            this.label15.Visible = false;
             // 
             // listView1
             // 
@@ -1391,6 +1418,7 @@
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.DisplaySelectedFilesSize);
             // 
             // evenOddButton
             // 
@@ -1438,22 +1466,19 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.groupBox8);
             this.groupBox1.Controls.Add(this.groupBox5);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.clearTempFolder1);
-            this.groupBox1.Controls.Add(this.clearTempFolder2);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.progressLabel);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.clearRecycleBinButton);
             this.groupBox1.Controls.Add(this.deleteDuplicate);
             this.groupBox1.Controls.Add(this.findDuplicate);
             this.groupBox1.Controls.Add(this.analyze);
             this.groupBox1.Controls.Add(this.pathTextBox);
             this.groupBox1.Controls.Add(this.progressBar);
             this.groupBox1.Controls.Add(this.groupBox3);
-            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.groupBox7);
             this.groupBox1.Controls.Add(this.groupBox4);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
@@ -1463,24 +1488,85 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Analyze the folder easily";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.Controls.Add(this.smallFilesRadioButton);
+            this.groupBox2.Controls.Add(this.largeFilesRadioButton);
+            this.groupBox2.Location = new System.Drawing.Point(20, 109);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(123, 138);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Sort by";
+            // 
+            // smallFilesRadioButton
+            // 
+            this.smallFilesRadioButton.AutoSize = true;
+            this.smallFilesRadioButton.Checked = true;
+            this.smallFilesRadioButton.Location = new System.Drawing.Point(11, 71);
+            this.smallFilesRadioButton.Name = "smallFilesRadioButton";
+            this.smallFilesRadioButton.Size = new System.Drawing.Size(93, 21);
+            this.smallFilesRadioButton.TabIndex = 1;
+            this.smallFilesRadioButton.TabStop = true;
+            this.smallFilesRadioButton.Text = "Small Files";
+            this.smallFilesRadioButton.UseVisualStyleBackColor = true;
+            this.smallFilesRadioButton.CheckedChanged += new System.EventHandler(this.smallFilesRadioButton_CheckedChanged);
+            // 
+            // largeFilesRadioButton
+            // 
+            this.largeFilesRadioButton.AutoSize = true;
+            this.largeFilesRadioButton.Location = new System.Drawing.Point(11, 33);
+            this.largeFilesRadioButton.Name = "largeFilesRadioButton";
+            this.largeFilesRadioButton.Size = new System.Drawing.Size(96, 21);
+            this.largeFilesRadioButton.TabIndex = 0;
+            this.largeFilesRadioButton.Text = "Large Files";
+            this.largeFilesRadioButton.UseVisualStyleBackColor = true;
+            // 
             // groupBox8
             // 
             this.groupBox8.BackColor = System.Drawing.Color.White;
+            this.groupBox8.Controls.Add(this.label16);
+            this.groupBox8.Controls.Add(this.extensionRadio);
+            this.groupBox8.Controls.Add(this.fileNameRadio);
             this.groupBox8.Controls.Add(this.extension);
             this.groupBox8.Controls.Add(this.deleteFilesWithExtension);
             this.groupBox8.Controls.Add(this.findFilesWithExtension);
-            this.groupBox8.Location = new System.Drawing.Point(785, 169);
+            this.groupBox8.Location = new System.Drawing.Point(771, 109);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(454, 70);
+            this.groupBox8.Size = new System.Drawing.Size(455, 138);
             this.groupBox8.TabIndex = 9;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Files with extentions:";
+            this.groupBox8.Text = "Files with chars or extentions:";
+            // 
+            // extensionRadio
+            // 
+            this.extensionRadio.AutoSize = true;
+            this.extensionRadio.Location = new System.Drawing.Point(164, 34);
+            this.extensionRadio.Name = "extensionRadio";
+            this.extensionRadio.Size = new System.Drawing.Size(94, 21);
+            this.extensionRadio.TabIndex = 2;
+            this.extensionRadio.TabStop = true;
+            this.extensionRadio.Text = "Extensions";
+            this.extensionRadio.UseVisualStyleBackColor = true;
+            // 
+            // fileNameRadio
+            // 
+            this.fileNameRadio.AutoSize = true;
+            this.fileNameRadio.Checked = true;
+            this.fileNameRadio.Location = new System.Drawing.Point(43, 33);
+            this.fileNameRadio.Name = "fileNameRadio";
+            this.fileNameRadio.Size = new System.Drawing.Size(89, 21);
+            this.fileNameRadio.TabIndex = 2;
+            this.fileNameRadio.TabStop = true;
+            this.fileNameRadio.Text = "File Name";
+            this.fileNameRadio.UseVisualStyleBackColor = true;
             // 
             // extension
             // 
-            this.extension.Location = new System.Drawing.Point(17, 30);
+            this.extension.Location = new System.Drawing.Point(15, 71);
             this.extension.Name = "extension";
-            this.extension.Size = new System.Drawing.Size(141, 23);
+            this.extension.Size = new System.Drawing.Size(217, 23);
             this.extension.TabIndex = 0;
             // 
             // deleteFilesWithExtension
@@ -1489,9 +1575,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteFilesWithExtension.BackColor = System.Drawing.Color.Coral;
             this.deleteFilesWithExtension.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteFilesWithExtension.Location = new System.Drawing.Point(316, 24);
+            this.deleteFilesWithExtension.Location = new System.Drawing.Point(351, 66);
             this.deleteFilesWithExtension.Name = "deleteFilesWithExtension";
-            this.deleteFilesWithExtension.Size = new System.Drawing.Size(120, 34);
+            this.deleteFilesWithExtension.Size = new System.Drawing.Size(86, 34);
             this.deleteFilesWithExtension.TabIndex = 1;
             this.deleteFilesWithExtension.Text = "Delete";
             this.deleteFilesWithExtension.UseVisualStyleBackColor = false;
@@ -1503,9 +1589,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.findFilesWithExtension.BackColor = System.Drawing.Color.LightSkyBlue;
             this.findFilesWithExtension.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findFilesWithExtension.Location = new System.Drawing.Point(174, 24);
+            this.findFilesWithExtension.Location = new System.Drawing.Point(255, 66);
             this.findFilesWithExtension.Name = "findFilesWithExtension";
-            this.findFilesWithExtension.Size = new System.Drawing.Size(124, 34);
+            this.findFilesWithExtension.Size = new System.Drawing.Size(90, 34);
             this.findFilesWithExtension.TabIndex = 1;
             this.findFilesWithExtension.Text = "Find";
             this.findFilesWithExtension.UseVisualStyleBackColor = false;
@@ -1517,9 +1603,9 @@
             this.groupBox5.Controls.Add(this.dateTimePicker1);
             this.groupBox5.Controls.Add(this.findOlderFilesButton);
             this.groupBox5.Controls.Add(this.deleteOlderFilesButton);
-            this.groupBox5.Location = new System.Drawing.Point(1020, 22);
+            this.groupBox5.Location = new System.Drawing.Point(451, 109);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(219, 141);
+            this.groupBox5.Size = new System.Drawing.Size(298, 138);
             this.groupBox5.TabIndex = 8;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Files older than:";
@@ -1528,7 +1614,7 @@
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(9, 39);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(197, 23);
+            this.dateTimePicker1.Size = new System.Drawing.Size(276, 23);
             this.dateTimePicker1.TabIndex = 2;
             // 
             // findOlderFilesButton
@@ -1538,9 +1624,9 @@
             this.findOlderFilesButton.BackColor = System.Drawing.Color.LightSkyBlue;
             this.findOlderFilesButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.findOlderFilesButton.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findOlderFilesButton.Location = new System.Drawing.Point(9, 90);
+            this.findOlderFilesButton.Location = new System.Drawing.Point(9, 87);
             this.findOlderFilesButton.Name = "findOlderFilesButton";
-            this.findOlderFilesButton.Size = new System.Drawing.Size(90, 34);
+            this.findOlderFilesButton.Size = new System.Drawing.Size(128, 34);
             this.findOlderFilesButton.TabIndex = 1;
             this.findOlderFilesButton.Text = "Find";
             this.findOlderFilesButton.UseVisualStyleBackColor = false;
@@ -1552,51 +1638,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteOlderFilesButton.BackColor = System.Drawing.Color.Coral;
             this.deleteOlderFilesButton.Font = new System.Drawing.Font("Roboto", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteOlderFilesButton.Location = new System.Drawing.Point(116, 90);
+            this.deleteOlderFilesButton.Location = new System.Drawing.Point(155, 87);
             this.deleteOlderFilesButton.Name = "deleteOlderFilesButton";
-            this.deleteOlderFilesButton.Size = new System.Drawing.Size(90, 34);
+            this.deleteOlderFilesButton.Size = new System.Drawing.Size(130, 34);
             this.deleteOlderFilesButton.TabIndex = 1;
             this.deleteOlderFilesButton.Text = "Delete";
             this.deleteOlderFilesButton.UseVisualStyleBackColor = false;
             this.deleteOlderFilesButton.Click += new System.EventHandler(this.deleteOldFiles);
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.button1.BackColor = System.Drawing.Color.Red;
-            this.button1.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(1260, 197);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(212, 42);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Close";
-            this.button1.UseVisualStyleBackColor = false;
-            // 
-            // clearTempFolder1
-            // 
-            this.clearTempFolder1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.clearTempFolder1.BackColor = System.Drawing.Color.Aquamarine;
-            this.clearTempFolder1.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearTempFolder1.Location = new System.Drawing.Point(1260, 144);
-            this.clearTempFolder1.Name = "clearTempFolder1";
-            this.clearTempFolder1.Size = new System.Drawing.Size(212, 42);
-            this.clearTempFolder1.TabIndex = 1;
-            this.clearTempFolder1.Text = "Clear %Temp% Folder";
-            this.clearTempFolder1.UseVisualStyleBackColor = false;
-            // 
-            // clearTempFolder2
-            // 
-            this.clearTempFolder2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.clearTempFolder2.BackColor = System.Drawing.Color.Aquamarine;
-            this.clearTempFolder2.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearTempFolder2.Location = new System.Drawing.Point(1260, 90);
-            this.clearTempFolder2.Name = "clearTempFolder2";
-            this.clearTempFolder2.Size = new System.Drawing.Size(212, 42);
-            this.clearTempFolder2.TabIndex = 1;
-            this.clearTempFolder2.Text = "Clear Temp Folder";
-            this.clearTempFolder2.UseVisualStyleBackColor = false;
-            this.clearTempFolder2.Click += new System.EventHandler(this.EmptyTempFolderButton_Click);
             // 
             // label2
             // 
@@ -1628,29 +1676,16 @@
             this.label5.TabIndex = 5;
             this.label5.Text = "Progress:";
             // 
-            // clearRecycleBinButton
-            // 
-            this.clearRecycleBinButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.clearRecycleBinButton.BackColor = System.Drawing.Color.Aquamarine;
-            this.clearRecycleBinButton.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clearRecycleBinButton.Location = new System.Drawing.Point(1260, 34);
-            this.clearRecycleBinButton.Name = "clearRecycleBinButton";
-            this.clearRecycleBinButton.Size = new System.Drawing.Size(212, 42);
-            this.clearRecycleBinButton.TabIndex = 1;
-            this.clearRecycleBinButton.Text = "Clear Recycle Bin";
-            this.clearRecycleBinButton.UseVisualStyleBackColor = false;
-            this.clearRecycleBinButton.Click += new System.EventHandler(this.clearRecycleBin);
-            // 
             // deleteDuplicate
             // 
             this.deleteDuplicate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.deleteDuplicate.BackColor = System.Drawing.Color.Coral;
             this.deleteDuplicate.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteDuplicate.Location = new System.Drawing.Point(785, 121);
+            this.deleteDuplicate.Location = new System.Drawing.Point(1072, 36);
             this.deleteDuplicate.Name = "deleteDuplicate";
-            this.deleteDuplicate.Size = new System.Drawing.Size(212, 42);
+            this.deleteDuplicate.Size = new System.Drawing.Size(154, 42);
             this.deleteDuplicate.TabIndex = 1;
-            this.deleteDuplicate.Text = "Delete Duplicate Files";
+            this.deleteDuplicate.Text = "Delete Duplicates";
             this.deleteDuplicate.UseVisualStyleBackColor = false;
             this.deleteDuplicate.Click += new System.EventHandler(this.deleteSelected_Click);
             // 
@@ -1659,11 +1694,11 @@
             this.findDuplicate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.findDuplicate.BackColor = System.Drawing.Color.LightSkyBlue;
             this.findDuplicate.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.findDuplicate.Location = new System.Drawing.Point(785, 75);
+            this.findDuplicate.Location = new System.Drawing.Point(904, 36);
             this.findDuplicate.Name = "findDuplicate";
-            this.findDuplicate.Size = new System.Drawing.Size(212, 42);
+            this.findDuplicate.Size = new System.Drawing.Size(153, 42);
             this.findDuplicate.TabIndex = 1;
-            this.findDuplicate.Text = "Find Duplicate Files";
+            this.findDuplicate.Text = "Find Duplicates";
             this.findDuplicate.UseVisualStyleBackColor = false;
             this.findDuplicate.Click += new System.EventHandler(this.DisplayDuplicatesInListView);
             // 
@@ -1672,9 +1707,9 @@
             this.analyze.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.analyze.BackColor = System.Drawing.Color.Gold;
             this.analyze.Font = new System.Drawing.Font("Roboto Black", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.analyze.Location = new System.Drawing.Point(785, 27);
+            this.analyze.Location = new System.Drawing.Point(771, 34);
             this.analyze.Name = "analyze";
-            this.analyze.Size = new System.Drawing.Size(212, 42);
+            this.analyze.Size = new System.Drawing.Size(117, 42);
             this.analyze.TabIndex = 1;
             this.analyze.Text = "Analyze";
             this.analyze.UseVisualStyleBackColor = false;
@@ -1708,9 +1743,9 @@
             this.groupBox3.Controls.Add(this.otherCheckBox);
             this.groupBox3.Controls.Add(this.videoCheckBox);
             this.groupBox3.Controls.Add(this.imageCheckBox);
-            this.groupBox3.Location = new System.Drawing.Point(434, 94);
+            this.groupBox3.Location = new System.Drawing.Point(160, 109);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(315, 141);
+            this.groupBox3.Size = new System.Drawing.Size(285, 138);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "File Types";
@@ -1815,47 +1850,33 @@
             this.imageCheckBox.Text = "Images";
             this.imageCheckBox.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // groupBox7
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.White;
-            this.groupBox2.Controls.Add(this.smallFilesRadioButton);
-            this.groupBox2.Controls.Add(this.largeFilesRadioButton);
-            this.groupBox2.Location = new System.Drawing.Point(168, 98);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(249, 75);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Sort by";
+            this.groupBox7.BackColor = System.Drawing.Color.White;
+            this.groupBox7.Controls.Add(this.totalFileSizeLabel);
+            this.groupBox7.Location = new System.Drawing.Point(1245, 116);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(130, 73);
+            this.groupBox7.TabIndex = 7;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Total files size:";
             // 
-            // smallFilesRadioButton
+            // totalFileSizeLabel
             // 
-            this.smallFilesRadioButton.AutoSize = true;
-            this.smallFilesRadioButton.Checked = true;
-            this.smallFilesRadioButton.Location = new System.Drawing.Point(138, 34);
-            this.smallFilesRadioButton.Name = "smallFilesRadioButton";
-            this.smallFilesRadioButton.Size = new System.Drawing.Size(93, 21);
-            this.smallFilesRadioButton.TabIndex = 1;
-            this.smallFilesRadioButton.TabStop = true;
-            this.smallFilesRadioButton.Text = "Small Files";
-            this.smallFilesRadioButton.UseVisualStyleBackColor = true;
-            // 
-            // largeFilesRadioButton
-            // 
-            this.largeFilesRadioButton.AutoSize = true;
-            this.largeFilesRadioButton.Location = new System.Drawing.Point(20, 34);
-            this.largeFilesRadioButton.Name = "largeFilesRadioButton";
-            this.largeFilesRadioButton.Size = new System.Drawing.Size(96, 21);
-            this.largeFilesRadioButton.TabIndex = 0;
-            this.largeFilesRadioButton.Text = "Large Files";
-            this.largeFilesRadioButton.UseVisualStyleBackColor = true;
+            this.totalFileSizeLabel.AutoSize = true;
+            this.totalFileSizeLabel.Location = new System.Drawing.Point(27, 33);
+            this.totalFileSizeLabel.Name = "totalFileSizeLabel";
+            this.totalFileSizeLabel.Size = new System.Drawing.Size(68, 17);
+            this.totalFileSizeLabel.TabIndex = 4;
+            this.totalFileSizeLabel.Text = "------------";
             // 
             // groupBox4
             // 
             this.groupBox4.BackColor = System.Drawing.Color.White;
             this.groupBox4.Controls.Add(this.filesFound);
-            this.groupBox4.Location = new System.Drawing.Point(20, 96);
+            this.groupBox4.Location = new System.Drawing.Point(1245, 27);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(129, 73);
+            this.groupBox4.Size = new System.Drawing.Size(130, 73);
             this.groupBox4.TabIndex = 7;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Total files found: ";
@@ -1880,26 +1901,28 @@
             this.tabPage5.Text = "Apps";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // panel1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Roboto Light", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Purple;
-            this.label8.Location = new System.Drawing.Point(22, 12);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(173, 33);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Applications";
+            this.panel1.Controls.Add(this.InstalledAppsListview);
+            this.panel1.Controls.Add(this.appUninstallButton);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Location = new System.Drawing.Point(7, 9);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1779, 1039);
+            this.panel1.TabIndex = 4;
             // 
-            // label12
+            // InstalledAppsListview
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(25, 54);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(473, 17);
-            this.label12.TabIndex = 2;
-            this.label12.Text = "To uninstall an application. Select an application and click Uninstall button";
+            this.InstalledAppsListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InstalledAppsListview.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstalledAppsListview.HideSelection = false;
+            this.InstalledAppsListview.Location = new System.Drawing.Point(3, 84);
+            this.InstalledAppsListview.Name = "InstalledAppsListview";
+            this.InstalledAppsListview.Size = new System.Drawing.Size(1773, 936);
+            this.InstalledAppsListview.TabIndex = 4;
+            this.InstalledAppsListview.UseCompatibleStateImageBehavior = false;
+            this.InstalledAppsListview.MouseClick += new System.Windows.Forms.MouseEventHandler(this.appInfoRightClick);
             // 
             // appUninstallButton
             // 
@@ -1912,28 +1935,35 @@
             this.appUninstallButton.Text = "Uninstall";
             this.appUninstallButton.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // label12
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.InstalledAppsListview);
-            this.panel1.Controls.Add(this.appUninstallButton);
-            this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(7, 9);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1779, 1039);
-            this.panel1.TabIndex = 4;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(25, 54);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(467, 17);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "To uninstall an application select an application and click Uninstall button";
             // 
-            // InstalledAppsListview
+            // label8
             // 
-            this.InstalledAppsListview.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstalledAppsListview.HideSelection = false;
-            this.InstalledAppsListview.Location = new System.Drawing.Point(28, 84);
-            this.InstalledAppsListview.Name = "InstalledAppsListview";
-            this.InstalledAppsListview.Size = new System.Drawing.Size(1727, 936);
-            this.InstalledAppsListview.TabIndex = 4;
-            this.InstalledAppsListview.UseCompatibleStateImageBehavior = false;
-            this.InstalledAppsListview.ItemActivate += new System.EventHandler(this.UninstallSelectedApp);
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Roboto Light", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.Purple;
+            this.label8.Location = new System.Drawing.Point(22, 12);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(173, 33);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Applications";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(12, 109);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(379, 17);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "Type extension without dot. You can separate it by comma.";
             // 
             // Form3
             // 
@@ -1995,15 +2025,18 @@
             this.driveGroupBox.ResumeLayout(false);
             this.dashboardPanel.ResumeLayout(false);
             this.groupBoxForResuts.ResumeLayout(false);
+            this.groupBoxForResuts.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
@@ -2027,13 +2060,9 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Button findOlderFilesButton;
         private System.Windows.Forms.Button deleteOlderFilesButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button clearTempFolder1;
-        private System.Windows.Forms.Button clearTempFolder2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label progressLabel;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button clearRecycleBinButton;
         private System.Windows.Forms.Button deleteDuplicate;
         private System.Windows.Forms.Button findDuplicate;
         private System.Windows.Forms.Button analyze;
@@ -2159,5 +2188,12 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListView InstalledAppsListview;
+        private System.Windows.Forms.Label selectedFileSize;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.Label totalFileSizeLabel;
+        private System.Windows.Forms.RadioButton fileNameRadio;
+        private System.Windows.Forms.RadioButton extensionRadio;
+        private System.Windows.Forms.Label label16;
     }
 }

@@ -12,12 +12,15 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static fileanalyzer.Form3;
 using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using File = System.IO.File;
+
 
 namespace fileanalyzer
 {
@@ -50,7 +53,7 @@ namespace fileanalyzer
             InitializeComponent();
 
             analyze.Click += analyze_click; // Wiring up the Click event to the analyze_click method
-            clearRecycleBinButton.Click += clearRecycleBin;
+          //  clearRecycleBinButton.Click += clearRecycleBin;
 
             // progressBar.Value += ProgressBar_ValueChanged;
 
@@ -93,147 +96,166 @@ namespace fileanalyzer
             }
         }
 
-        private void analyze_click(object sender, EventArgs e)
+        private async void analyze_click(object sender, EventArgs e)
         {
 
-            if (Directory.Exists(pathTextBox.Text))
+           // await Task.Run( () =>
             {
-                string imageExtensions = "";
-                string videoExtensions = "";
-                string audioExtensions = "";
-                string zipExtensions = "";
-                string docExtensions = "";
-                string otherExtensions = "";
-                string appExtensions = "";
-                string appFilesExtensions = "";
-
-                string extensions = "";
-
-                var selectedTypes = new List<string>();
-                if (imageCheckBox.Checked)
+                if (Directory.Exists(pathTextBox.Text))
                 {
-                    imageExtensions = @".png, .jpeg, .jpg, .tiff, .tif, .bmp, .gif, .tga, .webp, .svg, 
+                    string imageExtensions = "";
+                    string videoExtensions = "";
+                    string audioExtensions = "";
+                    string zipExtensions = "";
+                    string docExtensions = "";
+                    string otherExtensions = "";
+                    string appExtensions = "";
+                    string appFilesExtensions = "";
+
+                    string extensions = "";
+
+                    var selectedTypes = new List<string>();
+                    if (imageCheckBox.Checked)
+                    {
+                        imageExtensions = @".png, .jpeg, .jpg, .tiff, .tif, .bmp, .gif, .tga, .webp, .svg, 
                                                .eps, .ai, .xcf, .ico, .psd, .raw, .yuv, .ppm, .pgm, .pbm, .pnm, 
                                                 .hdr, .exr, .bpg, .jxr, .heic, .heif";
-                }
+                    }
 
-                if (videoCheckBox.Checked)
-                {
-                    videoExtensions = ".mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .m4v, .mpeg, .mpg, .3gp, .vob, .ogv, .swf, .asf, .rm, .rmvb, .m2ts, .ts, .m2v, .mts, .f4v, .divx, .xvid, .mxf, .dv, .mp2, .m1v, .gxf, .roq, .m2p, .mpeg4, .mpg2, .mpeg1, .ssif, .r3d, .bik, .smk, .m4e, .nsv, .nut, .wtv, .trp, .ifo, .wtv, .dvr-ms, .dav, .ogm, .drc, .yuv, .vc1, .avs, .mts";
+                    if (videoCheckBox.Checked)
+                    {
+                        videoExtensions = ".mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .m4v, .mpeg, .mpg, .3gp, .vob, .ogv, .swf, .asf, .rm, .rmvb, .m2ts, .ts, .m2v, .mts, .f4v, .divx, .xvid, .mxf, .dv, .mp2, .m1v, .gxf, .roq, .m2p, .mpeg4, .mpg2, .mpeg1, .ssif, .r3d, .bik, .smk, .m4e, .nsv, .nut, .wtv, .trp, .ifo, .wtv, .dvr-ms, .dav, .ogm, .drc, .yuv, .vc1, .avs, .mts";
 
-                }
+                    }
 
-                if (audioCheckbox.Checked)
-                {
-                    audioExtensions = ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape";
+                    if (audioCheckbox.Checked)
+                    {
+                        audioExtensions = ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape";
 
-                }
+                    }
 
-                if (documentCheckbox.Checked)
-                {
-                    docExtensions = ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv";
+                    if (documentCheckbox.Checked)
+                    {
+                        docExtensions = ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv";
 
-                }
+                    }
 
-                if (zipCheckbox.Checked)
-                {
-                    zipExtensions = ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz";
+                    if (zipCheckbox.Checked)
+                    {
+                        zipExtensions = ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz";
 
-                }
+                    }
 
-                if (appCheckbox.Checked)
-                {
-                    appExtensions = ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb";
+                    if (appCheckbox.Checked)
+                    {
+                        appExtensions = ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb";
 
-                }
+                    }
 
-                if (appFilesCheckbox.Checked)
-                {
-                    appFilesExtensions = ".cfg, .ini, .conf, .plist, .properties, .db, .sqlite, .mdb, .accdb, .sql, .bak, .dbf, .ttf, .otf, .woff, .woff2, .eot, .dll, .sys, .bin, .dat, .key, .mdf, .log";
+                    if (appFilesCheckbox.Checked)
+                    {
+                        appFilesExtensions = ".cfg, .ini, .conf, .plist, .properties, .db, .sqlite, .mdb, .accdb, .sql, .bak, .dbf, .ttf, .otf, .woff, .woff2, .eot, .dll, .sys, .bin, .dat, .key, .mdf, .log";
 
-                }
+                    }
 
-                if (otherCheckBox.Checked)
-                {
-                    otherExtensions = ".png, .jpeg, .jpg, .tiff, .tif, .bmp, .gif, .tga, .webp, .svg, .eps, .ai, .xcf, .ico, .psd, .raw, .yuv, .ppm, .pgm, .pbm, .pnm, .hdr, .exr, .bpg, .jxr, .heic, .heif, " +
-                        ".mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .m4v, .mpeg, .mpg, .3gp, .vob, .ogv, .swf, .asf, .rm, .rmvb, .m2ts, .ts, .m2v, .mts, .f4v, .divx, .xvid, .mxf, .dv, .mp2, .m1v, .gxf, .roq, .m2p, .mpeg4, .mpg2, .mpeg1, .ssif, .r3d, .bik, .smk, .m4e, .nsv, .nut, .wtv, .trp, .ifo, .wtv, .dvr-ms, .dav, .ogm, .drc, .yuv, .vc1, .avs, .mts " +
-                        ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape " +
-                        ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv " +
-                        ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz " +
-                        ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb " +
-                        ".cfg, .ini, .conf, .plist, .properties, .db, .sqlite, .mdb, .accdb, .sql, .bak, .dbf, .ttf, .otf, .woff, .woff2, .eot, .dll, .sys, .bin, .dat, .key, .mdf, .log ";
-                }
+                    if (otherCheckBox.Checked)
+                    {
+                        otherExtensions = ".png, .jpeg, .jpg, .tiff, .tif, .bmp, .gif, .tga, .webp, .svg, .eps, .ai, .xcf, .ico, .psd, .raw, .yuv, .ppm, .pgm, .pbm, .pnm, .hdr, .exr, .bpg, .jxr, .heic, .heif, " +
+                            ".mp4, .mov, .avi, .mkv, .wmv, .flv, .webm, .m4v, .mpeg, .mpg, .3gp, .vob, .ogv, .swf, .asf, .rm, .rmvb, .m2ts, .ts, .m2v, .mts, .f4v, .divx, .xvid, .mxf, .dv, .mp2, .m1v, .gxf, .roq, .m2p, .mpeg4, .mpg2, .mpeg1, .ssif, .r3d, .bik, .smk, .m4e, .nsv, .nut, .wtv, .trp, .ifo, .wtv, .dvr-ms, .dav, .ogm, .drc, .yuv, .vc1, .avs, .mts " +
+                            ".mp3, .wav, .ogg, .flac, .aac, .wma, .m4a, .opus, .alac, .aiff, .ape " +
+                            ".docx, .xlsx, .pptx, .pdf, .odt, .ods, .odp, .txt, .rtf, .csv " +
+                            ".zip, .rar, .7z, .tar, .gz, .iso, .bz2, .xz, .pkg, .tgz " +
+                            ".exe, .apk, .app, .deb, .msi, .dmg, .jar, .bat, .sh, .com, .cmd, .vb " +
+                            ".cfg, .ini, .conf, .plist, .properties, .db, .sqlite, .mdb, .accdb, .sql, .bak, .dbf, .ttf, .otf, .woff, .woff2, .eot, .dll, .sys, .bin, .dat, .key, .mdf, .log ";
+                    }
 
-                if (allCheckbox.Checked)
-                {
-                    videoCheckBox.Checked = true;
-                    audioCheckbox.Checked = true;
-                    appFilesCheckbox.Checked = true;
-                    //otherCheckBox.Checked = true;
-                    appCheckbox.Checked = true;
-                    imageCheckBox.Checked = true;
-                    zipCheckbox.Checked = true;
-                    documentCheckbox.Checked = true;
+                    if (allCheckbox.Checked)
+                    {
+                        videoCheckBox.Checked = true;
+                        audioCheckbox.Checked = true;
+                        appFilesCheckbox.Checked = true;
+                        //otherCheckBox.Checked = true;
+                        appCheckbox.Checked = true;
+                        imageCheckBox.Checked = true;
+                        zipCheckbox.Checked = true;
+                        documentCheckbox.Checked = true;
 
-                    searchPattern = "*.*";
-                }
+                        searchPattern = "*.*";
+                    }
 
-                extensions = imageExtensions + " " + videoExtensions + " " + audioExtensions + " " + docExtensions + " " + zipExtensions + " " + appExtensions + " " + appFilesExtensions;
+                    extensions = imageExtensions + " " + videoExtensions + " " + audioExtensions + " " + docExtensions + " " + zipExtensions + " " + appExtensions + " " + appFilesExtensions;
 
-                string[] words = extensions.Split(',');
-                foreach (string word in words)
-                {
-                    string cleanedWord = word.Trim(); // Remove leading/trailing spaces
-                    selectedTypes.Add(cleanedWord);
-                }
-
-                var files = new List<string>();
-
-                if (otherCheckBox.Checked)
-                {
-
-                    extensions = otherExtensions;
-                    words = extensions.Split(',');
+                    string[] words = extensions.Split(',');
                     foreach (string word in words)
                     {
                         string cleanedWord = word.Trim(); // Remove leading/trailing spaces
                         selectedTypes.Add(cleanedWord);
                     }
 
-                    files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
-                     .Where(file => !selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
-                     .ToList();
+                    var files = new List<string>();
+
+                    if (otherCheckBox.Checked)
+                    {
+
+                        extensions = otherExtensions;
+                        words = extensions.Split(',');
+                        foreach (string word in words)
+                        {
+                            string cleanedWord = word.Trim(); // Remove leading/trailing spaces
+                            selectedTypes.Add(cleanedWord);
+                        }
+
+                        try
+                        {
+                            files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
+                             .Where(file => !selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                             .ToList();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
+                            .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                            .ToList();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+
+                    }
+
+                    int totalFiles = files.Count;
+
+                    if (totalFiles > 1)
+                    {
+                        filesFound.Text = "" + totalFiles;
+                    }
+                    else { MessageBox.Show("Nothing Found"); }
+
+                    if (largeFilesRadioButton.Checked)
+                    {
+                        files = files.Where(file => new FileInfo(file).Length > 250 * 1024 * 1024).ToList();
+                    }
+                    else if (smallFilesRadioButton.Checked)
+                    {
+                        files = files.Where(file => new FileInfo(file).Length <= 250 * 1024 * 1024).ToList();
+                    }
+
+                    DisplayFilesInListView(files);
                 }
                 else
                 {
-                    files = Directory.GetFiles(pathToSearch, searchPattern, SearchOption.AllDirectories)
-                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
-                     .ToList();
+                    MessageBox.Show("The specified path does not exist.");
                 }
-
-                int totalFiles = files.Count;
-
-                if (totalFiles > 1)
-                {
-                    filesFound.Text = "" + totalFiles;
-                }
-                else { MessageBox.Show("Nothing Found"); }
-
-                if (largeFilesRadioButton.Checked)
-                {
-                    files = files.Where(file => new FileInfo(file).Length > 250 * 1024 * 1024).ToList();
-                }
-                else if (smallFilesRadioButton.Checked)
-                {
-                    files = files.Where(file => new FileInfo(file).Length <= 250 * 1024 * 1024).ToList();
-                }
-
-                DisplayFilesInListView(files);
             }
-            else
-            {
-                MessageBox.Show("The specified path does not exist.");
-            }
+
         }
 
         public Dictionary<string, List<string>> FindDuplicates(string directoryPath)
@@ -289,154 +311,185 @@ namespace fileanalyzer
             return duplicates;
         }
 
-        private void duplicatesInListView(Dictionary<string, List<string>> duplicates)
+        private async void duplicatesInListView(Dictionary<string, List<string>> duplicates)
         {
-            // Ensure the ListView is set up correctly
-            SetupListView();
+            await Task.Run(() => {
+                // Ensure the ListView is set up correctly
+                SetupListView();
 
-            ImageList imageList = new ImageList();
-            imageList.ImageSize = new System.Drawing.Size(64, 64);
+                ImageList imageList = new ImageList();
+                imageList.ImageSize = new System.Drawing.Size(64, 64);
 
-            foreach (var duplicateGroup in duplicates.Values)
-            {
-                foreach (string file in duplicateGroup)
+                foreach (var duplicateGroup in duplicates.Values)
                 {
-                    // Extract thumbnails or use default icons
-                    Icon icon = Icon.ExtractAssociatedIcon(file); // Extract the icon from the file
-                    imageList.Images.Add(icon.ToBitmap()); // Add the icon as a bitmap to the image list
+                    foreach (string file in duplicateGroup)
+                    {
+                        // Extract thumbnails or use default icons
+                        Icon icon = Icon.ExtractAssociatedIcon(file); // Extract the icon from the file
+                        imageList.Images.Add(icon.ToBitmap()); // Add the icon as a bitmap to the image list
 
-                    // Get file information for metadata
-                    FileInfo fileInfo = new FileInfo(file);
+                        // Get file information for metadata
+                        FileInfo fileInfo = new FileInfo(file);
 
-                    string fileName = Path.GetFileName(file);
-                    string fileSize = GetFormattedSize(fileInfo.Length); // Get formatted file size
-                    string lastModified = fileInfo.LastWriteTime.ToString(); // Last modified date/time
-                    string filePath = fileInfo.DirectoryName; // Get file path
+                        string fileName = Path.GetFileName(file);
+                        string fileSize = GetFormattedSize(fileInfo.Length); // Get formatted file size
+                        string lastModified = fileInfo.LastWriteTime.ToString(); // Last modified date/time
+                        string filePath = fileInfo.DirectoryName; // Get file path
 
-                    ListViewItem item = new ListViewItem(fileName);
-                    item.ImageIndex = imageList.Images.Count - 1; // Set the appropriate image index
+                        ListViewItem item = new ListViewItem(fileName);
+                        item.ImageIndex = imageList.Images.Count - 1; // Set the appropriate image index
 
-                    // Add additional metadata as subitems
-                    item.SubItems.Add(fileSize); // File size
-                    item.SubItems.Add(lastModified); // Last modified date/time
-                    item.SubItems.Add(filePath); // File path
-                    item.Checked = false;
+                        // Add additional metadata as subitems
+                        item.SubItems.Add(fileSize); // File size
+                        item.SubItems.Add(lastModified); // Last modified date/time
+                        item.SubItems.Add(filePath); // File path
+                        item.Checked = false;
 
-                    listView1.CheckBoxes = true;
-                    listView1.Items.Add(item);
+                        listView1.CheckBoxes = true;
+                        listView1.Items.Add(item);
+                    }
                 }
-            }
 
-            listView1.LargeImageList = imageList;
+                listView1.LargeImageList = imageList;
+            });
+
         }
 
-        private void DisplayDuplicatesInListView(object sender, EventArgs e)
+        private async void DisplayDuplicatesInListView(object sender, EventArgs e)
         {
-            // Call the FindDuplicates method to get the duplicates dictionary
-            Dictionary<string, List<string>> duplicates = FindDuplicates(pathToSearch);
+            await Task.Run(() => {
+                // Call the FindDuplicates method to get the duplicates dictionary
+                Dictionary<string, List<string>> duplicates = FindDuplicates(pathToSearch);
 
-            // Display the duplicates in the ListView using DisplayDuplicatesInListView
-            duplicatesInListView(duplicates);
+                // Display the duplicates in the ListView using DisplayDuplicatesInListView
+                duplicatesInListView(duplicates);
+            });
+
 
         }
 
         private void SetupListView()
         {
-            // Clear existing columns and items
-            listView1.Columns.Clear();
-            listView1.Items.Clear();
+            try {
+                // Clear existing columns and items
+                listView1.Columns.Clear();
+                listView1.Items.Clear();
 
-            // Set the view mode to Details
-            listView1.View = View.Details;
+                // Set the view mode to Details
+                listView1.View = View.Details;
 
-            // Add columns for file name, size, last modified, and file path
-            listView1.Columns.Add("File Name", 200); // Adjust column widths as needed
-            listView1.Columns.Add("Size", 100);
-            listView1.Columns.Add("Last Modified", 150);
-            listView1.Columns.Add("File Path", 400); // Adjust column widths as needed
+                // Add columns for file name, size, last modified, and file path
+                listView1.Columns.Add("File Name", 200); // Adjust column widths as needed
+                listView1.Columns.Add("Size", 100);
+                listView1.Columns.Add("Last Modified", 150);
+                listView1.Columns.Add("File Path", 400); // Adjust column widths as needed
 
-            // Allow columns to be sortable
-            listView1.Columns[0].Tag = "string";
-            listView1.Columns[1].Tag = "numeric";
-            listView1.Columns[2].Tag = "datetime";
-            listView1.Columns[3].Tag = "string";
-            listView1.ListViewItemSorter = new ListViewColumnSorter();
+                // Allow columns to be sortable
+                listView1.Columns[0].Tag = "string";
+                listView1.Columns[1].Tag = "numeric";
+                listView1.Columns[2].Tag = "datetime";
+                listView1.Columns[3].Tag = "string";
+                listView1.ListViewItemSorter = new ListViewColumnSorter();
 
-            lvwColumnSorter = new ListViewColumnSorter();
-            listView1.ListViewItemSorter = lvwColumnSorter;
+                lvwColumnSorter = new ListViewColumnSorter();
+                listView1.ListViewItemSorter = lvwColumnSorter;
 
-            // Handle the ColumnClick event
-            listView1.ColumnClick += ListView_ColumnClick;
+                // Handle the ColumnClick event
+                listView1.ColumnClick += ListView_ColumnClick;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
         }
 
         private void DisplayFilesInListView(List<string> files)
         {
-            // Ensure the ListView is set up correctly
-            SetupListView();
+            int totalFiles = 0;
+            //await Task.Run(() => {
+                try {
+                    // Ensure the ListView is set up correctly
+                    SetupListView();
 
-            ImageList imageList = new ImageList();
-            imageList.ImageSize = new System.Drawing.Size(64, 64);
+                    ImageList imageList = new ImageList();
+                    imageList.ImageSize = new System.Drawing.Size(64, 64);
 
-            // Calculate the total number of files
-            int totalFiles = files.Count;
+                    // Calculate the total number of files
+                    totalFiles = files.Count;
+                    long totalFileSize = 0;
 
-            // Set the progress bar range and reset its value
-            progressBar.Minimum = 0;
-            progressBar.Maximum = totalFiles;
-            progressBar.Value = 0;
+                    // Set the progress bar range and reset its value
+                    progressBar.Minimum = 0;
+                    progressBar.Maximum = totalFiles;
+                    progressBar.Value = 0;
 
-            foreach (string file in files)
-            {
-                // Extract thumbnails or use default icons
-                Icon icon = Icon.ExtractAssociatedIcon(file); // Extract the icon from the file
-                imageList.Images.Add(icon.ToBitmap()); // Add the icon as a bitmap to the image list
+                    foreach (string file in files)
+                    {
+                        // Extract thumbnails or use default icons
+                        Icon icon = Icon.ExtractAssociatedIcon(file); // Extract the icon from the file
+                        imageList.Images.Add(icon.ToBitmap()); // Add the icon as a bitmap to the image list
 
-                // Get file information for metadata
-                FileInfo fileInfo = new FileInfo(file);
+                        // Get file information for metadata
+                        FileInfo fileInfo = new FileInfo(file);
 
-                string fileName = Path.GetFileName(file);
-                string fileSize = GetFormattedSize(fileInfo.Length); // Get formatted file size
-                string lastModified = fileInfo.LastWriteTime.ToString(); // Last modified date/time
-                string filePath = fileInfo.DirectoryName; // Get file path
+                        totalFileSize += fileInfo.Length;
 
-                ListViewItem item = new ListViewItem(fileName);
-                item.ImageIndex = imageList.Images.Count - 1; // Set the appropriate image index
+                        string fileName = Path.GetFileName(file);
+                        string fileSize = GetFormattedSize(fileInfo.Length); // Get formatted file size
+                        string lastModified = fileInfo.LastWriteTime.ToString(); // Last modified date/time
+                        string filePath = fileInfo.DirectoryName; // Get file path
 
-                // Add additional metadata as subitems
-                item.SubItems.Add(fileSize); // File size
-                item.SubItems.Add(lastModified); // Last modified date/time
-                item.SubItems.Add(filePath); // File path
+                        ListViewItem item = new ListViewItem(fileName);
+                        item.ImageIndex = imageList.Images.Count - 1; // Set the appropriate image index
 
-                item.Checked = false;
+                        // Add additional metadata as subitems
+                        item.SubItems.Add(fileSize); // File size
+                        item.SubItems.Add(lastModified); // Last modified date/time
+                        item.SubItems.Add(filePath); // File path
+
+                        item.Checked = false;
 
 
-                // Allow the user to rearrange columns.
-                listView1.AllowColumnReorder = true;
-                // Display check boxes.
-                listView1.CheckBoxes = true;
-                // Select the item and subitems when selection is made.
-                listView1.FullRowSelect = true;
+                        // Allow the user to rearrange columns.
+                        listView1.AllowColumnReorder = true;
+                        // Display check boxes.
+                        listView1.CheckBoxes = true;
+                        // Select the item and subitems when selection is made.
+                        listView1.FullRowSelect = true;
 
-                // Sort the items in the list in ascending order.
-                listView1.Sorting = SortOrder.Ascending;
+                        // Sort the items in the list in ascending order.
+                        listView1.Sorting = SortOrder.Ascending;
 
-                listView1.Items.Add(item);
+                        listView1.Items.Add(item);
 
-                // Update progress bar value incrementally
-                progressBar.Value++;
+                        // Ensure the value doesn't exceed the maximum
+                        if (progressBar.Value >= progressBar.Maximum)
+                        {
+                            progressBar.Value = progressBar.Maximum - 1;
+                        }
 
-                // Ensure the value doesn't exceed the maximum
-                if (progressBar.Value >= progressBar.Maximum)
-                {
-                    progressBar.Value = progressBar.Maximum - 1;
+                        if (progressBar.Value >= progressBar.Minimum)
+                        {
+                            progressLabel.Text = progressBar.Value.ToString();
+                        }
+
+                        // Update progress bar value incrementally
+                        progressBar.Value++;
+                    }
+                    progressBar.Value = totalFiles;
+
+                    progressLabel.Text = "Done";
+                    listView1.LargeImageList = imageList;
+                    totalFileSizeLabel.Text = ConvertBytes(totalFileSize) + "";
+                }
+                catch(Exception ex) {
+                    progressBar.Value = totalFiles;
+                    WriteExceptionToHTMLFile(ex,"exceptionLog.html"); 
+                
                 }
 
-                if (progressBar.Value >= progressBar.Minimum)
-                {
-                    progressLabel.Text = progressBar.Value.ToString();
-                }
-            }
-            listView1.LargeImageList = imageList;
+           // });
         }
 
         // Method to format file size in MB or GB
@@ -458,95 +511,130 @@ namespace fileanalyzer
         }
 
 
-        private void ListView1_MouseClick(object sender, MouseEventArgs e)
+        private async void ListView1_MouseClick(object sender, MouseEventArgs e)
         {
-            // Check if an item is selected and the click is a left click
-            if (e.Button == MouseButtons.Left && listView1.SelectedItems.Count > 0)
-            {
-                // Get the selected item
-                ListViewItem selectedItem = listView1.SelectedItems[0];
-
-                // Access the file path from the first subitem
-                string filePath = selectedItem.Text;
-
-                // Open the file using the default associated program
-                if (System.IO.File.Exists(filePath))
+            await Task.Run(() => {
+                // Check if an item is selected and the click is a left click
+                if (e.Button == MouseButtons.Left && listView1.SelectedItems.Count > 0)
                 {
-                    System.Diagnostics.Process.Start(filePath);
+                    // Get the selected item
+                    ListViewItem selectedItem = listView1.SelectedItems[0];
+
+                    // Access the file path from the first subitem
+                    string filePath = selectedItem.Text;
+
+                    // Open the file using the default associated program
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        System.Diagnostics.Process.Start(filePath);
+                    }
+                    else
+                    {
+                        MessageBox.Show("File not found or path is invalid.");
+                        // Or handle the case when the file is not found as needed
+                    }
+                }
+
+            });
+
+        }
+
+        private async void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            await Task.Run(() => {
+                if (e.Column == lvwColumnSorter.SortColumn)
+                {
+                    lvwColumnSorter.SortColumn = e.Column;
+                    listView1.Sort();
                 }
                 else
                 {
-                    MessageBox.Show("File not found or path is invalid.");
-                    // Or handle the case when the file is not found as needed
+                    lvwColumnSorter.SortColumn = e.Column;
+                    listView1.Sorting = SortOrder.Ascending;
+                    listView1.Sort();
                 }
-            }
+            });
 
         }
 
-        private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void DisplaySelectedFilesSize(object sender, ItemCheckEventArgs e)
         {
-            if (e.Column == lvwColumnSorter.SortColumn)
-            {
-                lvwColumnSorter.SortColumn = e.Column;
-                listView1.Sort();
-            }
-            else
-            {
-                lvwColumnSorter.SortColumn = e.Column;
-                listView1.Sorting = SortOrder.Ascending;
-                listView1.Sort();
-            }
+            DisplaySelectedFilesSize();
         }
 
-
-
-        private void deleteSelected_Click(object sender, EventArgs e)
+        private void DisplaySelectedFilesSize()
         {
-            int filesToDeleteCount = 0;
+            long totalSize = 0;
 
-            for (int i = listView1.Items.Count - 1; i >= 0; i--)
+            foreach (ListViewItem selectedItem in listView1.SelectedItems)
             {
-                if (listView1.Items[i].Checked)
+                // Assuming the column index for file sizes is 1 (adjust as per your ListView)
+                string fileSizeString = selectedItem.SubItems[1].Text.Replace('M',' ').Replace('K',' ').Replace('G', ' ').Replace('B', ' ').Replace('K', ' ').Replace('y', ' ').Replace('t', ' ').Replace('e', ' ').Replace('s', ' ');
+                fileSizeString = fileSizeString.Trim();
+                if (long.TryParse(fileSizeString, out long fileSize))
                 {
-                    filesToDeleteCount++;
+                    totalSize += fileSize;
                 }
             }
 
-            if (filesToDeleteCount == 0)
-            {
-                MessageBox.Show("No files selected for deletion.");
-                return;
-            }
+            // Convert totalSize to appropriate units (KB, MB, GB, etc.) for display
+            string totalSizeFormatted = ConvertBytes(totalSize);
 
-            string confirmationMessage = $"Are you sure you want to delete {filesToDeleteCount} file(s)?";
+            // Display the total size somewhere, for example, in a label or messagebox
+            selectedFileSize.Text = totalSizeFormatted;
+        }
 
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        private async void deleteSelected_Click(object sender, EventArgs e)
+        {
 
-            if (result == DialogResult.Yes)
-            {
+            await Task.Run(() => {
+                int filesToDeleteCount = 0;
+
                 for (int i = listView1.Items.Count - 1; i >= 0; i--)
                 {
                     if (listView1.Items[i].Checked)
                     {
-                        string filePath = string.Empty;
-                        if (listView1.Items[i].SubItems.Count > 0) // Check if the index is valid
-                        {
-                            filePath = listView1.Items[i].SubItems[3].Text + "\\" + listView1.Items[i].Text; // Adjust index according to your setup
-                        }
+                        filesToDeleteCount++;
+                    }
+                }
 
-                        if (File.Exists(filePath))
+                if (filesToDeleteCount == 0)
+                {
+                    MessageBox.Show("No files selected for deletion.");
+                    return;
+                }
+
+                string confirmationMessage = $"Are you sure you want to delete {filesToDeleteCount} file(s)?";
+
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    for (int i = listView1.Items.Count - 1; i >= 0; i--)
+                    {
+                        if (listView1.Items[i].Checked)
                         {
-                            File.Delete(filePath);
-                            listView1.Items[i].Remove();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Path not found: " + filePath);
+                            string filePath = string.Empty;
+                            if (listView1.Items[i].SubItems.Count > 0) // Check if the index is valid
+                            {
+                                filePath = listView1.Items[i].SubItems[3].Text + "\\" + listView1.Items[i].Text; // Adjust index according to your setup
+                            }
+
+                            if (File.Exists(filePath))
+                            {
+                                File.Delete(filePath);
+                                listView1.Items[i].Remove();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Path not found: " + filePath);
+                            }
                         }
                     }
                 }
-            }
+            });            
+
         }
 
         private void groupBox6_Enter(object sender, EventArgs e)
@@ -563,6 +651,7 @@ namespace fileanalyzer
                 listView1.Items[i].Checked = true;
             }
 
+            DisplaySelectedFilesSize();
 
         }
 
@@ -583,6 +672,8 @@ namespace fileanalyzer
                     listView1.Items[i].Checked = true;
                 }
             }
+
+            DisplaySelectedFilesSize();
         }
 
         private void SelectFilesInOddOrder()
@@ -594,6 +685,8 @@ namespace fileanalyzer
                     listView1.Items[i].Checked = true;
                 }
             }
+
+            DisplaySelectedFilesSize();
         }
 
 
@@ -621,6 +714,8 @@ namespace fileanalyzer
                 SelectAllFiles();
                 selectAllButton.Text = "Deselect All";
             }
+
+            DisplaySelectedFilesSize();
         }
 
         private void selectAllButton_Click(object sender, EventArgs e)
@@ -679,83 +774,134 @@ namespace fileanalyzer
                 }
             }
 
+            DisplaySelectedFilesSize();
+
             deleteSelected_Click(sender, e);
 
         }
 
         // FIND FILES WITH EXTENSIONS
-        private void findWithExtension(object sender, EventArgs e)
+        private async void findWithExtension(object sender, EventArgs e)
         {
-            if (Directory.Exists(pathToSearch))
-            {
-                string extensions = extension.Text;
-
-                var selectedTypes = new List<string>();
-
-                // Split the input string by commas and remove spaces
-                string[] words = extensions.Split(',');
-                foreach (string word in words)
+            await Task.Run(() => {
+                if (Directory.Exists(pathToSearch))
                 {
-                    string cleanedWord = "." + word.Trim(); // Remove leading/trailing spaces
-                    selectedTypes.Add(cleanedWord);
+
+                    string extensions = extension.Text;
+
+                    // Split the input string by commas and remove spaces
+                    string[] words = extensions.Split(',');
+
+                    var selectedTypes = new List<string>();
+                    var files = new List<string>();
+
+                    if (fileNameRadio.Checked)
+                    {
+                        foreach (string word in words)
+                        {
+                            string cleanedWord = word.Trim(); // Remove leading/trailing spaces
+                            selectedTypes.Add(cleanedWord);
+                        }
+
+                        files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                         .Where(file => selectedTypes.Contains(Path.GetFileName(file), StringComparer.OrdinalIgnoreCase))
+                         .ToList();
+
+                    }
+
+                    if (extensionRadio.Checked)
+                    {
+                        foreach (string word in words)
+                        {
+                            string cleanedWord = "." + word.Trim(); // Remove leading/trailing spaces
+                            selectedTypes.Add(cleanedWord);
+                        }
+
+                        files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                         .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                         .ToList();
+                    }
+
+                    int totalFiles = files.Count;
+
+                    if (totalFiles > 1)
+                    {
+                        filesFound.Text = "" + totalFiles;
+                    }
+                    else { MessageBox.Show("Nothing Found"); }
+
+                    DisplayFilesInListView(files);
                 }
-
-                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
-                                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
-                                     .ToList();
-
-                int totalFiles = files.Count;
-
-                if (totalFiles > 1)
+                else
                 {
-                    filesFound.Text = "" + totalFiles;
+                    MessageBox.Show("The specified path does not exist.");
                 }
-                else { MessageBox.Show("Nothing Found"); }
+            });
 
-                DisplayFilesInListView(files);
-            }
-            else
-            {
-                MessageBox.Show("The specified path does not exist.");
-            }
         }
 
-        private void deleteWithExtension(object sender, EventArgs e)
+        private async void deleteWithExtension(object sender, EventArgs e)
         {
-            if (Directory.Exists(pathToSearch))
-            {
-                string extensions = extension.Text;
-
-                var selectedTypes = new List<string>();
-
-                // Split the input string by commas and remove spaces
-                string[] words = extensions.Split(',');
-                foreach (string word in words)
+            await Task.Run(() => {
+                if (Directory.Exists(pathToSearch))
                 {
-                    string cleanedWord = "." + word.Trim(); // Remove leading/trailing spaces
-                    selectedTypes.Add(cleanedWord);
+
+                    string extensions = extension.Text;
+
+                    // Split the input string by commas and remove spaces
+                    string[] words = extensions.Split(',');
+
+                    var selectedTypes = new List<string>();
+                    var files = new List<string>();
+
+                    if (fileNameRadio.Checked)
+                    {
+                        foreach (string word in words)
+                        {
+                            string cleanedWord = word.Trim(); // Remove leading/trailing spaces
+                            selectedTypes.Add(cleanedWord);
+                        }
+
+                        files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                         .Where(file => selectedTypes.Contains(Path.GetFileName(file), StringComparer.OrdinalIgnoreCase))
+                         .ToList();
+
+                    }
+
+                    if (extensionRadio.Checked)
+                    {
+                        foreach (string word in words)
+                        {
+                            string cleanedWord = "." + word.Trim(); // Remove leading/trailing spaces
+                            selectedTypes.Add(cleanedWord);
+                        }
+
+                        files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                         .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                         .ToList();
+                    }
+
+                    int totalFiles = files.Count;
+
+                    if (totalFiles > 1)
+                    {
+                        filesFound.Text = "" + totalFiles;
+                    }
+                    else { MessageBox.Show("Nothing Found"); }
+
+                    DisplayFilesInListView(files);
+                }
+                else
+                {
+                    MessageBox.Show("The specified path does not exist.");
                 }
 
-                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
-                                     .Where(file => selectedTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
-                                     .ToList();
+                SelectAllFiles();
+                selectAllButton.Text = "Deselect All";
 
-                int totalFiles = files.Count;
+                deleteSelected_Click(sender, e);
 
-                if (totalFiles > 1)
-                {
-                    filesFound.Text = "" + totalFiles;
-                }
-                else { MessageBox.Show("Nothing Found"); }
-
-                DisplayFilesInListView(files);
-            }
-
-            SelectAllFiles();
-            selectAllButton.Text = "Deselect All";
-
-            deleteSelected_Click(sender, e);
-
+            });
         }
 
         private void checkAllFilters(object sender, EventArgs e)
@@ -774,84 +920,94 @@ namespace fileanalyzer
             }
         }
 
-        private void findOldFiles(object sender, EventArgs e)
+        private async void findOldFiles(object sender, EventArgs e)
         {
-            // Assuming dateTimePicker is the name of your DateTimePicker control
-            DateTime selectedDate = dateTimePicker1.Value;
+            await Task.Run(() => {
+                // Assuming dateTimePicker is the name of your DateTimePicker control
+                DateTime selectedDate = dateTimePicker1.Value;
 
-            if (Directory.Exists(pathToSearch))
-            {
-
-                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
-                                     .Where(file => {
-                                         FileInfo fileInfo = new FileInfo(file);
-                                         // Change the condition based on whether you want to filter by creation or last modified date
-                                         return fileInfo.LastWriteTime < selectedDate; // For last modified date
-                                                                                       // return fileInfo.CreationTime < selectedDate; // For creation date
-                                     })
-                                     .ToList();
-
-                int totalFiles = files.Count;
-
-                if (totalFiles > 1)
+                if (Directory.Exists(pathToSearch))
                 {
-                    filesFound.Text = "" + totalFiles;
-                }
-                else { MessageBox.Show("Nothing Found.."); }
 
-                DisplayFilesInListView(files);
-            }
-            else
-            {
-                MessageBox.Show("The specified path does not exist.");
-            }
+                    var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                                         .Where(file => {
+                                             FileInfo fileInfo = new FileInfo(file);
+                                             // Change the condition based on whether you want to filter by creation or last modified date
+                                             return fileInfo.LastWriteTime < selectedDate; // For last modified date
+                                                                                           // return fileInfo.CreationTime < selectedDate; // For creation date
+                                         })
+                                         .ToList();
+
+                    int totalFiles = files.Count;
+
+                    if (totalFiles > 1)
+                    {
+                        filesFound.Text = "" + totalFiles;
+                    }
+                    else { MessageBox.Show("Nothing Found.."); }
+
+                    DisplayFilesInListView(files);
+                }
+                else
+                {
+                    MessageBox.Show("The specified path does not exist.");
+                }
+            });
+
+
         }
 
-        private void deleteOldFiles(object sender, EventArgs e)
+        private async void deleteOldFiles(object sender, EventArgs e)
         {
-            // Assuming dateTimePicker is the name of your DateTimePicker control
-            DateTime selectedDate = dateTimePicker1.Value;
+            await Task.Run(() => {
+                // Assuming dateTimePicker is the name of your DateTimePicker control
+                DateTime selectedDate = dateTimePicker1.Value;
 
-            if (Directory.Exists(pathToSearch))
-            {
-
-                var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
-                                     .Where(file => {
-                                         FileInfo fileInfo = new FileInfo(file);
-                                         // Change the condition based on whether you want to filter by creation or last modified date
-                                         return fileInfo.LastWriteTime < selectedDate; // For last modified date
-                                                                                       // return fileInfo.CreationTime < selectedDate; // For creation date
-                                     })
-                                     .ToList();
-
-                int totalFiles = files.Count;
-
-                if (totalFiles > 1)
+                if (Directory.Exists(pathToSearch))
                 {
-                    filesFound.Text = "" + totalFiles;
+
+                    var files = Directory.GetFiles(pathToSearch, "*.*", SearchOption.AllDirectories)
+                                         .Where(file => {
+                                             FileInfo fileInfo = new FileInfo(file);
+                                             // Change the condition based on whether you want to filter by creation or last modified date
+                                             return fileInfo.LastWriteTime < selectedDate; // For last modified date
+                                                                                           // return fileInfo.CreationTime < selectedDate; // For creation date
+                                         })
+                                         .ToList();
+
+                    int totalFiles = files.Count;
+
+                    if (totalFiles > 1)
+                    {
+                        filesFound.Text = "" + totalFiles;
+                    }
+                    else { MessageBox.Show("Nothing Found.."); }
+
+                    DisplayFilesInListView(files);
                 }
-                else { MessageBox.Show("Nothing Found.."); }
 
-                DisplayFilesInListView(files);
-            }
+                SelectAllFiles();
+                selectAllButton.Text = "Deselect All";
 
-            SelectAllFiles();
-            selectAllButton.Text = "Deselect All";
+                deleteSelected_Click(sender, e);
+            });
 
-            deleteSelected_Click(sender, e);
+
         }
 
-        private void clearRecycleBin(object sender, EventArgs e)
+        private async void clearRecycleBin(object sender, EventArgs e)
         {
-            int result = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHERB_NOCONFIRMATION);
-            if (result == 0)
-            {
-                MessageBox.Show("Recycle bin emptied successfully.");
-            }
-            else
-            {
-                MessageBox.Show("Failed to empty the recycle bin.");
-            }
+            await Task.Run(() => {
+                int result = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHERB_NOCONFIRMATION);
+                if (result == 0)
+                {
+                    MessageBox.Show("Recycle bin emptied successfully.");
+                }
+                else
+                {
+                    MessageBox.Show("Failed to empty the recycle bin.");
+                }
+            });
         }
 
         private void EmptyFolder(string folderPath)
@@ -885,25 +1041,28 @@ namespace fileanalyzer
             EmptyFolder(folderPath);
         }
 
-        private void YourForm_Load(object sender, EventArgs e)
+        private async void YourForm_Load(object sender, EventArgs e)
         {
-            // Set properties for groupBox1 if needed
+            await Task.Run(() => {
+                // Set properties for groupBox1 if needed
 
-            // Create a Panel within the current TabPage
-            Panel panel1 = new Panel();
-            panel1.Dock = DockStyle.Fill; // Dock the panel within the TabPage
+                // Create a Panel within the current TabPage
+                Panel panel1 = new Panel();
+                panel1.Dock = DockStyle.Fill; // Dock the panel within the TabPage
 
-            // Add the Panel to the TabPage
-            dashboardPanel.Controls.Add(panel1);
+                // Add the Panel to the TabPage
+                dashboardPanel.Controls.Add(panel1);
 
-            // Add the GroupBox to the Panel
-            panel1.Controls.Add(groupBox1);
-            panel1.Controls.Add(groupBoxForResuts);
+                // Add the GroupBox to the Panel
+                panel1.Controls.Add(groupBox1);
+                panel1.Controls.Add(groupBoxForResuts);
 
-            // Adjust the position and size of the GroupBox within the Panel
-            groupBox1.Location = new Point(0, 0); // Set the location within the panel
-            groupBoxForResuts.Location = new Point(0, 255);
-            //groupBox1.Size = new Size(200, 150); // Set the size of the groupBox1
+                // Adjust the position and size of the GroupBox within the Panel
+                groupBox1.Location = new Point(0, 0); // Set the location within the panel
+                groupBoxForResuts.Location = new Point(0, 255);
+                //groupBox1.Size = new Size(200, 150); // Set the size of the groupBox1
+            });
+
         }
 
         private async void Form3_Load(object sender, EventArgs e)
@@ -987,85 +1146,98 @@ namespace fileanalyzer
 
         }
 
-        static void DeleteFolderContents(string folderPath)
+        static async void DeleteFolderContents(string folderPath)
         {
-            try
-            {
-                foreach (string file in Directory.GetFiles(folderPath))
+            await Task.Run(() => {
+                try
                 {
-                    try
+                    foreach (string file in Directory.GetFiles(folderPath))
                     {
-                        if (File.Exists(file))
+                        try
                         {
-                            File.Delete(file);
+                            if (File.Exists(file))
+                            {
+                                File.Delete(file);
+                            }
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            // File is inaccessible; skip deletion
+                            // Log or handle the inaccessible file scenario as needed
                         }
                     }
-                    catch (UnauthorizedAccessException)
+
+                    foreach (string subDir in Directory.GetDirectories(folderPath))
                     {
-                        // File is inaccessible; skip deletion
-                        // Log or handle the inaccessible file scenario as needed
+                        DeleteFolderContents(subDir);
+                        if (Directory.GetFiles(subDir).Length == 0 && Directory.GetDirectories(subDir).Length == 0)
+                        {
+                            Directory.Delete(subDir);
+                        }
                     }
                 }
-
-                foreach (string subDir in Directory.GetDirectories(folderPath))
+                catch (Exception ex)
                 {
-                    DeleteFolderContents(subDir);
-                    if (Directory.GetFiles(subDir).Length == 0 && Directory.GetDirectories(subDir).Length == 0)
-                    {
-                        Directory.Delete(subDir);
-                    }
+                    MessageBox.Show(ex.Message);
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void clearPictureFolder(object sender, EventArgs e)
-        {
-            string confirmationMessage = $"Are you sure you want to clear Picture folder ?";
-
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures");
-            }
-        }
-
-        private void clearVideosFolder(object sender, EventArgs e)
-        {
-            string confirmationMessage = $"Are you sure you want to clear Videos folder ?";
-
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Videos");
-
-            }
+            });
 
         }
 
-        private void clearMusicsFolder(object sender, EventArgs e)
+        private async void clearPictureFolder(object sender, EventArgs e)
         {
-            string confirmationMessage = $"Are you sure you want to clear music folder ?";
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear Picture folder ?";
 
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Musics");
-            }
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures");
+                }
+            });
 
         }
 
-        private void clearDocumentsFolder(object sender, EventArgs e)
+        private async void clearVideosFolder(object sender, EventArgs e)
         {
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear Videos folder ?";
+
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Videos");
+
+                }
+            });
+
+        }
+
+        private async void clearMusicsFolder(object sender, EventArgs e)
+        {
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear music folder ?";
+
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Musics");
+                }
+            });
+
+        }
+
+        private async void clearDocumentsFolder(object sender, EventArgs e)
+        {
+            await Task.Run(() => {
+
+            });
             string confirmationMessage = $"Are you sure you want to clear Document folder ?";
 
             // Show confirmation dialog
@@ -1078,74 +1250,86 @@ namespace fileanalyzer
 
         }
 
-        private void clearDownloadFolder(object sender, EventArgs e)
+        private async void clearDownloadFolder(object sender, EventArgs e)
         {
-            string confirmationMessage = $"Are you sure you want to clear download folder ?";
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear download folder ?";
 
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Downloads");
-            }
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Downloads");
+                }
+            });
+
 
         }
 
-        private void clearDesktopFolder(object sender, EventArgs e)
+        private async void clearDesktopFolder(object sender, EventArgs e)
         {
-            string confirmationMessage = $"Are you sure you want to clear desktop folder ?";
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear desktop folder ?";
 
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Desktop");
-            }
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Desktop");
+                }
+
+            });
 
         }
 
-        private void clearScreenshotsFolder(object sender, EventArgs e)
+        private async void clearScreenshotsFolder(object sender, EventArgs e)
         {
-            string confirmationMessage = $"Are you sure you want to clear screenshot folder ?";
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear screenshot folder ?";
 
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots");
-            }
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots");
+                }
+            });
 
         }
 
-        private void clearTempFolder(object sender, EventArgs e)
+        private async void clearTempFolder(object sender, EventArgs e)
         {
-            string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
 
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Windows\Temp\");
-            }
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Windows\Temp\");
+                }
+
+            });
 
         }
 
-        private void clearTemp2Folder(object sender, EventArgs e)
+        private async void clearTemp2Folder(object sender, EventArgs e)
         {
-            string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
+            await Task.Run(() => {
+                string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
 
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                // Show confirmation dialog
+                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp");
-            }
-
+                if (result == DialogResult.Yes)
+                {
+                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp");
+                }
+            });
         }
 
 
@@ -1327,87 +1511,92 @@ namespace fileanalyzer
             public long LargestFileSize { get; set; }
         }
 
-        public void loadLargeFilesListview()
+        public async void loadLargeFilesListview()
         {
-            List<LargestFileData> largestFiles;
+            await Task.Run(() => {
+                List<LargestFileData> largestFiles;
 
-            if (File.Exists(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep"))
-            {
-                // Load the list from the file if it exists
-                largestFiles = DeserializeListFromFile();
-                MessageBox.Show("Found for files..");
-            }
-            else
-            {
-
-                MessageBox.Show("not Found for files..");
-
-                // Create the list by recursively getting all files in the drive
-                List<string> drives = Environment.GetLogicalDrives().ToList();
-                largestFiles = new List<LargestFileData>();
-
-                foreach (string drive in drives.Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
+                if (File.Exists(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep"))
                 {
-                    try
-                    {
-                        List<string> files = Directory.GetFiles(drive, "*", SearchOption.AllDirectories).ToList();
+                    // Load the list from the file if it exists
+                    largestFiles = DeserializeListFromFile();
+                    //  MessageBox.Show("Found for files..");
+                }
+                else
+                {
 
-                        List<LargestFileData> driveFiles = files.Select(file =>
+                    //   MessageBox.Show("not Found for files..");
+
+                    // Create the list by recursively getting all files in the drive
+                    List<string> drives = Environment.GetLogicalDrives().ToList();
+                    largestFiles = new List<LargestFileData>();
+
+                    foreach (string drive in drives.Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
+                    {
+                        try
                         {
-                            FileInfo fileInfo = new FileInfo(file);
-                            return new LargestFileData { LargestFilePath = file, LargestFileSize = fileInfo.Length };
-                        }).OrderByDescending(file => file.LargestFileSize).ToList();
+                            List<string> files = Directory.GetFiles(drive, "*", SearchOption.AllDirectories).ToList();
 
-                        largestFiles = largestFiles.Concat(driveFiles)
-                            .OrderByDescending(file => file.LargestFileSize)
-                            .Take(100)
-                            .ToList();
+                            List<LargestFileData> driveFiles = files.Select(file =>
+                            {
+                                FileInfo fileInfo = new FileInfo(file);
+                                return new LargestFileData { LargestFilePath = file, LargestFileSize = fileInfo.Length };
+                            }).OrderByDescending(file => file.LargestFileSize).ToList();
+
+                            largestFiles = largestFiles.Concat(driveFiles)
+                                .OrderByDescending(file => file.LargestFileSize)
+                                .Take(100)
+                                .ToList();
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Console.WriteLine($"Access denied: {ex.Message}");
+                        }
+                        catch (DirectoryNotFoundException ex)
+                        {
+                            Console.WriteLine($"Directory not found: {ex.Message}");
+                        }
                     }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Console.WriteLine($"Access denied: {ex.Message}");
-                    }
-                    catch (DirectoryNotFoundException ex)
-                    {
-                        Console.WriteLine($"Directory not found: {ex.Message}");
-                    }
+
+                    // Store the list in the file for future use
+                    SerializeListToFile(largestFiles);
                 }
 
-                // Store the list in the file for future use
-                SerializeListToFile(largestFiles);
-            }
+                largeSizeFileListview.View = View.Details;
+                largeSizeFileListview.Columns.Add("File Path", 400);
+                largeSizeFileListview.Columns.Add("File Size", 80);
+                largeSizeFileListview.Columns.Add("Created At", 150);
 
-            largeSizeFileListview.View = View.Details;
-            largeSizeFileListview.Columns.Add("File Path", 400);
-            largeSizeFileListview.Columns.Add("File Size", 80);
-            largeSizeFileListview.Columns.Add("Created At", 150);
+                foreach (LargestFileData file in largestFiles)
+                {
+                    ListViewItem item = new ListViewItem(file.LargestFilePath);
+                    item.SubItems.Add(ConvertBytes(file.LargestFileSize));
 
-            foreach (LargestFileData file in largestFiles)
-            {
-                ListViewItem item = new ListViewItem(file.LargestFilePath);
-                item.SubItems.Add(ConvertBytes(file.LargestFileSize));
+                    FileInfo fileInfo = new FileInfo(file.LargestFilePath);
+                    item.SubItems.Add(fileInfo.CreationTime + "");
 
-                FileInfo fileInfo = new FileInfo(file.LargestFilePath);
-                item.SubItems.Add(fileInfo.CreationTime + "");
+                    largeSizeFileListview.Items.Add(item);
+                }
+            });
 
-                largeSizeFileListview.Items.Add(item);
-            }
         }
 
-        static void SerializeListToFile(List<LargestFileData> list)
+        static async void SerializeListToFile(List<LargestFileData> list)
         {
-            try
-            {
-                using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Create))
+            await Task.Run(() => {
+                try
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(stream, list);
+                    using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Create))
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        formatter.Serialize(stream, list);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error serializing list: {ex.Message}");
-            }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error serializing list: {ex.Message}");
+                }
+            });
         }
 
         static List<LargestFileData> DeserializeListFromFile()
@@ -1433,23 +1622,26 @@ namespace fileanalyzer
         /// </summary>
         // SORTING LARGE SIZE FOLDERS
 
-        public void largeSizeFolders()
+        public async void largeSizeFolders()
         {
-            largeSizeFoldersListview.View = View.Details;
-            largeSizeFoldersListview.Columns.Add("Folder Path", 400);
-            largeSizeFoldersListview.Columns.Add("Folder Size", 150);
+            await Task.Run(() => {
+                largeSizeFoldersListview.View = View.Details;
+                largeSizeFoldersListview.Columns.Add("Folder Path", 400);
+                largeSizeFoldersListview.Columns.Add("Folder Size", 150);
 
-            var folders = GetFoldersWithLargestSize(50);
+                var folders = GetFoldersWithLargestSize(50);
 
-            foreach (var folder in folders)
-            {
-                ListViewItem item = new ListViewItem(folder.FolderPath);
-                item.SubItems.Add(ConvertBytes(folder.FolderSize));
+                foreach (var folder in folders)
+                {
+                    ListViewItem item = new ListViewItem(folder.FolderPath);
+                    item.SubItems.Add(ConvertBytes(folder.FolderSize));
 
-                largeSizeFoldersListview.Items.Add(item);
-            }
+                    largeSizeFoldersListview.Items.Add(item);
+                }
 
-            // Add the ListView to a form or display it in your application
+                // Add the ListView to a form or display it in your application
+            });
+
         }
 
         static List<FolderData> GetFoldersWithLargestSize(int count)
@@ -1461,11 +1653,11 @@ namespace fileanalyzer
             if (File.Exists(path))
             {
                 folders = DeserializeListFromFile(path);
-                MessageBox.Show("Found for folder..");
+              //  MessageBox.Show("Found for folder..");
             }
             else
             {
-                MessageBox.Show("Not Found for folder..");
+              //  MessageBox.Show("Not Found for folder..");
                 DriveInfo[] drives = DriveInfo.GetDrives();
 
                 foreach (var drive in drives.Where(d => d.IsReady && d.DriveType == DriveType.Fixed && !d.Name.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
@@ -1525,21 +1717,23 @@ namespace fileanalyzer
             return size;
         }
 
-        static void SerializeListToFile(string filePath, List<FolderData> list)
+        static async void SerializeListToFile(string filePath, List<FolderData> list)
         {
-            try
-            {
-                using (Stream stream = File.Open(filePath, FileMode.Create))
+            await Task.Run(() => {
+                try
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(stream, list);
+                    using (Stream stream = File.Open(filePath, FileMode.Create))
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        formatter.Serialize(stream, list);
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                //  MessageBox.Show("1524:"+ex.Message);
-            }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    //  MessageBox.Show("1524:"+ex.Message);
+                }
+            });
         }
 
         static List<FolderData> DeserializeListFromFile(string filePath)
@@ -1570,114 +1764,120 @@ namespace fileanalyzer
         //////////////////////////////////////////////////////////////////////////////////
         // ADDING RIGHT CLICK ON "LARGE SIZE FOLDER" LISTVIEW 
 
-        private void listView1_MouseDown(object sender, MouseEventArgs e)
+        private async void listView1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
-                if (item != null)
+            await Task.Run(() => {
+                if (e.Button == MouseButtons.Right)
                 {
-                    var menu = new ContextMenu();
-                    var analyzeMenuItem = new MenuItem("Analyze");
-                    var openInExplorer = new MenuItem("Open in Explorer");
-                    var deleteFolder = new MenuItem("Delete");
-
-                    analyzeMenuItem.Click += (s, args) =>
+                    var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
+                    if (item != null)
                     {
 
-                        // Get the data associated with the clicked item
-                        string folderPath = item.Text; // Replace with data extraction logic
+                        var menu = new ContextMenu();
+                        var analyzeMenuItem = new MenuItem("Analyze");
+                        var openInExplorer = new MenuItem("Open in Explorer");
+                        var deleteFolder = new MenuItem("Delete");
 
-                        // Open a specific tab in the TabControl and pass the data
-                        OpenSpecificTabWithData(folderPath, sender, e);
-                    };
-
-                    openInExplorer.Click += (s, args) =>
-                    {
-                        // Get the data associated with the clicked item
-                        string folderPath = item.Text; // Replace with data extraction logic
-
-                        // Open the folder using the default file explorer
-                        Process.Start("explorer.exe", folderPath);
-                    };
-
-                    deleteFolder.Click += (s, args) =>
-                    {
-                        // Get the data associated with the clicked item
-                        string folderPath = item.Text; // Replace with data extraction logic
-
-                        string confirmationMessage = $"Are you sure you want to delete {folderPath} ?";
-
-                        // Show confirmation dialog
-                        DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                        if (result == DialogResult.Yes)
+                        analyzeMenuItem.Click += (s, args) =>
                         {
+
+                            // Get the data associated with the clicked item
+                            string folderPath = item.Text; // Replace with data extraction logic
+
+                            // Open a specific tab in the TabControl and pass the data
+                            OpenSpecificTabWithData(folderPath, sender, e);
+                        };
+
+                        openInExplorer.Click += (s, args) =>
+                        {
+                            // Get the data associated with the clicked item
+                            string folderPath = item.Text; // Replace with data extraction logic
+
                             // Open the folder using the default file explorer
-                            Directory.Delete(folderPath);
-                        }
+                            Process.Start("explorer.exe", folderPath);
+                        };
 
-                    };
+                        deleteFolder.Click += (s, args) =>
+                        {
+                            // Get the data associated with the clicked item
+                            string folderPath = item.Text; // Replace with data extraction logic
+
+                            string confirmationMessage = $"Are you sure you want to delete {folderPath} ?";
+
+                            // Show confirmation dialog
+                            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                // Open the folder using the default file explorer
+                                Directory.Delete(folderPath);
+                            }
+
+                        };
 
 
-                    menu.MenuItems.Add(analyzeMenuItem);
-                    menu.MenuItems.Add(deleteFolder);
-                    menu.MenuItems.Add(openInExplorer);
+                        menu.MenuItems.Add(analyzeMenuItem);
+                        menu.MenuItems.Add(deleteFolder);
+                        menu.MenuItems.Add(openInExplorer);
 
-                    // Display the context menu at the clicked position
-                    menu.Show(largeSizeFoldersListview, e.Location);
+                        // Display the context menu at the clicked position
+                        menu.Show(largeSizeFoldersListview, e.Location);
+                    }
                 }
-            }
+            });
+
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///  menu item for large file listview
-        private void largeFilesListviewMenu(object sender, MouseEventArgs e)
+        private async void largeFilesListviewMenu(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
-                if (item != null)
+            await Task.Run(() => {
+                if (e.Button == MouseButtons.Right)
                 {
-                    var menu = new ContextMenu();
-                    var openInExplorer = new MenuItem("Open in Explorer");
-                    var deleteFile = new MenuItem("Delete");
-
-                    openInExplorer.Click += (s, args) =>
+                    var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
+                    if (item != null)
                     {
-                        // Get the data associated with the clicked item
-                        string filePath = item.Text; // Replace with data extraction logic
+                        var menu = new ContextMenu();
+                        var openInExplorer = new MenuItem("Open in Explorer");
+                        var deleteFile = new MenuItem("Delete");
 
-                        // Open the folder using the default file explorer
-                        Process.Start("explorer.exe", filePath);
-                    };
-
-                    deleteFile.Click += (s, args) =>
-                    {
-                        // Get the data associated with the clicked item
-                        string filePath = item.Text; // Replace with data extraction logic
-
-                        string confirmationMessage = $"Are you sure you want to delete {filePath} ?";
-
-                        // Show confirmation dialog
-                        DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                        if (result == DialogResult.Yes)
+                        openInExplorer.Click += (s, args) =>
                         {
+                            // Get the data associated with the clicked item
+                            string filePath = item.Text; // Replace with data extraction logic
+
                             // Open the folder using the default file explorer
-                            File.Delete(filePath);
-                        }
+                            Process.Start("explorer.exe", filePath);
+                        };
 
-                    };
+                        deleteFile.Click += (s, args) =>
+                        {
+                            // Get the data associated with the clicked item
+                            string filePath = item.Text; // Replace with data extraction logic
+
+                            string confirmationMessage = $"Are you sure you want to delete {filePath} ?";
+
+                            // Show confirmation dialog
+                            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                            if (result == DialogResult.Yes)
+                            {
+                                // Open the folder using the default file explorer
+                                File.Delete(filePath);
+                            }
+
+                        };
 
 
-                    menu.MenuItems.Add(deleteFile);
-                    menu.MenuItems.Add(openInExplorer);
+                        menu.MenuItems.Add(deleteFile);
+                        menu.MenuItems.Add(openInExplorer);
 
-                    // Display the context menu at the clicked position
-                    menu.Show(largeSizeFoldersListview, e.Location);
+                        // Display the context menu at the clicked position
+                        menu.Show(largeSizeFoldersListview, e.Location);
+                    }
                 }
-            }
+            });
         }
 
         private void OpenSpecificTabWithData(string folderPath, object sender, MouseEventArgs e)
@@ -1769,83 +1969,6 @@ namespace fileanalyzer
         // Define an ImageList to store app icons
         private ImageList appIconsImageList;
 
-        // Set up the ImageList with large icons
-        private void SetupAppIconsImageList()
-        {
-            appIconsImageList = new ImageList();
-            appIconsImageList.ImageSize = new Size(64, 64); // Set the icon size (adjust as needed)
-            InstalledAppsListview.LargeImageList = appIconsImageList;
-        }
-
-        // Load app icons and display them in the ListView
-        private void LoadAppIcons()
-        {
-            foreach (InstalledAppInfo appInfo in GetInstalledApps())
-            {
-                try {
-                    // Add the app icon to the ImageList
-                    appIconsImageList.Images.Add(IconFromFilePath(appInfo.InstallLocation));
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-
-                }
-
-                // Add the app details to the ListView
-                ListViewItem item = new ListViewItem(appInfo.Name);
-                item.SubItems.Add(appInfo.Version);
-                // ... (add other app details to the ListViewItem as needed)
-                item.ImageIndex = appIconsImageList.Images.Count - 1; // Set the index of the added icon
-                item.Tag = appInfo; // Store the appInfo object in the ListViewItem's Tag property
-
-                InstalledAppsListview.Items.Add(item);
-            }
-        }
-
-        public Icon IconFromFilePath(string filePath)
-        {
-            Icon result = null;
-            try
-            {
-                result = Icon.ExtractAssociatedIcon(filePath);
-            }
-            catch { }
-            return result;
-        }
-
-
-
-        private Icon GetIconForRoot(string productName)
-        {
-            string producticon = "";
-            string InstallerKey = @"Installer\Products";
-            using (RegistryKey installkeys = Registry.ClassesRoot.OpenSubKey(InstallerKey))
-            {
-                foreach (string name in installkeys.GetSubKeyNames())
-                {
-                    using (RegistryKey product = installkeys.OpenSubKey(name))
-                    {
-                        if (product.GetValue("ProductName") != null)
-                        {
-                            if (productName == product.GetValue("ProductName").ToString())
-                            {
-                                if (product.GetValue("ProductIcon") != null)
-                                {
-                                    producticon = product.GetValue("ProductIcon").ToString();
-
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            if (Icon.ExtractAssociatedIcon(producticon) != null)
-                return Icon.ExtractAssociatedIcon(producticon);
-            else
-                return null;
-        }
-
         private List<InstalledAppInfo> GetInstalledApps()
         {
             List<InstalledAppInfo> installedApps = new List<InstalledAppInfo>();
@@ -1856,48 +1979,42 @@ namespace fileanalyzer
                 {
                     using (RegistryKey subKey = key.OpenSubKey(subKeyName))
                     {
+                        try {
+                            string name = subKey.GetValue("DisplayName") as string;
+                            string version = subKey.GetValue("DisplayVersion") as string;
+                            string publisher = subKey.GetValue("Publisher") as string;
+                            string installLocation = subKey.GetValue("InstallLocation") as string;
+                            string installDate = subKey.GetValue("InstallDate") as string;
+                            string estimatedSize = subKey.GetValue("EstimatedSize") as string;
+                            string displayIcon = subKey.GetValue("DisplayIcon") as string;
+                            string UninstallString = subKey.GetValue("UninstallString") as string;
+                            string QuietUninstallString = subKey.GetValue("QuietUninstallString") as string;
+                            string URLInfoAbout = subKey.GetValue("URLInfoAbout") as string;
+                            string HelpLink = subKey.GetValue("HelpLink") as string;
 
-                        Icon ProductIcon;
-                        try
-                        {
-                            if (subKey.GetValue("DisplayName") != null)
+                            if (!string.IsNullOrEmpty(name))
                             {
-
-                                if (subKey.GetValue("DisplayIcon") != null)
+                                installedApps.Add(new InstalledAppInfo
                                 {
-                                    ProductIcon = Icon.ExtractAssociatedIcon(subKey.GetValue("DisplayIcon").ToString());
-                                }
-                                else
-                                {
-                                    //get icon from HKEY_CLASSES_ROOT
-                                    ProductIcon = GetIconForRoot(subKey.GetValue("DisplayName").ToString());
-                                }
+                                    Name = name,
+                                    Version = version,
+                                    Publisher = publisher,
+                                    InstallLocation = installLocation,
+                                    InstallDate = installDate,
+                                    EstimatedSize = estimatedSize,
+                                    DisplayIcon = displayIcon,
+                                    UninstallString = UninstallString,
+                                    URLInfoAbout = URLInfoAbout,
+                                    HelpLink = HelpLink,
+                                    QuietUninstallString=QuietUninstallString,
+                                });
                             }
+
                         }
-                        catch (Exception ex)
-                        {
+                        catch(Exception ex) {
                             MessageBox.Show(ex.Message);
                         }
 
-                        string name = subKey.GetValue("DisplayName") as string;
-                        string version = subKey.GetValue("DisplayVersion") as string;
-                        string publisher = subKey.GetValue("Publisher") as string;
-                        string installLocation = subKey.GetValue("InstallLocation") as string;
-                        string installDate = subKey.GetValue("InstallDate") as string;
-                        string estimatedSize = subKey.GetValue("EstimatedSize") as string;
-
-                        if (!string.IsNullOrEmpty(name))
-                        {
-                            installedApps.Add(new InstalledAppInfo
-                            {
-                                Name = name,
-                                Version = version,
-                                Publisher = publisher,
-                                InstallLocation = installLocation,
-                                InstallDate = installDate,
-                                EstimatedSize = estimatedSize
-                            });
-                        }
                     }
                 }
             }
@@ -1905,116 +2022,220 @@ namespace fileanalyzer
             return installedApps;
         }
 
-        private void DisplayInstalledAppsInListView(List<InstalledAppInfo> installedApps)
+        private async void DisplayInstalledAppsInListView(List<InstalledAppInfo> installedApps)
         {
-            InstalledAppsListview.View = View.Details;
-            InstalledAppsListview.Columns.Add("Icon", 100);
-            InstalledAppsListview.View = View.Details;
-            InstalledAppsListview.Columns.Add("Name", 350);
-            InstalledAppsListview.Columns.Add("Version", 125);
-            InstalledAppsListview.Columns.Add("Publisher", 150);
-            InstalledAppsListview.Columns.Add("Install Location", 450);
-            InstalledAppsListview.Columns.Add("Install Date", 100);
-            InstalledAppsListview.Columns.Add("Estimated Size", 120);
+            await Task.Run(() => {
+                InstalledAppsListview.View = View.Details;
+                //     InstalledAppsListview.Columns.Add("Icon", 100);
+                InstalledAppsListview.Columns.Add("Name", 350);
+                InstalledAppsListview.Columns.Add("Version", 125);
+                InstalledAppsListview.Columns.Add("Publisher", 150);
+                InstalledAppsListview.Columns.Add("Install Location", 450);
+                InstalledAppsListview.Columns.Add("Install Date", 100);
+                InstalledAppsListview.Columns.Add("Estimated Size", 120);
 
-            foreach (var appInfo in installedApps)
-            {
-                try
+                foreach (var appInfo in installedApps)
                 {
-        //            Icon appIcon = Icon.ExtractAssociatedIcon(appInfo.InstallLocation);
-        //            ImageList imageList = new ImageList();
-        //           imageList.Images.Add(appIcon.ToBitmap());
-
-                    ListViewItem item = new ListViewItem();
-                //    item.ImageIndex = imageList.Images.Count - 1; // Assign the index of the added icon
-                    item.SubItems.Add(appInfo.Name);
-                    item.SubItems.Add(appInfo.Version);
-                    item.SubItems.Add(appInfo.Publisher);
-                    item.SubItems.Add(appInfo.InstallLocation);
-                    item.SubItems.Add(appInfo.InstallDate);
-                    item.SubItems.Add(appInfo.EstimatedSize);
-
-                    InstalledAppsListview.Items.Add(item);
-                }
-                catch (Exception ex)
-                {
-
-                }
-            }
-
-        }
-
-        // Function to uninstall the selected application
-        static void UninstallSelectedApp(InstalledAppInfo selectedApp)
-        {
-            
-            if (!string.IsNullOrEmpty(selectedApp.Name))
-            {
-                // You can use the application's name or GUID to uninstall it
-                string uninstallKey = GetUninstallRegistryKey(selectedApp.Name);
-
-                if (!string.IsNullOrEmpty(uninstallKey))
-                {
-                    string uninstallString = Registry.GetValue(uninstallKey, "UninstallString", null) as string;
-
-                    if (!string.IsNullOrEmpty(uninstallString))
+                    try
                     {
-                        // Run the uninstall process
-                        System.Diagnostics.Process.Start("cmd.exe", $"/C {uninstallString}");
-                    }
-                    else
-                    {
-                        // Uninstall string not found
-                        MessageBox.Show("Uninstall string not found.");
-                    }
-                }
-                else
-                {
-                    // Uninstall key not found
-                    MessageBox.Show("Uninstall key not found.");
-                }
-            }
-        }
 
-        static string GetUninstallRegistryKey(string appName)
-        {
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"))
-            {
-                foreach (string subKeyName in key.GetSubKeyNames())
-                {
-                    using (RegistryKey subKey = key.OpenSubKey(subKeyName))
-                    {
-                        string name = subKey.GetValue("DisplayName") as string;
 
-                        if (!string.IsNullOrEmpty(name) && name == appName)
+                        ImageList imageList = new ImageList();
+                        imageList.ImageSize = new System.Drawing.Size(64, 64);
+
+                        ListViewItem item = new ListViewItem(appInfo.Name);
+
+                        if (!string.IsNullOrEmpty(appInfo.DisplayIcon) && File.Exists(appInfo.DisplayIcon))
                         {
-                            return subKeyName;
+                            // Extract thumbnails or use default icons
+                            Icon icon = Icon.ExtractAssociatedIcon(appInfo.DisplayIcon); // Extract the icon from the file
+                                                                                         //             imageList.Images.Add(icon.ToBitmap()); // Add the icon as a bitmap to the image list
+                                                                                         //             item.ImageIndex = imageList.Images.Count+1; // Set the appropriate image index
+
+                            InstalledAppsListview.SmallImageList = new ImageList();
+                            InstalledAppsListview.SmallImageList.Images.Add(icon.ToBitmap());
+                            item.ImageIndex = 0; // Set the image index to the only image in the list
+
                         }
+
+                        //MessageBox.Show("ICON Address: " + appInfo.DisplayIcon);
+                        item.SubItems.Add(appInfo.Version);
+                        item.SubItems.Add(appInfo.Publisher);
+                        item.SubItems.Add(appInfo.InstallLocation);
+                        item.SubItems.Add(appInfo.InstallDate);
+                        item.SubItems.Add(appInfo.EstimatedSize);
+
+                        // Allow the user to rearrange columns.
+                        InstalledAppsListview.AllowColumnReorder = true;
+
+                        // Select the item and subitems when selection is made.
+                        InstalledAppsListview.FullRowSelect = true;
+
+                        // Sort the items in the list in ascending order.
+                        InstalledAppsListview.Sorting = SortOrder.Ascending;
+
+                        InstalledAppsListview.Items.Add(item);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                     }
                 }
-            }
-
-            return null;
+            });
         }
 
-        private void UninstallSelectedApp(object sender, EventArgs e)
+        private void appInfoRightClick(object sender, MouseEventArgs e)
         {
             if (InstalledAppsListview.SelectedItems.Count > 0)
             {
-                // Get the selected app info from the ListView
-                InstalledAppInfo selectedApp = (InstalledAppInfo)InstalledAppsListview.SelectedItems[0].Tag;
+                if (e.Button == MouseButtons.Right)
+                {
+                    var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
+                    if (item != null)
+                    {
 
-                // Call the UninstallSelectedApp function
-                UninstallSelectedApp(selectedApp);
-            }
-            else
-            {
-                MessageBox.Show("Please select an application to uninstall.");
+                        var menu = new ContextMenu();
+                        var uninstall = new MenuItem("Uninstall");
+                        var quietUninstall = new MenuItem("Quiet Uninstall");
+                        var appInfo = new MenuItem("App Information");
+                        var appHelp = new MenuItem("App Help");
+
+                        // Assuming the first column contains the application name
+                        string selectedAppName = InstalledAppsListview.SelectedItems[0].Text;
+
+                        // Search for the application in the installedApps list
+                        InstalledAppInfo selectedApp = GetInstalledApps().FirstOrDefault(app => app.Name == selectedAppName);
+
+
+                        uninstall.Click += (s, args) =>
+                        {
+
+                            if (selectedApp != null)
+                            {
+                                // Access UninstallString for the selected app
+                                string uninstallString = selectedApp.UninstallString;
+
+                                // Perform actions with the UninstallString
+                                // For instance, initiate the uninstallation process
+                                if (!string.IsNullOrEmpty(uninstallString))
+                                {
+                                    // Example: Start a process to run the uninstall command
+                                    ProcessStartInfo psi = new ProcessStartInfo("cmd.exe", "/c " + uninstallString);
+                                    Process.Start(psi);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Uninstall information not found for this application.");
+                                }
+                            }
+                        };
+
+                        quietUninstall.Click += (s, args) =>
+                        {
+                            if (selectedApp != null)
+                            {
+                                // Access UninstallString for the selected app
+                                string quietUninstallString = selectedApp.QuietUninstallString;
+
+                                // Perform actions with the UninstallString
+                                // For instance, initiate the uninstallation process
+                                if (!string.IsNullOrEmpty(quietUninstallString))
+                                {
+                                    // Example: Start a process to run the uninstall command
+                                    ProcessStartInfo psi = new ProcessStartInfo("cmd.exe", "/c " + quietUninstallString);
+                                    Process.Start(psi);
+                                }else
+                                {
+                                    MessageBox.Show("Uninstall information not found for this application.");
+                                }
+                            }
+                        };
+
+                        appInfo.Click += (s, args) =>
+                        {
+                            if (selectedApp != null)
+                            {
+                                // Access UninstallString for the selected app
+                                string URLInfoAbout = selectedApp.URLInfoAbout;
+
+                                // Perform actions with the UninstallString
+                                // For instance, initiate the uninstallation process
+                                if (!string.IsNullOrEmpty(URLInfoAbout))
+                                {
+                                    Process.Start(URLInfoAbout);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("App information link not found for this application.");
+                                }
+                            }
+
+                        };
+
+                        appHelp.Click += (s, args) =>
+                        {
+                            if (selectedApp != null)
+                            {
+                                // Access UninstallString for the selected app
+                                string HelpLink = selectedApp.HelpLink;
+
+                                // Perform actions with the UninstallString
+                                // For instance, initiate the uninstallation process
+                                if (!string.IsNullOrEmpty(HelpLink))
+                                {
+                                    Process.Start(HelpLink);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("App help link not found for this application.");
+                                }
+                            }
+
+                        };
+
+
+                        menu.MenuItems.Add(uninstall);
+                        menu.MenuItems.Add(quietUninstall);
+                        menu.MenuItems.Add(appInfo);
+                        menu.MenuItems.Add(appHelp);
+
+                        // Display the context menu at the clicked position
+                        menu.Show(InstalledAppsListview, e.Location);
+                    }
+                }
+
             }
         }
 
+        private void smallFilesRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
 
+        }
 
+        private void WriteExceptionToHTMLFile(Exception ex, string filePath)
+        {
+            try
+            {
+                // Create or append to an HTML file
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    writer.WriteLine("<html><head><title>Exception Log</title></head><body>");
+                    writer.WriteLine("<h1>Latest Exception:</h1>");
+                    writer.WriteLine("<p><strong>Date/Time:</strong> " + DateTime.Now.ToString() + "</p>");
+                    writer.WriteLine("<p><strong>Message:</strong> " + ex.Message + "</p>");
+                    writer.WriteLine("<p><strong>Stack Trace:</strong><br/>" + ex.StackTrace + "</p>");
+                    writer.WriteLine("<hr/>"); // Separator between exceptions
+                    writer.WriteLine("</body></html>");
+                }
+
+                Console.WriteLine("Exception written to " + filePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing exception to file: " + e.Message);
+            }
+        }
 
         // [END] Code for Apps Tab
     }
@@ -2028,7 +2249,15 @@ namespace fileanalyzer
         public string InstallLocation { get; set; }
         public string InstallDate { get; set; }
         public string EstimatedSize { get; set; }
+        public string DisplayIcon {  get; set; }
+        public string HelpLink {  get; set; }
+        public string URLInfoAbout {  get; set; }
+        public string QuietUninstallString {  get; set; }
+        public string UninstallString {  get; set; }
+
     }
 
     // [END] Code for Apps Tab
+
+
 }
