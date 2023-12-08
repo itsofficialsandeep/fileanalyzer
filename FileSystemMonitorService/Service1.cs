@@ -17,7 +17,6 @@ namespace FileSystemMonitorService
         public Service1()
         {
             InitializeComponent();
-
         }
 
         static Dictionary<string, long> largestFolders = new Dictionary<string, long>();
@@ -25,75 +24,23 @@ namespace FileSystemMonitorService
 
         protected override void OnStart(string[] args)
         {
-            // Load existing largest folders data
-            LoadLargestFolders();
+            justLoggging("27");
 
-            // Create a FileSystemWatcher instance
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = @"C:\"; // Change this to the root path you want to monitor
-            watcher.IncludeSubdirectories = true;
-            watcher.EnableRaisingEvents = true;
-
-            // Subscribe to the Created event
-            watcher.Created += OnFileCreated;
-
-            Console.WriteLine("Monitoring file system changes. Press any key to exit.");
-            Console.ReadKey();
-
-            // Save the updated largest folders data before exiting
-            SaveLargestFolders();
-        }
-
-        static void OnFileCreated(object sender, FileSystemEventArgs e)
-        {
-            // File created event handler
-            string directory = Path.GetDirectoryName(e.FullPath);
-
-            // Update the largest folders dictionary
-            UpdateLargestFolders(directory);
-        }
-
-        static void UpdateLargestFolders(string folderPath)
-        {
-            long folderSize = GetDirectorySize(folderPath);
-
-            // Update the largest folders dictionary
-            largestFolders[folderPath] = folderSize;
-
-            // Save the updated largest folders data
-            SaveLargestFolders();
-        }
- 
-        static void LoadLargestFolders()
-        {
-            if (File.Exists(largestFoldersFile))
-            {
-                // Load largest folders data from file
-                string[] lines = File.ReadAllLines(largestFoldersFile);
-                foreach (string line in lines)
-                {
-                    string[] parts = line.Split(',');
-                    if (parts.Length == 2 && long.TryParse(parts[1], out long size))
-                    {
-                        largestFolders[parts[0]] = size;
-                    }
-                }
+            try {
+                DeserializeListFromFileForLargestFiles();
+                StartMonitoringDrives();             
             }
-        }
-
-        static void SaveLargestFolders()
-        {
-            // Save largest folders data to file
-            List<string> lines = new List<string>();
-            foreach (var kvp in largestFolders)
+            catch (Exception ex)
             {
-                lines.Add($"{kvp.Key},{kvp.Value}");
+                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
             }
-            File.WriteAllLines(largestFoldersFile, lines);
-        }
 
-        static long GetDirectorySize(string directoryPath)
+        }        
+
+
+        public long GetDirectorySize(string directoryPath)
         {
+            justLoggging("getDirectorySize");
             long size = 0;
 
             try
@@ -109,6 +56,8 @@ namespace FileSystemMonitorService
             }
             catch (Exception ex)
             {
+                justLoggging("getDirectorySize: " + ex.Message);
+                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
                 Console.WriteLine("Error calculating folder size: " + ex.Message);
             }
 
@@ -117,8 +66,18 @@ namespace FileSystemMonitorService
 
         protected override void OnStop()
         {
+            justLoggging("67");
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+            }
+
         }
-        
+
         // [START] Getting largest files           /////////////////////////////////////////////////////
         [Serializable]
         public class LargestFileData
@@ -130,63 +89,88 @@ namespace FileSystemMonitorService
 
         public async void getFilesWithLargestSize()
         {
-            await Task.Run(() => {
-                List<LargestFileData> largestFiles;
+            justLoggging("getfileWithLargestSize");
+            try
+            {
+                await Task.Run(() => {
+                    List<LargestFileData> largestFiles;
 
-                //   MessageBox.Show("not Found for files..");
+                    //   MessageBox.Show("not Found for files..");
 
-                // Create the list by recursively getting all files in the drive
-                List<string> drives = Environment.GetLogicalDrives().ToList();
-                largestFiles = new List<LargestFileData>();
+                    // Create the list by recursively getting all files in the drive
+                    List<string> drives = Environment.GetLogicalDrives().ToList();
+                    largestFiles = new List<LargestFileData>();
 
-                foreach (string drive in drives.Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
-                {
-                    try
+                    foreach (string drive in drives.Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
                     {
-                        List<string> files = Directory.GetFiles(drive, "*", SearchOption.AllDirectories).ToList();
-
-                        List<LargestFileData> driveFiles = files.Select(file =>
+                        try
                         {
-                            FileInfo fileInfo = new FileInfo(file);
-                            return new LargestFileData { LargestFilePath = file, LargestFileSize = fileInfo.Length };
-                        }).OrderByDescending(file => file.LargestFileSize).ToList();
+                            List<string> files = Directory.GetFiles(drive, "*", SearchOption.AllDirectories).ToList();
 
-                        largestFiles = largestFiles.Concat(driveFiles)
-                            .OrderByDescending(file => file.LargestFileSize)
-                            .Take(100)
-                            .ToList();
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Console.WriteLine($"Access denied: {ex.Message}");
-                    }
-                    catch (DirectoryNotFoundException ex)
-                    {
-                        Console.WriteLine($"Directory not found: {ex.Message}");
-                    }
-                }
+                            List<LargestFileData> driveFiles = files.Select(file =>
+                            {
+                                FileInfo fileInfo = new FileInfo(file);
+                                return new LargestFileData { LargestFilePath = file, LargestFileSize = fileInfo.Length };
+                            }).OrderByDescending(file => file.LargestFileSize).ToList();
 
-                // Store the list in the file for future use
-                SerializeListToFile(largestFiles);
-            });
+                            largestFiles = largestFiles.Concat(driveFiles)
+                                .OrderByDescending(file => file.LargestFileSize)
+                                .Take(100)
+                                .ToList();
+                        }
+                        catch (UnauthorizedAccessException ex) {
+                            justLoggging("getfileEithLargestSize: " + ex.Message);
+                            WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                            Console.WriteLine($"Access denied: {ex.Message}");
+                        }
+                        catch (DirectoryNotFoundException ex)
+                        {
+                            justLoggging("getfileEithLargestSize: " + ex.Message);
+                            WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
+                            Console.WriteLine($"Directory not found: {ex.Message}");
+                        }
+                    }
+
+                    // Store the list in the file for future use
+                    SerializeListToFile(largestFiles);
+                });
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+            }
+
+
         }
 
-        static async void SerializeListToFile(List<LargestFileData> list)
+        public async void SerializeListToFile(List<LargestFileData> list)
         {
-            await Task.Run(() => {
-                try
-                {
-                    using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Create))
+            justLoggging("serilaizingListToFile");
+            try
+            {
+                await Task.Run(() => {
+                    try
                     {
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        formatter.Serialize(stream, list);
+                        using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Create))
+                        {
+                            BinaryFormatter formatter = new BinaryFormatter();
+                            formatter.Serialize(stream, list);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error serializing list: {ex.Message}");
-                }
-            });
+                    catch (Exception ex)
+                    {
+                        justLoggging("serializeListToFile exception");
+                        justLoggging(ex.Message);
+                        WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                        Console.WriteLine($"Error serializing list: {ex.Message}");
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+            }
+
         }
 
         // [END] Getting Large size files               /////////////////////////////////////////////////////
@@ -194,8 +178,10 @@ namespace FileSystemMonitorService
 
         // Getting LARGE SIZE FOLDERS [START]           /////////////////////////////////////////////////////
 
-        static List<FolderData> GetFoldersWithLargestSize(int count)
+        public List<FolderData> GetFoldersWithLargestSize(int count)
         {
+            justLoggging("178");
+
             List<FolderData> folders = new List<FolderData>();
 
             // Check if the file exists, if it does, deserialize the list from the file
@@ -204,28 +190,37 @@ namespace FileSystemMonitorService
             //  MessageBox.Show("Not Found for folder..");
             DriveInfo[] drives = DriveInfo.GetDrives();
 
-            foreach (var drive in drives.Where(d => d.IsReady && d.DriveType == DriveType.Fixed && !d.Name.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
+            try
             {
-                try
+                foreach (var drive in drives.Where(d => d.IsReady && d.DriveType == DriveType.Fixed && !d.Name.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
                 {
-                    DirectoryInfo di = new DirectoryInfo(drive.RootDirectory.FullName);
-
-                    foreach (var dir in di.EnumerateDirectories("*", SearchOption.AllDirectories))
+                    try
                     {
-                        long folderSize = GetDirectorySize(dir.FullName);
+                        DirectoryInfo di = new DirectoryInfo(drive.RootDirectory.FullName);
 
-                        folders.Add(new FolderData { FolderPath = dir.FullName, FolderSize = folderSize });
+                        foreach (var dir in di.EnumerateDirectories("*", SearchOption.AllDirectories))
+                        {
+                            long folderSize = GetDirectorySize(dir.FullName);
+
+                            folders.Add(new FolderData { FolderPath = dir.FullName, FolderSize = folderSize });
+                        }
                     }
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Console.WriteLine($"Access denied: {ex.Message}");
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    Console.WriteLine($"Directory not found: {ex.Message}");
-                }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                        Console.WriteLine($"Access denied: {ex.Message}");
+                    }
+                    catch (DirectoryNotFoundException ex)
+                    {
+                        WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                        Console.WriteLine($"Directory not found: {ex.Message}");
+                    }
 
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
             }
 
             // Store the list in the file for future use
@@ -234,23 +229,36 @@ namespace FileSystemMonitorService
             return folders.OrderByDescending(f => f.FolderSize).Take(count).ToList();
         }
 
-        static async void SerializeListToFile(string filePath, List<FolderData> list)
+        public async void SerializeListToFile(string filePath, List<FolderData> list)
         {
-            await Task.Run(() => {
-                try
-                {
-                    using (Stream stream = File.Open(filePath, FileMode.Create))
+            justLoggging("serializing list to file");
+
+            try
+            {
+                await Task.Run(() => {
+                    try
                     {
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        formatter.Serialize(stream, list);
+                        using (Stream stream = File.Open(filePath, FileMode.Create))
+                        {
+                            BinaryFormatter formatter = new BinaryFormatter();
+                            formatter.Serialize(stream, list);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    //  MessageBox.Show("1524:"+ex.Message);
-                }
-            });
+                    catch (Exception ex)
+                    {
+                        justLoggging("an exception occured in serializeListToFile");
+                        justLoggging(ex.Message);
+                        WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
+                        Debug.WriteLine(ex.Message);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                justLoggging("SerializeListToFile(string filePath, List<FolderData> list): " + ex.Message);
+                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
+            }
+
         }
 
         [Serializable]
@@ -261,5 +269,165 @@ namespace FileSystemMonitorService
         }
 
         // GETTING LARGE SIZE FOLDERS [END]            /////////////////////////////////////////////////
+
+
+        // FILE WATCHER      ///////////////////////////////////////////////////////////////////////////
+        // Below are functions that will run to refresh the list of Largest Files Avaialable in the drives
+
+        private readonly string listFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";                                               
+        private List<LargestFileData> largestFiles;
+
+
+        private void DeserializeListFromFileForLargestFiles()
+        {
+            justLoggging("276");
+
+            try
+            {
+                if (File.Exists(listFilePath))
+                {
+                    using (Stream stream = File.Open(listFilePath, FileMode.Open))
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        largestFiles = (List<LargestFileData>)formatter.Deserialize(stream);
+                    }
+                }
+                else
+                {
+                    largestFiles = new List<LargestFileData>();
+                }
+            }
+            catch (Exception ex)
+            {
+                justLoggging("DeserializeListFromFileForLargestFiles:" + ex.Message);
+                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
+                Console.WriteLine($"Error deserializing list: {ex.Message}");
+            }
+        }
+
+        private void SerializeListToFileForLargestFile()
+        {
+            justLoggging("303");            
+
+            try
+            {
+              //  string listFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
+                using (Stream stream = File.Open(listFilePath, FileMode.Create))
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();                    
+                    formatter.Serialize(stream, largestFiles);
+                }
+            }
+            catch (Exception ex)
+            {
+                justLoggging("SerializeListToFileForLargestFile:" + ex.Message);
+                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
+                Console.WriteLine($"Error serializing list: {ex.Message}");
+            }
+        }
+
+        private void StartMonitoringDrives()
+        {
+            justLoggging("started monitoring");
+            try
+            {
+                foreach (string drive in Environment.GetLogicalDrives().Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
+                {
+                    FileSystemWatcher watcher = new FileSystemWatcher(drive);
+                    watcher.Created += OnFileCreated;
+                    watcher.IncludeSubdirectories = true;
+                    watcher.EnableRaisingEvents = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
+            }
+
+        }
+
+        private void OnFileCreated(object sender, FileSystemEventArgs e)
+        {
+            justLoggging("Something was created");
+
+            try
+            {
+                FileInfo fileInfo = new FileInfo(e.FullPath);
+
+                justLoggging("file was "+e.FullPath);
+
+                if (largestFiles.Count >= 100)
+                {
+                    LargestFileData smallestFile = largestFiles.OrderBy(file => file.LargestFileSize).FirstOrDefault();
+                    if (smallestFile?.LargestFileSize < fileInfo.Length)
+                    {
+                        largestFiles.Remove(smallestFile);
+                    }
+                    else
+                    {
+                        return; // Skip if the new file is smaller than the smallest in the list
+                    }
+                }
+
+                LargestFileData newFile = new LargestFileData { LargestFilePath = e.FullPath, LargestFileSize = fileInfo.Length };
+                largestFiles.Add(newFile);
+                largestFiles = largestFiles.OrderByDescending(file => file.LargestFileSize).ToList();
+                SerializeListToFileForLargestFile();
+            }
+            catch (Exception ex)
+            {
+                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
+                Console.WriteLine($"Error processing file: {ex.Message}");
+            }
+        }
+
+        private void WriteExceptionToHTMLFile(Exception ex, string filePath)
+        {
+            try
+            {
+                // Create or append to an HTML file
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    writer.WriteLine("<html><head><title>Exception Log</title></head><body>");
+                    writer.WriteLine("<h1>Latest Exception:</h1>");
+                    writer.WriteLine("<p><strong>Date/Time:</strong> " + DateTime.Now.ToString() + "</p>");
+                    writer.WriteLine("<p><strong>Message:</strong> " + ex.Message + "</p>");
+                    writer.WriteLine("<p><strong>Stack Trace:</strong><br/>" + ex.StackTrace + "</p>");
+                    writer.WriteLine("<hr/>"); // Separator between exceptions
+                    writer.WriteLine("</body></html>");
+                }
+
+                Console.WriteLine("Exception written to " + filePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing exception to file: " + e.Message);
+            }
+        }
+
+        public void justLoggging(string line)
+        {
+            string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\File.html"; // Specify your file path
+
+            try
+            {
+                // Create or append to an HTML file
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    writer.WriteLine("<html><head><title>Exception Log</title></head><body>");
+                    writer.WriteLine("<h1>Latest Exception:</h1>");
+                    writer.WriteLine("<p><strong>Date/Time:</strong> " + DateTime.Now.ToString() + "</p>");
+                    writer.WriteLine("<p><strong>Message:</strong> " + "Now " + ":"+ line + "</p>");
+                    writer.WriteLine("<hr/>"); // Separator between exceptions
+                    writer.WriteLine("</body></html>");
+                }
+
+                Console.WriteLine("Exception written to " + filePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing exception to file: " + e.Message);
+            }
+        }
     }
 }

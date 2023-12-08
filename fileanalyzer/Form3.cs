@@ -71,16 +71,11 @@ namespace fileanalyzer
             //   mainTabControl.TabPages.Add("tabKey2", "TabText2", "key2");      // icon using ImageIndex
             //    this.Controls.Add(mainTabControl);
 
-
-
-
             SearchedFolders = new List<string>();
             SearchedFiles = new List<string>();
             TotalItems = 0;
 
-
             GenerateDriveCards();
-
         }
 
         private void openFolderBrowser(object sender, EventArgs e)
@@ -96,7 +91,7 @@ namespace fileanalyzer
             }
         }
 
-        private async void analyze_click(object sender, EventArgs e)
+        private void analyze_click(object sender, EventArgs e)
         {
 
            // await Task.Run( () =>
@@ -1516,11 +1511,11 @@ namespace fileanalyzer
             await Task.Run(() => {
                 List<LargestFileData> largestFiles;
 
-                if (File.Exists(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep"))
+                if (File.Exists(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt"))
                 {
                     // Load the list from the file if it exists
                     largestFiles = DeserializeListFromFile();
-                    //  MessageBox.Show("Found for files..");
+                    MessageBox.Show("Found for files..");
                 }
                 else
                 {
@@ -1586,7 +1581,7 @@ namespace fileanalyzer
             await Task.Run(() => {
                 try
                 {
-                    using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Create))
+                    using (Stream stream = File.Open(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt", FileMode.Create))
                     {
                         BinaryFormatter formatter = new BinaryFormatter();
                         formatter.Serialize(stream, list);
@@ -1603,7 +1598,7 @@ namespace fileanalyzer
         {
             try
             {
-                using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Open))
+                using (Stream stream = File.Open(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt", FileMode.Open))
                 {
                     BinaryFormatter formatter = new BinaryFormatter();
                     return (List<LargestFileData>)formatter.Deserialize(stream);
@@ -1611,6 +1606,7 @@ namespace fileanalyzer
             }
             catch (Exception ex)
             {
+                MessageBox.Show("line:1609 "+ex.Message );
                 Console.WriteLine($"Error deserializing list: {ex.Message}");
                 return new List<LargestFileData>();
             }
