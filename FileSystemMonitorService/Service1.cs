@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceProcess;
 using System.Text;
@@ -21,13 +22,20 @@ namespace FileSystemMonitorService
 
         static Dictionary<string, long> largestFolders = new Dictionary<string, long>();
         const string largestFoldersFile = "largestFoldersList.dat";
+        string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\listFiles.txt";
+        string recentFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\recentFiles.txt";
+
+        private readonly string listFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
+        private List<LargestFileData> largestFiles;
+        private List<RecentFiles> recentFiles;
 
         protected override void OnStart(string[] args)
         {
             justLoggging("27");
 
             try {
-                DeserializeListFromFileForLargestFiles();
+              largestFiles =  DeserializeCSVToList(filePath);
+             //   DeserializeListFromFileForLargestFiles();
                 StartMonitoringDrives();             
             }
             catch (Exception ex)
@@ -86,10 +94,21 @@ namespace FileSystemMonitorService
             public long LargestFileSize { get; set; }
         }
 
+        public class RecentFiles
+        {
+            public string RecentFilePath { get; set; }
+            public long RecentFileSize { get; set; }
+            public DateTime RecentFileCreationTime { get; set; }
+
+            public string fileName { get; set; }
+
+        }
+
 
         public async void getFilesWithLargestSize()
         {
-            justLoggging("getfileWithLargestSize");
+            justLoggging("getting file With Large Size");
+
             try
             {
                 await Task.Run(() => {
@@ -132,49 +151,83 @@ namespace FileSystemMonitorService
                     }
 
                     // Store the list in the file for future use
-                    SerializeListToFile(largestFiles);
+                    //SerializeListToFile(largestFiles);
+                    SerializeListToCSV(largestFiles,listFilePath);
                 });
             }
             catch (Exception ex)
             {
                 WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
             }
-
-
         }
 
-        public async void SerializeListToFile(List<LargestFileData> list)
+        public void SerializeListToCSV(List<LargestFileData> largestFiles, string listFilePath)
         {
-            justLoggging("serilaizingListToFile");
             try
             {
-                await Task.Run(() => {
-                    try
-                    {
-                        using (Stream stream = File.Open(@"C:\Program Files (x86)\SANDEEP\largestFilesList.sandeep", FileMode.Create))
-                        {
-                            BinaryFormatter formatter = new BinaryFormatter();
-                            formatter.Serialize(stream, list);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        justLoggging("serializeListToFile exception");
-                        justLoggging(ex.Message);
-                        WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
-                        Console.WriteLine($"Error serializing list: {ex.Message}");
-                    }
-                });
+                justLoggging("Serialize using csv format");
+
+                // Create a StringBuilder to build the CSV content
+                StringBuilder csvContent = new StringBuilder();
+
+                // Append CSV headers (assuming LargestFileData has properties: FilePath and FileSize)
+                csvContent.AppendLine("FilePath,FileSize");
+
+                // Append data from the list to the CSV content
+                foreach (var fileData in largestFiles)
+                {
+                    // Format each line in CSV with FilePath and FileSize separated by a comma
+                    csvContent.AppendLine($"{fileData.LargestFilePath},{fileData.LargestFileSize}");
+                }
+
+                // Write the CSV content to the specified file
+                File.WriteAllText(listFilePath, csvContent.ToString());
+
+                Console.WriteLine("List serialized to CSV successfully.");
             }
             catch (Exception ex)
             {
-                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                justLoggging("Serialize exception occured: " + ex.Message + ex.StackTrace);
+                Console.WriteLine($"Error serializing list to CSV: {ex.Message}");
             }
-
         }
 
         // [END] Getting Large size files               /////////////////////////////////////////////////////
 
+        // [START] Serializing recent files             /////////////////////////////////////////////////////
+
+        public void SerializeRecentFilesListToCSV(List<RecentFiles> largestFiles, string listFilePath)
+        {
+            try
+            {
+                justLoggging("Serialize using csv format");
+
+                // Create a StringBuilder to build the CSV content
+                StringBuilder csvContent = new StringBuilder();
+
+                // Append CSV headers (assuming LargestFileData has properties: FilePath and FileSize)
+                csvContent.AppendLine("FilePath,FileSize");
+
+                // Append data from the list to the CSV content
+                foreach (var fileData in largestFiles)
+                {
+                    // Format each line in CSV with FilePath and FileSize separated by a comma
+                    csvContent.AppendLine($"{fileData.RecentFilePath},{fileData.RecentFileSize}");
+                }
+
+                // Write the CSV content to the specified file
+                File.WriteAllText(listFilePath, csvContent.ToString());
+
+                Console.WriteLine("List serialized to CSV successfully.");
+            }
+            catch (Exception ex)
+            {
+                justLoggging("Serialize exception occured: " + ex.Message + ex.StackTrace);
+                Console.WriteLine($"Error serializing list to CSV: {ex.Message}");
+            }
+        }
+
+        // [END] serializing recent files               /////////////////////////////////////////////////////
 
         // Getting LARGE SIZE FOLDERS [START]           /////////////////////////////////////////////////////
 
@@ -238,11 +291,13 @@ namespace FileSystemMonitorService
                 await Task.Run(() => {
                     try
                     {
-                        using (Stream stream = File.Open(filePath, FileMode.Create))
+               /**         using (Stream stream = File.Open(filePath, FileMode.Create))
                         {
                             BinaryFormatter formatter = new BinaryFormatter();
                             formatter.Serialize(stream, list);
-                        }
+                        }   **/
+
+                        SerializeListToCSV(filePath);
                     }
                     catch (Exception ex)
                     {
@@ -261,6 +316,7 @@ namespace FileSystemMonitorService
 
         }
 
+
         [Serializable]
         public class FolderData
         {
@@ -274,57 +330,149 @@ namespace FileSystemMonitorService
         // FILE WATCHER      ///////////////////////////////////////////////////////////////////////////
         // Below are functions that will run to refresh the list of Largest Files Avaialable in the drives
 
-        private readonly string listFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";                                               
-        private List<LargestFileData> largestFiles;
-
-
-        private void DeserializeListFromFileForLargestFiles()
+        public void SerializeListToCSV(string listFilePath)
         {
-            justLoggging("276");
+            try
+            {
+                justLoggging("Serializing using csv format");
+
+                // Create a StringBuilder to build the CSV content
+                StringBuilder csvContent = new StringBuilder();
+
+                // Append CSV headers (assuming LargestFileData has properties: FilePath and FileSize)
+                csvContent.AppendLine("FilePath,FileSize");
+
+                // Append data from the list to the CSV content
+                foreach (var fileData in largestFiles)
+                {
+                    // Format each line in CSV with FilePath and FileSize separated by a comma
+                    csvContent.AppendLine($"{fileData.LargestFilePath},{fileData.LargestFileSize}");
+                }
+
+                // Write the CSV content to the specified file
+                File.WriteAllText(recentFilePath, csvContent.ToString());
+
+                Console.WriteLine("List serialized to CSV successfully.");
+            }
+            catch (Exception ex)
+            {
+                justLoggging("Serialize exception occured: "+ex.Message + ex.StackTrace);
+                Console.WriteLine($"Error serializing list to CSV: {ex.Message}");
+            }
+        }
+
+        public List<LargestFileData> DeserializeCSVToList( string listFilePath)
+        {
+            List<LargestFileData> deserializedList = new List<LargestFileData>();
 
             try
             {
-                if (File.Exists(listFilePath))
-                {
-                    using (Stream stream = File.Open(listFilePath, FileMode.Open))
+                justLoggging("csv Deserialization start");
+
+                if (File.Exists(listFilePath)){
+                    string[] lines = File.ReadAllLines(listFilePath);
+
+                    // Assuming the first line contains headers
+                    string[] headers = lines[0].Split(',');
+
+                    for (int i = 1; i < lines.Length; i++)
                     {
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        largestFiles = (List<LargestFileData>)formatter.Deserialize(stream);
+                        string[] data = lines[i].Split(',');
+
+                        if (data.Length == headers.Length)
+                        {
+                            LargestFileData fileData = new LargestFileData();
+
+                            for (int j = 0; j < headers.Length; j++)
+                            {
+                                // Adjust property assignment based on your CSV structure
+                                if (headers[j] == "FilePath")
+                                {
+                                    fileData.LargestFilePath = data[j];
+                                }
+                                else if (headers[j] == "FileSize")
+                                {
+                                    if (long.TryParse(data[j], out long fileSize))
+                                    {
+                                        fileData.LargestFileSize = fileSize;
+                                    }
+                                }
+                                // Add other properties as needed...
+                            }
+
+                            deserializedList.Add(fileData);
+                        }
                     }
+
+                    Console.WriteLine("CSV file deserialized successfully.");
+                } else {
+                    getFilesWithLargestSize();
                 }
-                else
-                {
-                    largestFiles = new List<LargestFileData>();
-                }
+
             }
             catch (Exception ex)
             {
-                justLoggging("DeserializeListFromFileForLargestFiles:" + ex.Message);
-                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
-                Console.WriteLine($"Error deserializing list: {ex.Message}");
+                justLoggging("Deserialization exception occured: " + ex.Message + ex.StackTrace);
+
+                Console.WriteLine($"Error deserializing CSV to list: {ex.Message}");
             }
+
+            return deserializedList;
         }
 
-        private void SerializeListToFileForLargestFile()
+        public List<RecentFiles> DeserializeRecentFilesCSVToList()
         {
-            justLoggging("303");            
+            List<RecentFiles> deserializedList = new List<RecentFiles>();
 
             try
             {
-              //  string listFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
-                using (Stream stream = File.Open(listFilePath, FileMode.Create))
+                if (File.Exists(recentFilePath))
                 {
-                    BinaryFormatter formatter = new BinaryFormatter();                    
-                    formatter.Serialize(stream, largestFiles);
+                    string[] lines = File.ReadAllLines(recentFilePath);
+
+                    // Assuming the first line contains headers
+                    string[] headers = lines[0].Split(',');
+
+                    for (int i = 1; i < lines.Length; i++)
+                    {
+                        string[] data = lines[i].Split(',');
+
+                        if (data.Length == headers.Length)
+                        {
+                            RecentFiles fileData = new RecentFiles();
+
+                            for (int j = 0; j < headers.Length; j++)
+                            {
+                                // Adjust property assignment based on your CSV structure
+                                if (headers[j] == "FilePath")
+                                {
+                                    fileData.RecentFilePath = data[j];
+                                }
+                                else if (headers[j] == "FileSize")
+                                {
+                                    if (long.TryParse(data[j], out long fileSize))
+                                    {
+                                        fileData.RecentFileSize = fileSize;
+                                    }
+                                }
+                                // Add other properties as needed...
+                            }
+
+                            deserializedList.Add(fileData);
+                        }
+                    }
+
+                    Console.WriteLine("CSV file deserialized successfully.");
                 }
             }
             catch (Exception ex)
             {
-                justLoggging("SerializeListToFileForLargestFile:" + ex.Message);
-                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
-                Console.WriteLine($"Error serializing list: {ex.Message}");
+                Console.WriteLine($"Error deserializing CSV to list: {ex.Message}");
             }
+
+            return deserializedList;
         }
+
 
         private void StartMonitoringDrives()
         {
@@ -343,7 +491,6 @@ namespace FileSystemMonitorService
             {
                 WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
             }
-
         }
 
         private void OnFileCreated(object sender, FileSystemEventArgs e)
@@ -352,10 +499,12 @@ namespace FileSystemMonitorService
 
             try
             {
+                // file info of latest created file
                 FileInfo fileInfo = new FileInfo(e.FullPath);
 
                 justLoggging("file was "+e.FullPath);
 
+                // this is for Largest Files
                 if (largestFiles.Count >= 100)
                 {
                     LargestFileData smallestFile = largestFiles.OrderBy(file => file.LargestFileSize).FirstOrDefault();
@@ -372,15 +521,49 @@ namespace FileSystemMonitorService
                 LargestFileData newFile = new LargestFileData { LargestFilePath = e.FullPath, LargestFileSize = fileInfo.Length };
                 largestFiles.Add(newFile);
                 largestFiles = largestFiles.OrderByDescending(file => file.LargestFileSize).ToList();
-                SerializeListToFileForLargestFile();
+                
+                SerializeListToCSV(largestFiles, listFilePath);
+
+
+                // code for "RECENT FILES"
+
+                // Define a list of common media file extensions
+                List<string> mediaExtensions = new List<string> {
+                    ".mp3", ".mp4", ".avi", ".mkv", ".mov", ".wav", ".flv", ".wmv", ".m4a", /* Add more as needed */ 
+                    ".exe", ".msi", ".app", ".bat", ".sh",".txt", ".doc", ".docx", ".rtf", ".odt",".xls", ".xlsx", ".ods", ".csv", ".ppt", ".pptx", ".odp", ".rar", ".zip", ".txt"
+                };
+
+                // Assuming fileInfo is created earlier with FileInfo fileInfo = new FileInfo(e.FullPath);
+
+                recentFiles = DeserializeRecentFilesCSVToList();
+                if (mediaExtensions.Contains(fileInfo.Extension, StringComparer.OrdinalIgnoreCase))
+                {
+                    // Adds recent files (for third tab on main app)
+                    if (recentFiles.Count >= 100)
+                    {
+                        // Remove the oldest file from the list
+                        recentFiles.RemoveAt(recentFiles.Count - 1);
+
+                        justLoggging("matched"+fileInfo.Name);
+                    }
+
+                    RecentFiles newRecentFile = new RecentFiles { RecentFilePath = e.FullPath, RecentFileCreationTime = fileInfo.CreationTime, RecentFileSize = fileInfo.Length, fileName = fileInfo.Name };
+                    recentFiles.Insert(0, newRecentFile); // Insert at the beginning of the list
+                    SerializeRecentFilesListToCSV(recentFiles, recentFilePath);
+                }
+                else
+                {
+                    justLoggging("Did not match" + fileInfo.Name);
+                }
+
             }
             catch (Exception ex)
             {
-                WriteExceptionToHTMLFile(ex, "ServiceExceptionLog.html");
-                Console.WriteLine($"Error processing file: {ex.Message}");
+                justLoggging("exception at onFileCreated" + ex.ToString());
             }
         }
 
+        // Logging Functions      ////////////////////////////////////////////////////////////////////////////////////
         private void WriteExceptionToHTMLFile(Exception ex, string filePath)
         {
             try

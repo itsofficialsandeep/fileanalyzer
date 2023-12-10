@@ -66,21 +66,18 @@
             this.totalVideos = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.recyclebinPanel = new System.Windows.Forms.Panel();
-            this.analyzeRecyclebinFolderButton = new System.Windows.Forms.Button();
             this.recyclebinButton = new System.Windows.Forms.Button();
             this.recyclebinSize = new System.Windows.Forms.Label();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.totalRecyclebin = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.temp2Panel = new System.Windows.Forms.Panel();
-            this.analyzeTemp2FolderButton = new System.Windows.Forms.Button();
             this.temp2Button = new System.Windows.Forms.Button();
             this.temp2Size = new System.Windows.Forms.Label();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.totalTemp2 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tempPanel = new System.Windows.Forms.Panel();
-            this.analyzeTempFolderButton = new System.Windows.Forms.Button();
             this.tempButton = new System.Windows.Forms.Button();
             this.tempSize = new System.Windows.Forms.Label();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
@@ -122,9 +119,6 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
             this.oneClickDeletingFilename = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.driveGroupBox = new System.Windows.Forms.GroupBox();
-            this.backpanel = new System.Windows.Forms.Panel();
             this.dashboardPanel = new System.Windows.Forms.TabPage();
             this.groupBoxForResuts = new System.Windows.Forms.GroupBox();
             this.selectedFileSize = new System.Windows.Forms.Label();
@@ -138,6 +132,7 @@
             this.smallFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.largeFilesRadioButton = new System.Windows.Forms.RadioButton();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.extensionRadio = new System.Windows.Forms.RadioButton();
             this.fileNameRadio = new System.Windows.Forms.RadioButton();
             this.extension = new System.Windows.Forms.TextBox();
@@ -169,13 +164,17 @@
             this.totalFileSizeLabel = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.filesFound = new System.Windows.Forms.Label();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.recentFilesListview = new System.Windows.Forms.ListView();
+            this.label19 = new System.Windows.Forms.Label();
+            this.driveGroupBox = new System.Windows.Forms.GroupBox();
+            this.backpanel = new System.Windows.Forms.Panel();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.InstalledAppsListview = new System.Windows.Forms.ListView();
             this.appUninstallButton = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -208,8 +207,6 @@
             this.flowLayoutPanel5.SuspendLayout();
             this.flowLayoutPanel6.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.driveGroupBox.SuspendLayout();
             this.dashboardPanel.SuspendLayout();
             this.groupBoxForResuts.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -219,6 +216,8 @@
             this.groupBox3.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.driveGroupBox.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -288,7 +287,6 @@
             this.analyzeDesktopFolderButton.TabIndex = 2;
             this.analyzeDesktopFolderButton.Text = "Analyze";
             this.analyzeDesktopFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeDesktopFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // desktopSize
             // 
@@ -359,7 +357,6 @@
             this.analyzeDownloadFolderButton.TabIndex = 2;
             this.analyzeDownloadFolderButton.Text = "Analyze";
             this.analyzeDownloadFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeDownloadFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // downloadButton
             // 
@@ -441,7 +438,6 @@
             this.analyzeDocFolderButton.TabIndex = 2;
             this.analyzeDocFolderButton.Text = "Analyze";
             this.analyzeDocFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeDocFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // docButton
             // 
@@ -523,7 +519,6 @@
             this.analyzeMusicFolderButton.TabIndex = 2;
             this.analyzeMusicFolderButton.Text = "Analyze";
             this.analyzeMusicFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeMusicFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // musicButton
             // 
@@ -605,7 +600,6 @@
             this.analyzeVideosFolderButton.TabIndex = 2;
             this.analyzeVideosFolderButton.Text = "Analyze";
             this.analyzeVideosFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeVideosFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // videoButton
             // 
@@ -665,7 +659,6 @@
             // recyclebinPanel
             // 
             this.recyclebinPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(250)))), ((int)(((byte)(255)))));
-            this.recyclebinPanel.Controls.Add(this.analyzeRecyclebinFolderButton);
             this.recyclebinPanel.Controls.Add(this.recyclebinButton);
             this.recyclebinPanel.Controls.Add(this.recyclebinSize);
             this.recyclebinPanel.Controls.Add(this.pictureBox11);
@@ -677,17 +670,6 @@
             this.recyclebinPanel.Size = new System.Drawing.Size(244, 200);
             this.recyclebinPanel.TabIndex = 3;
             this.recyclebinPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
-            // 
-            // analyzeRecyclebinFolderButton
-            // 
-            this.analyzeRecyclebinFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(146)))));
-            this.analyzeRecyclebinFolderButton.Location = new System.Drawing.Point(25, 153);
-            this.analyzeRecyclebinFolderButton.Name = "analyzeRecyclebinFolderButton";
-            this.analyzeRecyclebinFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeRecyclebinFolderButton.TabIndex = 2;
-            this.analyzeRecyclebinFolderButton.Text = "Analyze";
-            this.analyzeRecyclebinFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeRecyclebinFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // recyclebinButton
             // 
@@ -747,7 +729,6 @@
             // temp2Panel
             // 
             this.temp2Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(252)))), ((int)(((byte)(222)))));
-            this.temp2Panel.Controls.Add(this.analyzeTemp2FolderButton);
             this.temp2Panel.Controls.Add(this.temp2Button);
             this.temp2Panel.Controls.Add(this.temp2Size);
             this.temp2Panel.Controls.Add(this.pictureBox9);
@@ -759,17 +740,6 @@
             this.temp2Panel.Size = new System.Drawing.Size(244, 200);
             this.temp2Panel.TabIndex = 3;
             this.temp2Panel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
-            // 
-            // analyzeTemp2FolderButton
-            // 
-            this.analyzeTemp2FolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(171)))), ((int)(((byte)(155)))), ((int)(((byte)(0)))));
-            this.analyzeTemp2FolderButton.Location = new System.Drawing.Point(25, 153);
-            this.analyzeTemp2FolderButton.Name = "analyzeTemp2FolderButton";
-            this.analyzeTemp2FolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeTemp2FolderButton.TabIndex = 2;
-            this.analyzeTemp2FolderButton.Text = "Analyze";
-            this.analyzeTemp2FolderButton.UseVisualStyleBackColor = true;
-            this.analyzeTemp2FolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // temp2Button
             // 
@@ -829,7 +799,6 @@
             // tempPanel
             // 
             this.tempPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(213)))), ((int)(((byte)(227)))));
-            this.tempPanel.Controls.Add(this.analyzeTempFolderButton);
             this.tempPanel.Controls.Add(this.tempButton);
             this.tempPanel.Controls.Add(this.tempSize);
             this.tempPanel.Controls.Add(this.pictureBox8);
@@ -841,17 +810,6 @@
             this.tempPanel.Size = new System.Drawing.Size(244, 200);
             this.tempPanel.TabIndex = 3;
             this.tempPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
-            // 
-            // analyzeTempFolderButton
-            // 
-            this.analyzeTempFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
-            this.analyzeTempFolderButton.Location = new System.Drawing.Point(25, 153);
-            this.analyzeTempFolderButton.Name = "analyzeTempFolderButton";
-            this.analyzeTempFolderButton.Size = new System.Drawing.Size(85, 29);
-            this.analyzeTempFolderButton.TabIndex = 2;
-            this.analyzeTempFolderButton.Text = "Analyze";
-            this.analyzeTempFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeTempFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // tempButton
             // 
@@ -933,7 +891,6 @@
             this.analyzeScreenshotFolderButton.TabIndex = 2;
             this.analyzeScreenshotFolderButton.Text = "Analyze";
             this.analyzeScreenshotFolderButton.UseVisualStyleBackColor = true;
-            this.analyzeScreenshotFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // screenshotButton
             // 
@@ -1015,7 +972,6 @@
             this.analyzePictureFolderButton.TabIndex = 2;
             this.analyzePictureFolderButton.Text = "Analyze";
             this.analyzePictureFolderButton.UseVisualStyleBackColor = true;
-            this.analyzePictureFolderButton.Click += new System.EventHandler(this.clearPictureFolder);
             // 
             // pictureButton
             // 
@@ -1107,7 +1063,7 @@
             // 
             // largeSizeFoldersListview
             // 
-            this.largeSizeFoldersListview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.largeSizeFoldersListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.largeSizeFoldersListview.HideSelection = false;
             this.largeSizeFoldersListview.Location = new System.Drawing.Point(3, 6);
             this.largeSizeFoldersListview.Name = "largeSizeFoldersListview";
@@ -1131,13 +1087,14 @@
             // largeSizeFileListview
             // 
             this.largeSizeFileListview.BackColor = System.Drawing.Color.White;
-            this.largeSizeFileListview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.largeSizeFileListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.largeSizeFileListview.HideSelection = false;
             this.largeSizeFileListview.Location = new System.Drawing.Point(6, 6);
             this.largeSizeFileListview.Name = "largeSizeFileListview";
             this.largeSizeFileListview.Size = new System.Drawing.Size(693, 326);
             this.largeSizeFileListview.TabIndex = 0;
             this.largeSizeFileListview.UseCompatibleStateImageBehavior = false;
+            this.largeSizeFileListview.SelectedIndexChanged += new System.EventHandler(this.largeSizeFileListview_SelectedIndexChanged);
             // 
             // bannerFlowPanel
             // 
@@ -1318,40 +1275,6 @@
             this.oneClickDeletingFilename.Size = new System.Drawing.Size(59, 19);
             this.oneClickDeletingFilename.TabIndex = 0;
             this.oneClickDeletingFilename.Text = "----------";
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(248)))), ((int)(((byte)(251)))));
-            this.tabPage1.Controls.Add(this.driveGroupBox);
-            this.tabPage1.Location = new System.Drawing.Point(124, 4);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1793, 1048);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            // 
-            // driveGroupBox
-            // 
-            this.driveGroupBox.Controls.Add(this.backpanel);
-            this.driveGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.driveGroupBox.Location = new System.Drawing.Point(6, 14);
-            this.driveGroupBox.Name = "driveGroupBox";
-            this.driveGroupBox.Size = new System.Drawing.Size(1784, 1012);
-            this.driveGroupBox.TabIndex = 0;
-            this.driveGroupBox.TabStop = false;
-            this.driveGroupBox.Text = "Drives";
-            // 
-            // backpanel
-            // 
-            this.backpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.backpanel.AutoScroll = true;
-            this.backpanel.BackColor = System.Drawing.Color.Transparent;
-            this.backpanel.Location = new System.Drawing.Point(9, 23);
-            this.backpanel.Name = "backpanel";
-            this.backpanel.Size = new System.Drawing.Size(1757, 952);
-            this.backpanel.TabIndex = 1;
             // 
             // dashboardPanel
             // 
@@ -1538,6 +1461,15 @@
             this.groupBox8.TabIndex = 9;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Files with chars or extentions:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(12, 109);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(379, 17);
+            this.label16.TabIndex = 3;
+            this.label16.Text = "Type extension without dot. You can separate it by comma.";
             // 
             // extensionRadio
             // 
@@ -1890,6 +1822,62 @@
             this.filesFound.TabIndex = 4;
             this.filesFound.Text = "------------";
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(248)))), ((int)(((byte)(251)))));
+            this.tabPage1.Controls.Add(this.recentFilesListview);
+            this.tabPage1.Controls.Add(this.label19);
+            this.tabPage1.Controls.Add(this.driveGroupBox);
+            this.tabPage1.Location = new System.Drawing.Point(124, 4);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1793, 1048);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            // 
+            // recentFilesListview
+            // 
+            this.recentFilesListview.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.recentFilesListview.HideSelection = false;
+            this.recentFilesListview.Location = new System.Drawing.Point(6, 522);
+            this.recentFilesListview.Name = "recentFilesListview";
+            this.recentFilesListview.Size = new System.Drawing.Size(1780, 520);
+            this.recentFilesListview.TabIndex = 1;
+            this.recentFilesListview.UseCompatibleStateImageBehavior = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Roboto", 15.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(6, 483);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(126, 25);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Recent Files";
+            // 
+            // driveGroupBox
+            // 
+            this.driveGroupBox.Controls.Add(this.backpanel);
+            this.driveGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.driveGroupBox.Location = new System.Drawing.Point(6, 14);
+            this.driveGroupBox.Name = "driveGroupBox";
+            this.driveGroupBox.Size = new System.Drawing.Size(1784, 442);
+            this.driveGroupBox.TabIndex = 0;
+            this.driveGroupBox.TabStop = false;
+            this.driveGroupBox.Text = "Drives";
+            // 
+            // backpanel
+            // 
+            this.backpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.backpanel.AutoScroll = true;
+            this.backpanel.BackColor = System.Drawing.Color.Transparent;
+            this.backpanel.Location = new System.Drawing.Point(9, 23);
+            this.backpanel.Name = "backpanel";
+            this.backpanel.Size = new System.Drawing.Size(1757, 401);
+            this.backpanel.TabIndex = 1;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.panel1);
@@ -1956,15 +1944,6 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Applications";
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(12, 109);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(379, 17);
-            this.label16.TabIndex = 3;
-            this.label16.Text = "Type extension without dot. You can separate it by comma.";
-            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2021,8 +2000,6 @@
             this.flowLayoutPanel6.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.driveGroupBox.ResumeLayout(false);
             this.dashboardPanel.ResumeLayout(false);
             this.groupBoxForResuts.ResumeLayout(false);
             this.groupBoxForResuts.PerformLayout();
@@ -2039,6 +2016,9 @@
             this.groupBox7.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.driveGroupBox.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -2178,9 +2158,6 @@
         private System.Windows.Forms.Button analyzeDocFolderButton;
         private System.Windows.Forms.Button analyzeMusicFolderButton;
         private System.Windows.Forms.Button analyzeVideosFolderButton;
-        private System.Windows.Forms.Button analyzeRecyclebinFolderButton;
-        private System.Windows.Forms.Button analyzeTemp2FolderButton;
-        private System.Windows.Forms.Button analyzeTempFolderButton;
         private System.Windows.Forms.Button analyzeScreenshotFolderButton;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Label label8;
@@ -2195,5 +2172,7 @@
         private System.Windows.Forms.RadioButton fileNameRadio;
         private System.Windows.Forms.RadioButton extensionRadio;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ListView recentFilesListview;
     }
 }

@@ -20,7 +20,7 @@ using static fileanalyzer.Form3;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using File = System.IO.File;
-
+using System.Net.Http;
 
 namespace fileanalyzer
 {
@@ -47,6 +47,8 @@ namespace fileanalyzer
         public List<string> SearchedFolders { get; set; }
         public List<string> SearchedFiles { get; set; }
         public int TotalItems { get; set; }
+
+        string recentFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\recentFiles.txt";
 
         public Form3()
         {
@@ -1063,8 +1065,28 @@ namespace fileanalyzer
         private async void Form3_Load(object sender, EventArgs e)
         {
             await Task.Run(() => {
+                loadLargeFilesListview();
+            });
 
-                /**         pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
+            await Task.Run(() => {
+                largeSizeFolders();
+            });
+
+
+            await Task.Run(() => {
+                displayRecentFilesListview(DeserializeRecentFilesCSVToList());
+            });
+
+            // [Start] code for Apps tab
+            await Task.Run(() =>
+            {
+                DisplayInstalledAppsInListView(GetInstalledApps());
+                // [END] code for Apps tab });
+            });
+
+            await Task.Run(() => {
+
+                         pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
                          videoSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Videos", totalVideos));
                          audioSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Musics", totalAudios));
                          docSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Documents", totalDoc));
@@ -1074,12 +1096,9 @@ namespace fileanalyzer
                          tempSize.Text = ConvertBytes(GetFolderSize(@"C:\Windows\Temp\",totalTemp));
                          temp2Size.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp",totalTemp2));
                          recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin",totalRecyclebin)); // Path to Recycle Bin
-                
-                         
-                **/
-                loadLargeFilesListview();
-                largeSizeFolders();
+                                                         
             });
+
 
             makeCornerRound(bannerFlowPanel, 7);
             makeCornerRound(picturePanel, 7);
@@ -1094,9 +1113,10 @@ namespace fileanalyzer
             makeCornerRound(recyclebinPanel, 7);
             makeCornerRound(bigsizefileGroupBox, 7);
 
-            // [Start] code for Apps tab
-            DisplayInstalledAppsInListView(GetInstalledApps());
-            // [END] code for Apps tab
+
+
+
+
         }
 
         static long GetFolderSize(string folderPath, Control control)
@@ -1129,7 +1149,7 @@ namespace fileanalyzer
             catch (Exception ex)
             {
                 // Console.WriteLine(ex.ToString());
-                MessageBox.Show(ex.Message);
+                // MessageBox.Show(ex.Message);
             }
 
             control.Text = totalFiles + " Files";
@@ -1173,7 +1193,7 @@ namespace fileanalyzer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    // MessageBox.Show(ex.Message);
                 }
             });
 
@@ -1327,8 +1347,34 @@ namespace fileanalyzer
             });
         }
 
-
-
+        private void analyzePictureFolder(object sender, MouseEventArgs e)
+        {
+            OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Pictures", sender, e);
+        }
+        private void analyzeVideoFolder(object sender, MouseEventArgs e)
+        {
+            OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Videos", sender, e);
+        }
+        private void analyzeMusicFolder(object sender, MouseEventArgs e)
+        {
+            OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Musics", sender, e);
+        }
+        private void analyzeDocumentFolder(object sender, MouseEventArgs e)
+        {
+            OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Documents", sender, e);
+        }
+        private void analyzeDownloadFolder(object sender, MouseEventArgs e)
+        {
+            OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Downloads", sender, e);
+        }
+        private void analyzeDesktopFolder(object sender, MouseEventArgs e)
+        {
+            OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Desktop", sender, e);
+        }
+        private void analyzeScreenshotFolder(object sender, MouseEventArgs e)
+        {
+            OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots", sender, e);
+        }
         private async void oneClickClearButton_Click(object sender, EventArgs e)
         {
 
@@ -1514,8 +1560,7 @@ namespace fileanalyzer
                 if (File.Exists(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt"))
                 {
                     // Load the list from the file if it exists
-                    largestFiles = DeserializeListFromFile();
-                    MessageBox.Show("Found for files..");
+                    largestFiles = DeserializeCSVToList();
                 }
                 else
                 {
@@ -1554,26 +1599,119 @@ namespace fileanalyzer
                     }
 
                     // Store the list in the file for future use
-                    SerializeListToFile(largestFiles);
+                    //SerializeListToFile(largestFiles);
+                    SerializeListToCSV(largestFiles);
                 }
 
                 largeSizeFileListview.View = View.Details;
+                largeSizeFileListview.Columns.Add("File Name", 200);
                 largeSizeFileListview.Columns.Add("File Path", 400);
                 largeSizeFileListview.Columns.Add("File Size", 80);
                 largeSizeFileListview.Columns.Add("Created At", 150);
 
                 foreach (LargestFileData file in largestFiles)
                 {
-                    ListViewItem item = new ListViewItem(file.LargestFilePath);
-                    item.SubItems.Add(ConvertBytes(file.LargestFileSize));
-
                     FileInfo fileInfo = new FileInfo(file.LargestFilePath);
+
+                    ListViewItem item = new ListViewItem(fileInfo.Name);
+                    item.SubItems.Add(file.LargestFilePath);
+                    item.SubItems.Add(ConvertBytes(file.LargestFileSize));
                     item.SubItems.Add(fileInfo.CreationTime + "");
+
 
                     largeSizeFileListview.Items.Add(item);
                 }
             });
 
+        }
+
+        public void SerializeListToCSV(List<LargestFileData> list)
+        {
+            try
+            {
+                //   justLoggging("Serialize using csv format");
+
+                // Create a StringBuilder to build the CSV content
+                StringBuilder csvContent = new StringBuilder();
+
+                // Append CSV headers (assuming LargestFileData has properties: FilePath and FileSize)
+                csvContent.AppendLine("FilePath,FileSize");
+
+                // Append data from the list to the CSV content
+                foreach (var fileData in list)
+                {
+                    // Format each line in CSV with FilePath and FileSize separated by a comma
+                    csvContent.AppendLine($"{fileData.LargestFilePath},{fileData.LargestFileSize}");
+                }
+
+                string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
+
+                // Write the CSV content to the specified file
+                File.WriteAllText(filePath, csvContent.ToString());
+
+                Console.WriteLine("List serialized to CSV successfully.");
+            }
+            catch (Exception ex)
+            {
+                //   justLoggging("Serialize exception occured: " + ex.Message + ex.StackTrace);
+                Console.WriteLine($"Error serializing list to CSV: {ex.Message}");
+            }
+        }
+
+        public List<LargestFileData> DeserializeCSVToList()
+        {
+            string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
+
+            List<LargestFileData> deserializedList = new List<LargestFileData>();
+
+            try
+            {
+                //   justLoggging("csv Deserialization start");
+
+                string[] lines = File.ReadAllLines(filePath);
+
+                // Assuming the first line contains headers
+                string[] headers = lines[0].Split(',');
+
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    string[] data = lines[i].Split(',');
+
+                    if (data.Length == headers.Length)
+                    {
+                        LargestFileData fileData = new LargestFileData();
+
+                        for (int j = 0; j < headers.Length; j++)
+                        {
+                            // Adjust property assignment based on your CSV structure
+                            if (headers[j] == "FilePath")
+                            {
+                                fileData.LargestFilePath = data[j];
+                            }
+                            else if (headers[j] == "FileSize")
+                            {
+                                if (long.TryParse(data[j], out long fileSize))
+                                {
+                                    fileData.LargestFileSize = fileSize;
+                                }
+                            }
+                            // Add other properties as needed...
+                        }
+
+                        deserializedList.Add(fileData);
+                    }
+                }
+
+                Console.WriteLine("CSV file deserialized successfully.");
+            }
+            catch (Exception ex)
+            {
+                // justLoggging("Deserialization exception occured: " + ex.Message + ex.StackTrace);
+
+                Console.WriteLine($"Error deserializing CSV to list: {ex.Message}");
+            }
+
+            return deserializedList;
         }
 
         static async void SerializeListToFile(List<LargestFileData> list)
@@ -1622,15 +1760,18 @@ namespace fileanalyzer
         {
             await Task.Run(() => {
                 largeSizeFoldersListview.View = View.Details;
+                largeSizeFoldersListview.Columns.Add("Name", 200);
+                largeSizeFoldersListview.Columns.Add("Folder Size", 100);
                 largeSizeFoldersListview.Columns.Add("Folder Path", 400);
-                largeSizeFoldersListview.Columns.Add("Folder Size", 150);
 
                 var folders = GetFoldersWithLargestSize(50);
 
                 foreach (var folder in folders)
                 {
-                    ListViewItem item = new ListViewItem(folder.FolderPath);
+                    DirectoryInfo directoryInfo = new DirectoryInfo(folder.FolderPath);
+                    ListViewItem item = new ListViewItem(directoryInfo.Name);
                     item.SubItems.Add(ConvertBytes(folder.FolderSize));
+                    item.SubItems.Add(directoryInfo.FullName+"");
 
                     largeSizeFoldersListview.Items.Add(item);
                 }
@@ -1750,6 +1891,91 @@ namespace fileanalyzer
             }
         }
 
+        public void SerializeListToCSV(string filePath, List<FolderData> list)
+        {
+            try
+            {
+             //   justLoggging("Serialize using csv format");
+
+                // Create a StringBuilder to build the CSV content
+                StringBuilder csvContent = new StringBuilder();
+
+                // Append CSV headers (assuming LargestFileData has properties: FilePath and FileSize)
+                csvContent.AppendLine("FilePath,FileSize");
+
+                // Append data from the list to the CSV content
+                foreach (var fileData in list)
+                {
+                    // Format each line in CSV with FilePath and FileSize separated by a comma
+                    csvContent.AppendLine($"{fileData.FolderPath},{fileData.FolderSize}");
+                }
+
+                // Write the CSV content to the specified file
+                File.WriteAllText(filePath, csvContent.ToString());
+
+                Console.WriteLine("List serialized to CSV successfully.");
+            }
+            catch (Exception ex)
+            {
+             //   justLoggging("Serialize exception occured: " + ex.Message + ex.StackTrace);
+                Console.WriteLine($"Error serializing list to CSV: {ex.Message}");
+            }
+        }
+
+        public List<LargestFileData> DeserializeCSVToList(string filePath)
+        {
+            List<LargestFileData> deserializedList = new List<LargestFileData>();
+
+            try
+            {
+             //   justLoggging("csv Deserialization start");
+
+                string[] lines = File.ReadAllLines(filePath);
+
+                // Assuming the first line contains headers
+                string[] headers = lines[0].Split(',');
+
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    string[] data = lines[i].Split(',');
+
+                    if (data.Length == headers.Length)
+                    {
+                        LargestFileData fileData = new LargestFileData();
+
+                        for (int j = 0; j < headers.Length; j++)
+                        {
+                            // Adjust property assignment based on your CSV structure
+                            if (headers[j] == "FilePath")
+                            {
+                                fileData.LargestFilePath = data[j];
+                            }
+                            else if (headers[j] == "FileSize")
+                            {
+                                if (long.TryParse(data[j], out long fileSize))
+                                {
+                                    fileData.LargestFileSize = fileSize;
+                                }
+                            }
+                            // Add other properties as needed...
+                        }
+
+                        deserializedList.Add(fileData);
+                    }
+                }
+
+                Console.WriteLine("CSV file deserialized successfully.");
+            }
+            catch (Exception ex)
+            {
+               // justLoggging("Deserialization exception occured: " + ex.Message + ex.StackTrace);
+
+                Console.WriteLine($"Error deserializing CSV to list: {ex.Message}");
+            }
+
+            return deserializedList;
+        }
+
         [Serializable]
         public class FolderData
         {
@@ -1760,9 +1986,9 @@ namespace fileanalyzer
         //////////////////////////////////////////////////////////////////////////////////
         // ADDING RIGHT CLICK ON "LARGE SIZE FOLDER" LISTVIEW 
 
-        private async void listView1_MouseDown(object sender, MouseEventArgs e)
+        private  void listView1_MouseDown(object sender, MouseEventArgs e)
         {
-            await Task.Run(() => {
+            
                 if (e.Button == MouseButtons.Right)
                 {
                     var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
@@ -1819,16 +2045,13 @@ namespace fileanalyzer
                         // Display the context menu at the clicked position
                         menu.Show(largeSizeFoldersListview, e.Location);
                     }
-                }
-            });
-
+                }            
         }
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///  menu item for large file listview
-        private async void largeFilesListviewMenu(object sender, MouseEventArgs e)
+        private void largeFilesListviewMenu(object sender, MouseEventArgs e)
         {
-            await Task.Run(() => {
                 if (e.Button == MouseButtons.Right)
                 {
                     var item = largeSizeFoldersListview.GetItemAt(e.X, e.Y);
@@ -1873,7 +2096,7 @@ namespace fileanalyzer
                         menu.Show(largeSizeFoldersListview, e.Location);
                     }
                 }
-            });
+
         }
 
         private void OpenSpecificTabWithData(string folderPath, object sender, MouseEventArgs e)
@@ -2008,7 +2231,7 @@ namespace fileanalyzer
 
                         }
                         catch(Exception ex) {
-                            MessageBox.Show(ex.Message);
+                           // MessageBox.Show(ex.Message);
                         }
 
                     }
@@ -2017,6 +2240,112 @@ namespace fileanalyzer
 
             return installedApps;
         }
+
+        // [START] display listview of recent files
+        public class RecentFiles
+        {
+            public string RecentFilePath { get; set; }
+            public long RecentFileSize { get; set; }
+            public DateTime RecentFileCreationTime { get; set; }
+            public string fileName { get; set; }
+
+        }
+
+        public List<RecentFiles> DeserializeRecentFilesCSVToList()
+        {
+            List<RecentFiles> deserializedList = new List<RecentFiles>();
+
+            try
+            {
+                if (File.Exists(recentFilePath))
+                {
+                    string[] lines = File.ReadAllLines(recentFilePath);
+
+                    // Assuming the first line contains headers
+                    string[] headers = lines[0].Split(',');
+
+                    for (int i = 1; i < lines.Length; i++)
+                    {
+                        string[] data = lines[i].Split(',');
+
+                        if (data.Length == headers.Length)
+                        {
+                            RecentFiles fileData = new RecentFiles();
+
+                            for (int j = 0; j < headers.Length; j++)
+                            {
+                                // Adjust property assignment based on your CSV structure
+                                if (headers[j] == "FilePath")
+                                {
+                                    fileData.RecentFilePath = data[j];
+                                }
+                                else if (headers[j] == "FileSize")
+                                {
+                                    if (long.TryParse(data[j], out long fileSize))
+                                    {
+                                        fileData.RecentFileSize = fileSize;
+                                    }
+                                }
+                                // Add other properties as needed...
+                            }
+
+                            deserializedList.Add(fileData);
+                        }
+                    }
+
+                    Console.WriteLine("CSV file deserialized successfully.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deserializing CSV to list: {ex.Message}");
+            }
+
+            return deserializedList;
+        }
+
+        private async void displayRecentFilesListview(List<RecentFiles> recentFiles)
+        {
+            await Task.Run(() => {
+                recentFilesListview.View = View.Details;
+                recentFilesListview.Columns.Add("Name", 450);
+                recentFilesListview.Columns.Add("Size", 125);
+                recentFilesListview.Columns.Add("Created At", 250);
+                recentFilesListview.Columns.Add("Full Path", 750);
+
+                recentFiles = DeserializeRecentFilesCSVToList();
+
+                foreach (var file in recentFiles)
+                {
+                    try
+                    {
+                        FileInfo fileInfo = new FileInfo(file.RecentFilePath);
+
+                        ListViewItem item = new ListViewItem(fileInfo.Name);
+
+                        //MessageBox.Show("ICON Address: " + appInfo.DisplayIcon);
+                        item.SubItems.Add(ConvertBytes(fileInfo.Length));
+                        item.SubItems.Add( fileInfo.CreationTime+"");
+                        item.SubItems.Add(fileInfo.FullName);
+
+                        // Allow the user to rearrange columns.
+                        recentFilesListview.AllowColumnReorder = true;
+
+                        // Select the item and subitems when selection is made.
+                        recentFilesListview.FullRowSelect = true;
+
+                        recentFilesListview.Items.Add(item);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            });
+        }
+
+        // [END] display listview of recent files
 
         private async void DisplayInstalledAppsInListView(List<InstalledAppInfo> installedApps)
         {
@@ -2231,6 +2560,16 @@ namespace fileanalyzer
             {
                 Console.WriteLine("Error writing exception to file: " + e.Message);
             }
+        }
+
+        private void largeSizeFileListview_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            displayRecentFilesListview(DeserializeRecentFilesCSVToList());
         }
 
         // [END] Code for Apps Tab
