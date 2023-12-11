@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -175,6 +176,29 @@
             this.appUninstallButton = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.explorerTab = new System.Windows.Forms.TabPage();
+            this.label30 = new System.Windows.Forms.Label();
+            this.fileTypeLabel = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.fileCreatedAtLabel = new System.Windows.Forms.Label();
+            this.fileSizeLabel = new System.Windows.Forms.Label();
+            this.fileNameLabel = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.fileExplorerListview = new System.Windows.Forms.ListView();
+            this.iconList = new System.Windows.Forms.ImageList(this.components);
+            this.filePathTextBox = new System.Windows.Forms.TextBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.goButton = new System.Windows.Forms.Button();
+            this.backButton = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -220,6 +244,7 @@
             this.driveGroupBox.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.explorerTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -232,6 +257,7 @@
             this.mainTabControl.Controls.Add(this.dashboardPanel);
             this.mainTabControl.Controls.Add(this.tabPage1);
             this.mainTabControl.Controls.Add(this.tabPage5);
+            this.mainTabControl.Controls.Add(this.explorerTab);
             this.mainTabControl.ItemSize = new System.Drawing.Size(100, 120);
             this.mainTabControl.Location = new System.Drawing.Point(2, 2);
             this.mainTabControl.Multiline = true;
@@ -1944,6 +1970,280 @@
             this.label8.TabIndex = 0;
             this.label8.Text = "Applications";
             // 
+            // explorerTab
+            // 
+            this.explorerTab.Controls.Add(this.label30);
+            this.explorerTab.Controls.Add(this.fileTypeLabel);
+            this.explorerTab.Controls.Add(this.label26);
+            this.explorerTab.Controls.Add(this.fileCreatedAtLabel);
+            this.explorerTab.Controls.Add(this.fileSizeLabel);
+            this.explorerTab.Controls.Add(this.fileNameLabel);
+            this.explorerTab.Controls.Add(this.label27);
+            this.explorerTab.Controls.Add(this.label25);
+            this.explorerTab.Controls.Add(this.label21);
+            this.explorerTab.Controls.Add(this.fileExplorerListview);
+            this.explorerTab.Controls.Add(this.filePathTextBox);
+            this.explorerTab.Controls.Add(this.button5);
+            this.explorerTab.Controls.Add(this.button4);
+            this.explorerTab.Controls.Add(this.button3);
+            this.explorerTab.Controls.Add(this.button9);
+            this.explorerTab.Controls.Add(this.button8);
+            this.explorerTab.Controls.Add(this.button7);
+            this.explorerTab.Controls.Add(this.button6);
+            this.explorerTab.Controls.Add(this.button1);
+            this.explorerTab.Controls.Add(this.goButton);
+            this.explorerTab.Controls.Add(this.backButton);
+            this.explorerTab.Location = new System.Drawing.Point(124, 4);
+            this.explorerTab.Name = "explorerTab";
+            this.explorerTab.Size = new System.Drawing.Size(1793, 1048);
+            this.explorerTab.TabIndex = 4;
+            this.explorerTab.Text = "Explorer";
+            this.explorerTab.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(28, 74);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(62, 18);
+            this.label30.TabIndex = 4;
+            this.label30.Text = "Folders:";
+            // 
+            // fileTypeLabel
+            // 
+            this.fileTypeLabel.AutoSize = true;
+            this.fileTypeLabel.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileTypeLabel.Location = new System.Drawing.Point(101, 969);
+            this.fileTypeLabel.Name = "fileTypeLabel";
+            this.fileTypeLabel.Size = new System.Drawing.Size(17, 19);
+            this.fileTypeLabel.TabIndex = 3;
+            this.fileTypeLabel.Text = "--";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(15, 969);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(76, 19);
+            this.label26.TabIndex = 3;
+            this.label26.Text = "File Type:";
+            // 
+            // fileCreatedAtLabel
+            // 
+            this.fileCreatedAtLabel.AutoSize = true;
+            this.fileCreatedAtLabel.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileCreatedAtLabel.Location = new System.Drawing.Point(829, 969);
+            this.fileCreatedAtLabel.Name = "fileCreatedAtLabel";
+            this.fileCreatedAtLabel.Size = new System.Drawing.Size(17, 19);
+            this.fileCreatedAtLabel.TabIndex = 3;
+            this.fileCreatedAtLabel.Text = "--";
+            // 
+            // fileSizeLabel
+            // 
+            this.fileSizeLabel.AutoSize = true;
+            this.fileSizeLabel.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileSizeLabel.Location = new System.Drawing.Point(829, 940);
+            this.fileSizeLabel.Name = "fileSizeLabel";
+            this.fileSizeLabel.Size = new System.Drawing.Size(17, 19);
+            this.fileSizeLabel.TabIndex = 3;
+            this.fileSizeLabel.Text = "--";
+            // 
+            // fileNameLabel
+            // 
+            this.fileNameLabel.AutoSize = true;
+            this.fileNameLabel.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileNameLabel.Location = new System.Drawing.Point(101, 940);
+            this.fileNameLabel.Name = "fileNameLabel";
+            this.fileNameLabel.Size = new System.Drawing.Size(17, 19);
+            this.fileNameLabel.TabIndex = 3;
+            this.fileNameLabel.Text = "--";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(738, 969);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(85, 19);
+            this.label27.TabIndex = 3;
+            this.label27.Text = "Created at:";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(738, 940);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(72, 19);
+            this.label25.TabIndex = 3;
+            this.label25.Text = "File Size:";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(13, 940);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(84, 19);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "File Name:";
+            // 
+            // fileExplorerListview
+            // 
+            this.fileExplorerListview.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.fileExplorerListview.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fileExplorerListview.HideSelection = false;
+            this.fileExplorerListview.LargeImageList = this.iconList;
+            this.fileExplorerListview.Location = new System.Drawing.Point(19, 115);
+            this.fileExplorerListview.Name = "fileExplorerListview";
+            this.fileExplorerListview.Size = new System.Drawing.Size(1757, 806);
+            this.fileExplorerListview.SmallImageList = this.iconList;
+            this.fileExplorerListview.TabIndex = 2;
+            this.fileExplorerListview.UseCompatibleStateImageBehavior = false;
+            this.fileExplorerListview.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listView1_ItemSelectionChanged);
+            this.fileExplorerListview.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
+            // 
+            // iconList
+            // 
+            this.iconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("iconList.ImageStream")));
+            this.iconList.TransparentColor = System.Drawing.Color.Transparent;
+            this.iconList.Images.SetKeyName(0, "zip.png");
+            this.iconList.Images.SetKeyName(1, "ppt.png");
+            this.iconList.Images.SetKeyName(2, "xls.png");
+            this.iconList.Images.SetKeyName(3, "doc.png");
+            this.iconList.Images.SetKeyName(4, "pdf.png");
+            this.iconList.Images.SetKeyName(5, "music-file.png");
+            this.iconList.Images.SetKeyName(6, "video.png");
+            this.iconList.Images.SetKeyName(7, "exe.png");
+            this.iconList.Images.SetKeyName(8, "unknown-mail.png");
+            this.iconList.Images.SetKeyName(9, "image.png");
+            this.iconList.Images.SetKeyName(10, "folder.png");
+            this.iconList.Images.SetKeyName(11, "txt-file.png");
+            this.iconList.Images.SetKeyName(12, "folder.png");
+            this.iconList.Images.SetKeyName(13, "css.png");
+            // 
+            // filePathTextBox
+            // 
+            this.filePathTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.filePathTextBox.Location = new System.Drawing.Point(243, 18);
+            this.filePathTextBox.MinimumSize = new System.Drawing.Size(4, 30);
+            this.filePathTextBox.Name = "filePathTextBox";
+            this.filePathTextBox.Size = new System.Drawing.Size(1533, 23);
+            this.filePathTextBox.TabIndex = 1;
+            this.filePathTextBox.Click += new System.EventHandler(this.openFileBrowser);
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Location = new System.Drawing.Point(359, 67);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(98, 33);
+            this.button5.TabIndex = 0;
+            this.button5.Text = "Musics";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.MusicsFolder);
+            // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(475, 67);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(98, 33);
+            this.button4.TabIndex = 0;
+            this.button4.Text = "Documents";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.DocumentFolder);
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(243, 67);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(98, 33);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "Videos";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.VideosFolder);
+            // 
+            // button8
+            // 
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.Location = new System.Drawing.Point(818, 67);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(98, 33);
+            this.button8.TabIndex = 0;
+            this.button8.Text = "Temp";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.TempFolder);
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(704, 67);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(98, 33);
+            this.button7.TabIndex = 0;
+            this.button7.Text = "Desktop";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.DesktopFolder);
+            // 
+            // button6
+            // 
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.Location = new System.Drawing.Point(588, 67);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(98, 33);
+            this.button6.TabIndex = 0;
+            this.button6.Text = "Pictures";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.PictureFolder);
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(130, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 33);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Downloads";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.DownloadFolder);
+            // 
+            // goButton
+            // 
+            this.goButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goButton.Location = new System.Drawing.Point(130, 16);
+            this.goButton.Name = "goButton";
+            this.goButton.Size = new System.Drawing.Size(98, 33);
+            this.goButton.TabIndex = 0;
+            this.goButton.Text = "Go";
+            this.goButton.UseVisualStyleBackColor = true;
+            this.goButton.Click += new System.EventHandler(this.goButton_Click);
+            // 
+            // backButton
+            // 
+            this.backButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.backButton.Location = new System.Drawing.Point(17, 16);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(98, 33);
+            this.backButton.TabIndex = 0;
+            this.backButton.Text = "Back";
+            this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
+            // 
+            // button9
+            // 
+            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button9.Location = new System.Drawing.Point(932, 67);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(98, 33);
+            this.button9.TabIndex = 0;
+            this.button9.Text = "Temp2";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.Temp2Folder);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2022,6 +2322,8 @@
             this.tabPage5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.explorerTab.ResumeLayout(false);
+            this.explorerTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2174,5 +2476,28 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ListView recentFilesListview;
+        private System.Windows.Forms.TabPage explorerTab;
+        private System.Windows.Forms.ListView fileExplorerListview;
+        private System.Windows.Forms.TextBox filePathTextBox;
+        private System.Windows.Forms.Button goButton;
+        private System.Windows.Forms.Button backButton;
+        private System.Windows.Forms.Label fileTypeLabel;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label fileNameLabel;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label fileCreatedAtLabel;
+        private System.Windows.Forms.Label fileSizeLabel;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ImageList iconList;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }

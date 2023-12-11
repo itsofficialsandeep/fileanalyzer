@@ -21,6 +21,7 @@ using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using File = System.IO.File;
 using System.Net.Http;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace fileanalyzer
 {
@@ -49,6 +50,11 @@ namespace fileanalyzer
         public int TotalItems { get; set; }
 
         string recentFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\recentFiles.txt";
+
+        // variable for explorer tab
+        private string filePath = "E:";
+        private bool isFile = false;
+        private string currentlySelectedItemName = "";
 
         public Form3()
         {
@@ -1064,6 +1070,7 @@ namespace fileanalyzer
 
         private async void Form3_Load(object sender, EventArgs e)
         {
+
             await Task.Run(() => {
                 loadLargeFilesListview();
             });
@@ -1083,6 +1090,10 @@ namespace fileanalyzer
                 DisplayInstalledAppsInListView(GetInstalledApps());
                 // [END] code for Apps tab });
             });
+
+            // load explorer tab
+            filePathTextBox.Text = filePath;
+            loadFilesAndDirectories();
 
             await Task.Run(() => {
 
@@ -2573,6 +2584,261 @@ namespace fileanalyzer
         }
 
         // [END] Code for Apps Tab
+
+        
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // [CODE FOR EXPLORER TAB]
+
+        public void loadFilesAndDirectories()
+        {
+            DirectoryInfo fileList;
+            string tempFilePath = "";
+            FileAttributes fileAttr;
+            try
+            {
+
+                if (isFile)
+                {
+                    tempFilePath = filePath + "/" + currentlySelectedItemName;
+                    FileInfo fileDetails = new FileInfo(tempFilePath);
+                    fileNameLabel.Text = fileDetails.Name;
+                    fileTypeLabel.Text = fileDetails.Extension;
+                    fileAttr = File.GetAttributes(tempFilePath);
+                    Process.Start(tempFilePath);
+                }
+                else
+                {
+                    fileAttr = File.GetAttributes(filePath);
+
+                }
+
+                if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
+                {
+                    fileList = new DirectoryInfo(filePath);
+                    FileInfo[] files = fileList.GetFiles(); // GET ALL THE FILES
+                    DirectoryInfo[] dirs = fileList.GetDirectories(); // GET ALL THE DIRS
+                    string fileExtension = "";
+                    fileExplorerListview.Items.Clear();
+
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        fileExtension = files[i].Extension.ToUpper();
+                        switch (fileExtension)
+                        {
+                            case ".MP3":
+                            case ".MP2":
+                                fileExplorerListview.Items.Add(files[i].Name, 5);
+                                break;
+                            case ".EXE":
+                            case ".COM":
+                            case ".JAVA":
+                            case ".PY":
+                            case ".CPP":
+                            case ".BAT":
+                            case ".DLL":
+                                fileExplorerListview.Items.Add(files[i].Name, 7);
+                                break;
+
+                            case ".MP4":
+                            case ".AVI":
+                            case ".MKV":
+                                fileExplorerListview.Items.Add(files[i].Name, 6);
+                                break;
+                            case ".PDF":
+                                fileExplorerListview.Items.Add(files[i].Name, 4);
+                                break;
+                            case ".DOC":
+                            case ".DOCX":
+                                fileExplorerListview.Items.Add(files[i].Name, 3);
+                                break;
+                            case ".XLS":
+                            case ".XLSX":
+                                fileExplorerListview.Items.Add(files[i].Name, 2);
+                                break;
+                            case ".PPT":
+                            case ".PPTX":
+                                fileExplorerListview.Items.Add(files[i].Name, 1);
+                                break;
+                            case ".ZIP":
+                            case ".RAR":
+                            case ".APK":
+                                fileExplorerListview.Items.Add(files[i].Name, 0);
+                                break;
+                            case ".TXT":                            
+                                fileExplorerListview.Items.Add(files[i].Name, 11);
+                                break;
+                            case ".HTML":
+                            case ".XML":
+                            case ".YML":
+                            case ".YAML":
+                            case ".JS":
+                                fileExplorerListview.Items.Add(files[i].Name, 13);
+                                break;
+
+                            case ".PNG":
+                            case ".JPG":
+                            case ".JPEG":
+                                fileExplorerListview.Items.Add(files[i].Name, 9);
+                                break;
+
+                            default:
+                                fileExplorerListview.Items.Add(files[i].Name, 8);
+                                break;
+                        }
+
+                    }
+
+                    for (int i = 0; i < dirs.Length; i++)
+                    {
+                        fileExplorerListview.Items.Add(dirs[i].Name, 10);
+                    }
+                }
+                else
+                {
+                    fileNameLabel.Text = this.currentlySelectedItemName;
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        public void loadButtonAction()
+        {
+            removeBackSlash();
+            filePath = filePathTextBox.Text;
+            loadFilesAndDirectories();
+            isFile = false;
+        }
+
+        public void removeBackSlash()
+        {
+            string path = filePathTextBox.Text;
+            if (path.LastIndexOf("/") == path.Length - 1)
+            {
+                filePathTextBox.Text = path.Substring(0, path.Length - 1);
+            }
+        }
+
+        public void goBack()
+        {
+            try
+            {
+                removeBackSlash();
+                string path = filePathTextBox.Text;
+                path = path.Substring(0, path.LastIndexOf("/"));
+
+                this.isFile = false;
+                filePathTextBox.Text = path;
+                removeBackSlash();
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+        private void goButton_Click(object sender, EventArgs e)
+        {
+            loadButtonAction();
+        }
+
+        private void listView1_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (isFile)
+            {
+                string tempFilePath = "";
+                tempFilePath = filePath + "/" + currentlySelectedItemName;
+                FileInfo fileDetails = new FileInfo(tempFilePath);
+                fileNameLabel.Text = fileDetails.Name;
+                fileTypeLabel.Text = fileDetails.Extension;
+
+                if (fileDetails.Exists)
+                {
+                    fileSizeLabel.Text = ConvertBytes(fileDetails.Length);
+                    fileCreatedAtLabel.Text = fileDetails.CreationTime.ToString();
+                }
+            }
+
+
+            currentlySelectedItemName = e.Item.Text;
+
+            FileAttributes fileAttr = File.GetAttributes(filePath + "/" + currentlySelectedItemName);
+            if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
+            {
+                isFile = false;
+                filePathTextBox.Text = filePath + "/" + currentlySelectedItemName;
+            }
+            else
+            {
+                isFile = true;
+            }
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            loadButtonAction();
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            goBack();
+            loadButtonAction();
+        }
+
+        private void openFileBrowser(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.ShowDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                filePathTextBox.Text = dialog.SelectedPath;
+                loadButtonAction();
+            }
+        }
+
+        private void DownloadFolder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Users\" + Environment.UserName + @"\Downloads";
+            loadButtonAction();
+        }
+        private void PictureFolder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Users\" + Environment.UserName + @"\Pictures";
+            loadButtonAction();
+        }
+        private void VideosFolder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Users\" + Environment.UserName + @"\Videos";
+            loadButtonAction();
+        }
+        private void MusicsFolder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Users\" + Environment.UserName + @"\Musics";
+            loadButtonAction();
+        }
+        private void DocumentFolder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Users\" + Environment.UserName + @"\Documents";
+            loadButtonAction();
+        }
+        private void DesktopFolder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Users\" + Environment.UserName + @"\Desktop";
+            loadButtonAction();
+        }
+        private void TempFolder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp";
+            loadButtonAction();            
+        }
+        private void Temp2Folder(object sender, EventArgs e)
+        {
+            filePathTextBox.Text = @"C:\Windows\Temp\";
+            loadButtonAction();
+        }
     }
 
     // [START] Code for Apps Tab
@@ -2593,6 +2859,11 @@ namespace fileanalyzer
     }
 
     // [END] Code for Apps Tab
+
+
+
+
+
 
 
 }

@@ -530,30 +530,30 @@ namespace FileSystemMonitorService
                 // Define a list of common media file extensions
                 List<string> mediaExtensions = new List<string> {
                     ".mp3", ".mp4", ".avi", ".mkv", ".mov", ".wav", ".flv", ".wmv", ".m4a", /* Add more as needed */ 
-                    ".exe", ".msi", ".app", ".bat", ".sh",".txt", ".doc", ".docx", ".rtf", ".odt",".xls", ".xlsx", ".ods", ".csv", ".ppt", ".pptx", ".odp", ".rar", ".zip", ".txt"
+                    ".exe", ".msi", ".app", ".bat", ".sh",".txt", ".doc", ".docx", ".rtf", ".odt",".xls", ".xlsx", ".ods", ".csv", ".ppt", ".pptx", ".odp", ".rar", ".zip", ".txt", ".pdf",".xml"
                 };
 
                 // Assuming fileInfo is created earlier with FileInfo fileInfo = new FileInfo(e.FullPath);
 
                 recentFiles = DeserializeRecentFilesCSVToList();
-                if (mediaExtensions.Contains(fileInfo.Extension, StringComparer.OrdinalIgnoreCase))
+
+                if (!fileInfo.FullName.Contains("$RECYCLE.BIN"))
                 {
-                    // Adds recent files (for third tab on main app)
-                    if (recentFiles.Count >= 100)
+                    if (mediaExtensions.Contains(fileInfo.Extension, StringComparer.OrdinalIgnoreCase))
                     {
-                        // Remove the oldest file from the list
-                        recentFiles.RemoveAt(recentFiles.Count - 1);
+                        // Adds recent files (for third tab on main app)
+                        if (recentFiles.Count >= 100)
+                        {
+                            // Remove the oldest file from the list
+                            recentFiles.RemoveAt(recentFiles.Count - 1);
 
-                        justLoggging("matched"+fileInfo.Name);
+                            justLoggging("matched" + fileInfo.Name);
+                        }
+
+                        RecentFiles newRecentFile = new RecentFiles { RecentFilePath = e.FullPath, RecentFileCreationTime = fileInfo.CreationTime, RecentFileSize = fileInfo.Length, fileName = fileInfo.Name };
+                        recentFiles.Insert(0, newRecentFile); // Insert at the beginning of the list
+                        SerializeRecentFilesListToCSV(recentFiles, recentFilePath);
                     }
-
-                    RecentFiles newRecentFile = new RecentFiles { RecentFilePath = e.FullPath, RecentFileCreationTime = fileInfo.CreationTime, RecentFileSize = fileInfo.Length, fileName = fileInfo.Name };
-                    recentFiles.Insert(0, newRecentFile); // Insert at the beginning of the list
-                    SerializeRecentFilesListToCSV(recentFiles, recentFilePath);
-                }
-                else
-                {
-                    justLoggging("Did not match" + fileInfo.Name);
                 }
 
             }
