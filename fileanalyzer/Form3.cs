@@ -52,7 +52,7 @@ namespace fileanalyzer
         string recentFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\recentFiles.txt";
 
         // variable for explorer tab
-        private string filePath = "E:";
+        private string filePath = "C:";
         private bool isFile = false;
         private string currentlySelectedItemName = "";
 
@@ -81,7 +81,7 @@ namespace fileanalyzer
 
             SearchedFolders = new List<string>();
             SearchedFiles = new List<string>();
-            TotalItems = 0;
+            TotalItems = 0;         
 
             GenerateDriveCards();
         }
@@ -1071,6 +1071,20 @@ namespace fileanalyzer
         private async void Form3_Load(object sender, EventArgs e)
         {
 
+
+            makeCornerRound(bannerFlowPanel, 7);
+            makeCornerRound(picturePanel, 7);
+            makeCornerRound(musicPanel, 7);
+            makeCornerRound(videoPanel, 7);
+            makeCornerRound(documentPanel, 7);
+            makeCornerRound(downloadPanel, 7);
+            makeCornerRound(desktopPanel, 7);
+            makeCornerRound(screenshotPanel, 7);
+            makeCornerRound(tempPanel, 7);
+            makeCornerRound(temp2Panel, 7);
+            makeCornerRound(recyclebinPanel, 7);
+            makeCornerRound(bigsizefileGroupBox, 7);
+
             await Task.Run(() => {
                 loadLargeFilesListview();
             });
@@ -1095,6 +1109,8 @@ namespace fileanalyzer
             filePathTextBox.Text = filePath;
             loadFilesAndDirectories();
 
+
+
             await Task.Run(() => {
 
                          pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
@@ -1109,24 +1125,6 @@ namespace fileanalyzer
                          recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin",totalRecyclebin)); // Path to Recycle Bin
                                                          
             });
-
-
-            makeCornerRound(bannerFlowPanel, 7);
-            makeCornerRound(picturePanel, 7);
-            makeCornerRound(musicPanel, 7);
-            makeCornerRound(videoPanel, 7);
-            makeCornerRound(documentPanel, 7);
-            makeCornerRound(downloadPanel, 7);
-            makeCornerRound(desktopPanel, 7);
-            makeCornerRound(screenshotPanel, 7);
-            makeCornerRound(tempPanel, 7);
-            makeCornerRound(temp2Panel, 7);
-            makeCornerRound(recyclebinPanel, 7);
-            makeCornerRound(bigsizefileGroupBox, 7);
-
-
-
-
 
         }
 
@@ -1725,41 +1723,6 @@ namespace fileanalyzer
             return deserializedList;
         }
 
-        static async void SerializeListToFile(List<LargestFileData> list)
-        {
-            await Task.Run(() => {
-                try
-                {
-                    using (Stream stream = File.Open(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt", FileMode.Create))
-                    {
-                        BinaryFormatter formatter = new BinaryFormatter();
-                        formatter.Serialize(stream, list);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error serializing list: {ex.Message}");
-                }
-            });
-        }
-
-        static List<LargestFileData> DeserializeListFromFile()
-        {
-            try
-            {
-                using (Stream stream = File.Open(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt", FileMode.Open))
-                {
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    return (List<LargestFileData>)formatter.Deserialize(stream);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("line:1609 "+ex.Message );
-                Console.WriteLine($"Error deserializing list: {ex.Message}");
-                return new List<LargestFileData>();
-            }
-        }
         //[END] belongs to Largest file listview
 
         /// <summary>
@@ -2350,7 +2313,7 @@ namespace fileanalyzer
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                       // MessageBox.Show(ex.Message);
                     }
                 }
             });
@@ -2415,7 +2378,7 @@ namespace fileanalyzer
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                      //  MessageBox.Show(ex.Message);
                     }
                 }
             });
@@ -2594,6 +2557,7 @@ namespace fileanalyzer
             DirectoryInfo fileList;
             string tempFilePath = "";
             FileAttributes fileAttr;
+
             try
             {
 
@@ -2838,6 +2802,11 @@ namespace fileanalyzer
         {
             filePathTextBox.Text = @"C:\Windows\Temp\";
             loadButtonAction();
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

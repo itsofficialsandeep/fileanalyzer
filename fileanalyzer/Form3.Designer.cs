@@ -192,13 +192,14 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.goButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.tabIcon = new System.Windows.Forms.ImageList(this.components);
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
@@ -258,6 +259,7 @@
             this.mainTabControl.Controls.Add(this.tabPage1);
             this.mainTabControl.Controls.Add(this.tabPage5);
             this.mainTabControl.Controls.Add(this.explorerTab);
+            this.mainTabControl.ImageList = this.tabIcon;
             this.mainTabControl.ItemSize = new System.Drawing.Size(100, 120);
             this.mainTabControl.Location = new System.Drawing.Point(2, 2);
             this.mainTabControl.Multiline = true;
@@ -269,7 +271,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
+            this.tabPage2.BackColor = System.Drawing.Color.White;
             this.tabPage2.Controls.Add(this.desktopPanel);
             this.tabPage2.Controls.Add(this.downloadPanel);
             this.tabPage2.Controls.Add(this.documentPanel);
@@ -283,11 +285,15 @@
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.bigsizefileGroupBox);
             this.tabPage2.Controls.Add(this.bannerFlowPanel);
+            this.tabPage2.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.tabPage2.ImageKey = "speedometer.png";
             this.tabPage2.Location = new System.Drawing.Point(124, 4);
             this.tabPage2.Name = "tabPage2";
+            this.tabPage2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tabPage2.Size = new System.Drawing.Size(1793, 1048);
             this.tabPage2.TabIndex = 2;
-            this.tabPage2.Text = "Dashboard1";
+            this.tabPage2.ToolTipText = "Dashboard";
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
             // desktopPanel
             // 
@@ -660,15 +666,14 @@
             // 
             // totalVideos
             // 
-            this.totalVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalVideos.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.totalVideos.AutoSize = true;
             this.totalVideos.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.totalVideos.Location = new System.Drawing.Point(75, 116);
             this.totalVideos.Name = "totalVideos";
-            this.totalVideos.Size = new System.Drawing.Size(155, 17);
+            this.totalVideos.Size = new System.Drawing.Size(70, 17);
             this.totalVideos.TabIndex = 0;
-            this.totalVideos.Text = "Total Files Not Available";
+            this.totalVideos.Text = "Total files:";
             // 
             // label11
             // 
@@ -1306,12 +1311,12 @@
             // 
             this.dashboardPanel.Controls.Add(this.groupBoxForResuts);
             this.dashboardPanel.Controls.Add(this.groupBox1);
+            this.dashboardPanel.ImageKey = "analyze.png";
             this.dashboardPanel.Location = new System.Drawing.Point(124, 4);
             this.dashboardPanel.Name = "dashboardPanel";
             this.dashboardPanel.Padding = new System.Windows.Forms.Padding(3);
             this.dashboardPanel.Size = new System.Drawing.Size(1793, 1048);
             this.dashboardPanel.TabIndex = 1;
-            this.dashboardPanel.Text = "Dashboard";
             this.dashboardPanel.UseVisualStyleBackColor = true;
             // 
             // groupBoxForResuts
@@ -1854,15 +1859,17 @@
             this.tabPage1.Controls.Add(this.recentFilesListview);
             this.tabPage1.Controls.Add(this.label19);
             this.tabPage1.Controls.Add(this.driveGroupBox);
+            this.tabPage1.ImageKey = "hard-drive.png";
             this.tabPage1.Location = new System.Drawing.Point(124, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1793, 1048);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
             // 
             // recentFilesListview
             // 
+            this.recentFilesListview.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.recentFilesListview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.recentFilesListview.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.recentFilesListview.HideSelection = false;
             this.recentFilesListview.Location = new System.Drawing.Point(6, 522);
@@ -1907,12 +1914,12 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.panel1);
+            this.tabPage5.ImageKey = "apps.png";
             this.tabPage5.Location = new System.Drawing.Point(124, 4);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(1793, 1048);
             this.tabPage5.TabIndex = 3;
-            this.tabPage5.Text = "Apps";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -1993,11 +2000,11 @@
             this.explorerTab.Controls.Add(this.button1);
             this.explorerTab.Controls.Add(this.goButton);
             this.explorerTab.Controls.Add(this.backButton);
+            this.explorerTab.ImageKey = "folder.png";
             this.explorerTab.Location = new System.Drawing.Point(124, 4);
             this.explorerTab.Name = "explorerTab";
             this.explorerTab.Size = new System.Drawing.Size(1793, 1048);
             this.explorerTab.TabIndex = 4;
-            this.explorerTab.Text = "Explorer";
             this.explorerTab.UseVisualStyleBackColor = true;
             // 
             // label30
@@ -2167,6 +2174,17 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.VideosFolder);
             // 
+            // button9
+            // 
+            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button9.Location = new System.Drawing.Point(932, 67);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(98, 33);
+            this.button9.TabIndex = 0;
+            this.button9.Text = "Temp2";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.Temp2Folder);
+            // 
             // button8
             // 
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2233,16 +2251,15 @@
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // button9
+            // tabIcon
             // 
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Location = new System.Drawing.Point(932, 67);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(98, 33);
-            this.button9.TabIndex = 0;
-            this.button9.Text = "Temp2";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.Temp2Folder);
+            this.tabIcon.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("tabIcon.ImageStream")));
+            this.tabIcon.TransparentColor = System.Drawing.Color.Transparent;
+            this.tabIcon.Images.SetKeyName(0, "analyze.png");
+            this.tabIcon.Images.SetKeyName(1, "apps.png");
+            this.tabIcon.Images.SetKeyName(2, "folder.png");
+            this.tabIcon.Images.SetKeyName(3, "hard-drive.png");
+            this.tabIcon.Images.SetKeyName(4, "speedometer.png");
             // 
             // Form3
             // 
@@ -2499,5 +2516,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.ImageList tabIcon;
     }
 }

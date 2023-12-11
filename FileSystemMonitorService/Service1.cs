@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ServiceProcess;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FileSystemMonitorService
@@ -24,11 +25,19 @@ namespace FileSystemMonitorService
         const string largestFoldersFile = "largestFoldersList.dat";
         string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\listFiles.txt";
         string recentFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\recentFiles.txt";
+        string csvDiskInfoFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorServic\bin\Debug\disk_information.csv";
 
         private readonly string listFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
         private List<LargestFileData> largestFiles;
         private List<RecentFiles> recentFiles;
 
+        long fileCount = 0;
+        long imageCount = 0;
+        long videoCount = 0;
+        long docCount = 0;
+        long totalImageSize = 0;
+        long totalVideoSize = 0;
+        long totalDocSize = 0;
         protected override void OnStart(string[] args)
         {
             justLoggging("27");
@@ -36,7 +45,10 @@ namespace FileSystemMonitorService
             try {
               largestFiles =  DeserializeCSVToList(filePath);
              //   DeserializeListFromFileForLargestFiles();
-                StartMonitoringDrives();             
+                StartMonitoringDrives();
+
+             // start monitoring drives for changes
+                SetupFileSystemWatchersForAllDrives();
             }
             catch (Exception ex)
             {
@@ -482,7 +494,7 @@ namespace FileSystemMonitorService
                 foreach (string drive in Environment.GetLogicalDrives().Where(d => !d.Equals("C:\\", StringComparison.OrdinalIgnoreCase)))
                 {
                     FileSystemWatcher watcher = new FileSystemWatcher(drive);
-                    watcher.Created += OnFileCreated;
+                    watcher.Created += OnFileCreated;                    
                     watcher.IncludeSubdirectories = true;
                     watcher.EnableRaisingEvents = true;
                 }
@@ -611,6 +623,330 @@ namespace FileSystemMonitorService
             {
                 Console.WriteLine("Error writing exception to file: " + e.Message);
             }
+        }
+
+
+
+        // CODE FOR DISK INFORMATION TAB   ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        private void diskInfo(string disk)
+        {
+            try
+            {
+
+                TraverseTreeParallelForEach(disk, (f) =>
+                {
+                    try
+                    {
+                        // Count all files
+                        Interlocked.Increment(ref fileCount);
+
+                        string extension = Path.GetExtension(f)?.ToLower();
+                        if (!string.IsNullOrEmpty(extension))
+                        {
+                            var fileInfo = new FileInfo(f);
+                            long fileSize = fileInfo.Length;
+
+                            if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
+                            {
+                                // Image file
+                                Interlocked.Increment(ref imageCount);
+                                Interlocked.Add(ref totalImageSize, fileSize);
+                            }
+                            else if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
+                            {
+                                // Video file
+                                Interlocked.Increment(ref videoCount);
+                                Interlocked.Add(ref totalVideoSize, fileSize);
+                            }
+                            else if (extension == ".doc" || extension == ".docx" || extension == ".pdf" || extension == ".txt")
+                            {
+                                // Document file
+                                Interlocked.Increment(ref docCount);
+                                Interlocked.Add(ref totalDocSize, fileSize);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Exception Message: " + ex.Message);
+                        Debug.WriteLine("Stack Trace: " + ex.StackTrace);
+                        Debug.WriteLine("Source: " + ex.Source);
+                        Debug.WriteLine("Target Site: " + ex.TargetSite);
+                    }
+
+                });
+
+                // Create or append to a CSV file with the collected information
+                string csvContent = $"{disk},{fileCount},{imageCount},{videoCount},{docCount},{totalImageSize},{totalVideoSize},{totalDocSize}\n";
+
+                File.AppendAllText(csvDiskInfoFilePath, csvContent);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void SetupFileSystemWatchersForAllDrives()
+        {
+            DriveInfo[] drives = DriveInfo.GetDrives();
+
+            foreach (DriveInfo drive in drives)
+            {
+                if (drive.IsReady && drive.DriveType == DriveType.Fixed)
+                {
+                    string rootPath = drive.RootDirectory.FullName;
+                    SetupFileSystemWatcher(rootPath);
+                }
+            }
+        }
+
+        // File System Watcher to track file creation and deletion
+        private void SetupFileSystemWatcher(string disk)
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = disk;
+            watcher.IncludeSubdirectories = true;
+
+            // Watch for changes in files and directories
+            watcher.Created += (sender, e) => fileHasCreated(disk,e.FullPath);
+            watcher.Deleted += (sender, e) => UpdateStatisticsAfterChange(disk,e.FullPath);
+
+            // Enable the watcher
+            watcher.EnableRaisingEvents = true;
+        }
+
+        // Update statistics after file change
+        private void UpdateStatisticsAfterChange(string disk,string path)
+        {
+
+            // When a file is created or deleted, update the statistics for the specific disk
+            diskInfo(disk);
+        }
+
+        private void fileHasCreated(string disk,string path)
+        {
+            List<DiskInformation> diskInfoList = new List<DiskInformation>();
+
+            // TO-DO: Also add code to show new drive space
+
+            FileInfo fileInfo = new FileInfo(path);
+            string extension = Path.GetExtension(path)?.ToLower();
+
+            // since a file has been created in the drive
+
+            fileCount++;
+
+            foreach(DiskInformation diskInformation in diskInfoList)
+            {
+                if (diskInformation != null)
+                {
+                    if(diskInformation.Disk == disk)
+                    {
+                        if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
+                        {
+                            diskInformation.ImageCount++;
+
+                            diskInformation.TotalImageSize = diskInformation.TotalImageSize + fileInfo.Length;
+                        }
+                        else if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
+                        {
+                            diskInformation.VideoCount++;
+
+                            diskInformation.TotalVideoSize = diskInformation.TotalVideoSize + fileInfo.Length;
+                        }
+                        else if (extension == ".doc" || extension == ".docx" || extension == ".pdf" || extension == ".txt")
+                        {
+                            diskInformation.DocCount++;
+
+                            diskInformation.TotalDocSize = diskInformation.TotalDocSize + fileInfo.Length;
+                        }
+                    }
+                }
+
+                // Create or append to a CSV file with the collected information
+           //     string csvContent = $"{disk},{fileCount},{diskInformation.ImageCount},{diskInformation.VideoCount},{diskInformation.DocCount},{diskInformation.TotalImageSize},{diskInformation.TotalVideoSize},{diskInformation.TotalDocSize}\n";
+
+                File.AppendAllText(csvDiskInfoFilePath, csvContent);
+            }
+            
+
+        }
+
+
+
+        public class DiskInformation
+        {
+            public string Disk { get; set; }
+            public long FileCount { get; set; }
+            public long ImageCount { get; set; }
+            public long VideoCount { get; set; }
+            public long DocCount { get; set; }
+            public long TotalImageSize { get; set; }
+            public long TotalVideoSize { get; set; }
+            public long TotalDocSize { get; set; }
+        }
+
+        public List<DiskInformation> ReadDiskInformationFromCSV(string filePath, string disk)
+        {
+            List<DiskInformation> diskInfoList = new List<DiskInformation>();
+
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    using (StreamReader reader = new StreamReader(filePath))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] values = line.Split(',');
+
+                            // Parsing values from CSV
+                            DiskInformation diskInfo = new DiskInformation
+                            {
+                                Disk = values[0],
+                                FileCount = long.Parse(values[1]),
+                                ImageCount = long.Parse(values[2]),
+                                VideoCount = long.Parse(values[3]),
+                                DocCount = long.Parse(values[4]),
+                                TotalImageSize = long.Parse(values[5]),
+                                TotalVideoSize = long.Parse(values[6]),
+                                TotalDocSize = long.Parse(values[7])
+                            };
+
+                            diskInfoList.Add(diskInfo);
+                        }
+                    }
+                }
+                else
+                {
+                    diskInfo(disk);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reading CSV: " + ex.Message);
+            }
+
+            return diskInfoList;
+        }
+
+        public static void TraverseTreeParallelForEach(string root, Action<string> action)
+        {
+            // Count of files traversed and timer for diagnostic output
+            int fileCount = 0;
+            var sw = Stopwatch.StartNew();
+
+            // Determine whether to parallelize file processing on each folder based on processor count.
+            int procCount = Environment.ProcessorCount;
+
+            // Data structure to hold names of subfolders to be examined for files.
+            Stack<string> dirs = new Stack<string>();
+
+            if (!Directory.Exists(root))
+            {
+                throw new ArgumentException("The given root directory doesn't exist.", nameof(root));
+            }
+            dirs.Push(root);
+
+            while (dirs.Count > 0)
+            {
+                string currentDir = dirs.Pop();
+                string[] subDirs = { };
+                string[] files = { };
+
+                try
+                {
+                    subDirs = Directory.GetDirectories(currentDir);
+                }
+                // Thrown if we do not have discovery permission on the directory.
+                catch (UnauthorizedAccessException e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+                // Thrown if another process has deleted the directory after we retrieved its name.
+                catch (DirectoryNotFoundException e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+
+                try
+                {
+                    files = Directory.GetFiles(currentDir);
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+                catch (DirectoryNotFoundException e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
+
+                // Execute in parallel if there are enough files in the directory.
+                // Otherwise, execute sequentially. Files are opened and processed
+                // synchronously but this could be modified to perform async I/O.
+                try
+                {
+                    if (files.Length < procCount)
+                    {
+                        foreach (var file in files)
+                        {
+                            action(file);
+                            Interlocked.Increment(ref fileCount);
+                        }
+                    }
+                    else
+                    {
+                        Parallel.ForEach(files, () => 0,
+                            (file, loopState, localCount) =>
+                            {
+                                action(file);
+                                return (int)++localCount;
+                            },
+                            (c) =>
+                            {
+                                Interlocked.Add(ref fileCount, c);
+                            });
+                    }
+                }
+                catch (AggregateException ae)
+                {
+                    ae.Handle((ex) =>
+                    {
+                        if (ex is UnauthorizedAccessException)
+                        {
+                            // Here we just output a message and go on.
+                            Console.WriteLine(ex.Message);
+                            return true;
+                        }
+                        // Handle other exceptions here if necessary...
+
+                        return false;
+                    });
+                }
+
+                // Push the subdirectories onto the stack for traversal.
+                // This could also be done before handing the files.
+                foreach (string str in subDirs)
+                    dirs.Push(str);
+            }
+
+            // For diagnostic purposes.
+            Console.WriteLine("Processed {0} files in {1} milliseconds", fileCount, sw.ElapsedMilliseconds);
         }
     }
 }
