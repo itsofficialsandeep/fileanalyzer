@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.messageLabel = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.desktopPanel = new System.Windows.Forms.Panel();
             this.analyzeDesktopFolderButton = new System.Windows.Forms.Button();
             this.desktopSize = new System.Windows.Forms.Label();
@@ -52,6 +54,12 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.totalDoc = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.cachePanel = new System.Windows.Forms.Panel();
+            this.button11 = new System.Windows.Forms.Button();
+            this.browserCacheSize = new System.Windows.Forms.Label();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.totalCacheFile = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.musicPanel = new System.Windows.Forms.Panel();
             this.analyzeMusicFolderButton = new System.Windows.Forms.Button();
             this.musicButton = new System.Windows.Forms.Button();
@@ -66,6 +74,12 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.totalVideos = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.unfinishedDownloadPanel = new System.Windows.Forms.Panel();
+            this.button10 = new System.Windows.Forms.Button();
+            this.unfinishedDownloadSize = new System.Windows.Forms.Label();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.totalUnfinishedDownload = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
             this.recyclebinPanel = new System.Windows.Forms.Panel();
             this.recyclebinButton = new System.Windows.Forms.Button();
             this.recyclebinSize = new System.Windows.Forms.Label();
@@ -208,10 +222,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.documentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.cachePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             this.musicPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.videoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.unfinishedDownloadPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             this.recyclebinPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             this.temp2Panel.SuspendLayout();
@@ -272,11 +290,15 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
+            this.tabPage2.Controls.Add(this.messageLabel);
+            this.tabPage2.Controls.Add(this.label28);
             this.tabPage2.Controls.Add(this.desktopPanel);
             this.tabPage2.Controls.Add(this.downloadPanel);
             this.tabPage2.Controls.Add(this.documentPanel);
+            this.tabPage2.Controls.Add(this.cachePanel);
             this.tabPage2.Controls.Add(this.musicPanel);
             this.tabPage2.Controls.Add(this.videoPanel);
+            this.tabPage2.Controls.Add(this.unfinishedDownloadPanel);
             this.tabPage2.Controls.Add(this.recyclebinPanel);
             this.tabPage2.Controls.Add(this.temp2Panel);
             this.tabPage2.Controls.Add(this.tempPanel);
@@ -293,7 +315,26 @@
             this.tabPage2.Size = new System.Drawing.Size(1793, 1048);
             this.tabPage2.TabIndex = 2;
             this.tabPage2.ToolTipText = "Dashboard";
-            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // messageLabel
+            // 
+            this.messageLabel.AutoSize = true;
+            this.messageLabel.Location = new System.Drawing.Point(1178, 1016);
+            this.messageLabel.Name = "messageLabel";
+            this.messageLabel.Size = new System.Drawing.Size(53, 13);
+            this.messageLabel.TabIndex = 5;
+            this.messageLabel.Text = "Message:";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.ForeColor = System.Drawing.Color.DarkGray;
+            this.label28.Location = new System.Drawing.Point(198, 423);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(249, 16);
+            this.label28.TabIndex = 4;
+            this.label28.Text = "You can click one box to open that folder.";
             // 
             // desktopPanel
             // 
@@ -304,7 +345,7 @@
             this.desktopPanel.Controls.Add(this.totalDesktop);
             this.desktopPanel.Controls.Add(this.label23);
             this.desktopPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
-            this.desktopPanel.Location = new System.Drawing.Point(1449, 471);
+            this.desktopPanel.Location = new System.Drawing.Point(309, 711);
             this.desktopPanel.Name = "desktopPanel";
             this.desktopPanel.Size = new System.Drawing.Size(244, 200);
             this.desktopPanel.TabIndex = 3;
@@ -319,6 +360,7 @@
             this.analyzeDesktopFolderButton.TabIndex = 2;
             this.analyzeDesktopFolderButton.Text = "Analyze";
             this.analyzeDesktopFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDesktopFolderButton.Click += new System.EventHandler(this.analyzeDesktopFolder);
             // 
             // desktopSize
             // 
@@ -389,6 +431,7 @@
             this.analyzeDownloadFolderButton.TabIndex = 2;
             this.analyzeDownloadFolderButton.Text = "Analyze";
             this.analyzeDownloadFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDownloadFolderButton.Click += new System.EventHandler(this.analyzeDownloadFolder);
             // 
             // downloadButton
             // 
@@ -470,6 +513,7 @@
             this.analyzeDocFolderButton.TabIndex = 2;
             this.analyzeDocFolderButton.Text = "Analyze";
             this.analyzeDocFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeDocFolderButton.Click += new System.EventHandler(this.analyzeDocumentFolder);
             // 
             // docButton
             // 
@@ -526,6 +570,76 @@
             this.label17.TabIndex = 0;
             this.label17.Text = "Documents";
             // 
+            // cachePanel
+            // 
+            this.cachePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(250)))), ((int)(((byte)(255)))));
+            this.cachePanel.Controls.Add(this.button11);
+            this.cachePanel.Controls.Add(this.browserCacheSize);
+            this.cachePanel.Controls.Add(this.pictureBox12);
+            this.cachePanel.Controls.Add(this.totalCacheFile);
+            this.cachePanel.Controls.Add(this.label35);
+            this.cachePanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(146)))));
+            this.cachePanel.Location = new System.Drawing.Point(1164, 711);
+            this.cachePanel.Name = "cachePanel";
+            this.cachePanel.Size = new System.Drawing.Size(244, 200);
+            this.cachePanel.TabIndex = 3;
+            this.cachePanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // button11
+            // 
+            this.button11.ForeColor = System.Drawing.Color.Black;
+            this.button11.Location = new System.Drawing.Point(145, 153);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(85, 29);
+            this.button11.TabIndex = 2;
+            this.button11.Text = "Clear";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.clearCache);
+            // 
+            // browserCacheSize
+            // 
+            this.browserCacheSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.browserCacheSize.AutoSize = true;
+            this.browserCacheSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.browserCacheSize.Location = new System.Drawing.Point(127, 78);
+            this.browserCacheSize.Name = "browserCacheSize";
+            this.browserCacheSize.Size = new System.Drawing.Size(60, 25);
+            this.browserCacheSize.TabIndex = 0;
+            this.browserCacheSize.Text = "0 GB";
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+            this.pictureBox12.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox12.TabIndex = 1;
+            this.pictureBox12.TabStop = false;
+            // 
+            // totalCacheFile
+            // 
+            this.totalCacheFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCacheFile.AutoSize = true;
+            this.totalCacheFile.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalCacheFile.Location = new System.Drawing.Point(86, 124);
+            this.totalCacheFile.Name = "totalCacheFile";
+            this.totalCacheFile.Size = new System.Drawing.Size(155, 17);
+            this.totalCacheFile.TabIndex = 0;
+            this.totalCacheFile.Text = "Total Files Not Available";
+            // 
+            // label35
+            // 
+            this.label35.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.Color.Black;
+            this.label35.Location = new System.Drawing.Point(44, 11);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(149, 19);
+            this.label35.TabIndex = 0;
+            this.label35.Text = "Chrome Cache Files";
+            // 
             // musicPanel
             // 
             this.musicPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(247)))), ((int)(((byte)(255)))));
@@ -551,6 +665,7 @@
             this.analyzeMusicFolderButton.TabIndex = 2;
             this.analyzeMusicFolderButton.Text = "Analyze";
             this.analyzeMusicFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeMusicFolderButton.Click += new System.EventHandler(this.analyzeMusicFolder);
             // 
             // musicButton
             // 
@@ -632,6 +747,7 @@
             this.analyzeVideosFolderButton.TabIndex = 2;
             this.analyzeVideosFolderButton.Text = "Analyze";
             this.analyzeVideosFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeVideosFolderButton.Click += new System.EventHandler(this.analyzeVideoFolder);
             // 
             // videoButton
             // 
@@ -687,6 +803,77 @@
             this.label11.TabIndex = 0;
             this.label11.Text = "Videos";
             // 
+            // unfinishedDownloadPanel
+            // 
+            this.unfinishedDownloadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(198)))), ((int)(((byte)(255)))));
+            this.unfinishedDownloadPanel.Controls.Add(this.button10);
+            this.unfinishedDownloadPanel.Controls.Add(this.unfinishedDownloadSize);
+            this.unfinishedDownloadPanel.Controls.Add(this.pictureBox10);
+            this.unfinishedDownloadPanel.Controls.Add(this.totalUnfinishedDownload);
+            this.unfinishedDownloadPanel.Controls.Add(this.label32);
+            this.unfinishedDownloadPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(146)))));
+            this.unfinishedDownloadPanel.Location = new System.Drawing.Point(1449, 471);
+            this.unfinishedDownloadPanel.Name = "unfinishedDownloadPanel";
+            this.unfinishedDownloadPanel.Size = new System.Drawing.Size(244, 200);
+            this.unfinishedDownloadPanel.TabIndex = 3;
+            this.unfinishedDownloadPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.unfinishedDownloadPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.folderPanelClick);
+            // 
+            // button10
+            // 
+            this.button10.ForeColor = System.Drawing.Color.Black;
+            this.button10.Location = new System.Drawing.Point(145, 153);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(85, 29);
+            this.button10.TabIndex = 2;
+            this.button10.Text = "Clear";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.clearUnfinishedDownload);
+            // 
+            // unfinishedDownloadSize
+            // 
+            this.unfinishedDownloadSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.unfinishedDownloadSize.AutoSize = true;
+            this.unfinishedDownloadSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.unfinishedDownloadSize.Location = new System.Drawing.Point(127, 78);
+            this.unfinishedDownloadSize.Name = "unfinishedDownloadSize";
+            this.unfinishedDownloadSize.Size = new System.Drawing.Size(60, 25);
+            this.unfinishedDownloadSize.TabIndex = 0;
+            this.unfinishedDownloadSize.Text = "0 GB";
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+            this.pictureBox10.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox10.TabIndex = 1;
+            this.pictureBox10.TabStop = false;
+            // 
+            // totalUnfinishedDownload
+            // 
+            this.totalUnfinishedDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalUnfinishedDownload.AutoSize = true;
+            this.totalUnfinishedDownload.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.totalUnfinishedDownload.Location = new System.Drawing.Point(75, 124);
+            this.totalUnfinishedDownload.Name = "totalUnfinishedDownload";
+            this.totalUnfinishedDownload.Size = new System.Drawing.Size(155, 17);
+            this.totalUnfinishedDownload.TabIndex = 0;
+            this.totalUnfinishedDownload.Text = "Total Files Not Available";
+            // 
+            // label32
+            // 
+            this.label32.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.Black;
+            this.label32.Location = new System.Drawing.Point(47, 11);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(168, 19);
+            this.label32.TabIndex = 0;
+            this.label32.Text = "Unfinished Downloads";
+            // 
             // recyclebinPanel
             // 
             this.recyclebinPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(250)))), ((int)(((byte)(255)))));
@@ -696,7 +883,7 @@
             this.recyclebinPanel.Controls.Add(this.totalRecyclebin);
             this.recyclebinPanel.Controls.Add(this.label22);
             this.recyclebinPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(146)))));
-            this.recyclebinPanel.Location = new System.Drawing.Point(875, 711);
+            this.recyclebinPanel.Location = new System.Drawing.Point(1449, 711);
             this.recyclebinPanel.Name = "recyclebinPanel";
             this.recyclebinPanel.Size = new System.Drawing.Size(244, 200);
             this.recyclebinPanel.TabIndex = 3;
@@ -836,7 +1023,7 @@
             this.tempPanel.Controls.Add(this.totalTemp);
             this.tempPanel.Controls.Add(this.label13);
             this.tempPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
-            this.tempPanel.Location = new System.Drawing.Point(309, 711);
+            this.tempPanel.Location = new System.Drawing.Point(875, 711);
             this.tempPanel.Name = "tempPanel";
             this.tempPanel.Size = new System.Drawing.Size(244, 200);
             this.tempPanel.TabIndex = 3;
@@ -922,6 +1109,7 @@
             this.analyzeScreenshotFolderButton.TabIndex = 2;
             this.analyzeScreenshotFolderButton.Text = "Analyze";
             this.analyzeScreenshotFolderButton.UseVisualStyleBackColor = true;
+            this.analyzeScreenshotFolderButton.Click += new System.EventHandler(this.analyzeScreenshotFolder);
             // 
             // screenshotButton
             // 
@@ -1003,6 +1191,7 @@
             this.analyzePictureFolderButton.TabIndex = 2;
             this.analyzePictureFolderButton.Text = "Analyze";
             this.analyzePictureFolderButton.UseVisualStyleBackColor = true;
+            this.analyzePictureFolderButton.Click += new System.EventHandler(this.analyzePictureFolder);
             // 
             // pictureButton
             // 
@@ -1063,7 +1252,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Roboto", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 415);
+            this.label4.Location = new System.Drawing.Point(22, 408);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(155, 41);
             this.label4.TabIndex = 2;
@@ -1874,7 +2063,7 @@
             this.recentFilesListview.HideSelection = false;
             this.recentFilesListview.Location = new System.Drawing.Point(6, 522);
             this.recentFilesListview.Name = "recentFilesListview";
-            this.recentFilesListview.Size = new System.Drawing.Size(1780, 520);
+            this.recentFilesListview.Size = new System.Drawing.Size(1780, 487);
             this.recentFilesListview.TabIndex = 1;
             this.recentFilesListview.UseCompatibleStateImageBehavior = false;
             // 
@@ -2265,10 +2454,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1924, 1061);
             this.Controls.Add(this.mainTabControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form3";
-            this.Text = "Form3";
+            this.Text = "Sandy\'s Windows Cleaner";
             this.Load += new System.EventHandler(this.Form3_Load);
             this.mainTabControl.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
@@ -2282,12 +2473,18 @@
             this.documentPanel.ResumeLayout(false);
             this.documentPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            this.cachePanel.ResumeLayout(false);
+            this.cachePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             this.musicPanel.ResumeLayout(false);
             this.musicPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.videoPanel.ResumeLayout(false);
             this.videoPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.unfinishedDownloadPanel.ResumeLayout(false);
+            this.unfinishedDownloadPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             this.recyclebinPanel.ResumeLayout(false);
             this.recyclebinPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
@@ -2517,5 +2714,19 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.ImageList tabIcon;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Panel cachePanel;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label browserCacheSize;
+        private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Panel unfinishedDownloadPanel;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label unfinishedDownloadSize;
+        private System.Windows.Forms.PictureBox pictureBox10;
+        private System.Windows.Forms.Label totalUnfinishedDownload;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label totalCacheFile;
+        private System.Windows.Forms.Label messageLabel;
     }
 }

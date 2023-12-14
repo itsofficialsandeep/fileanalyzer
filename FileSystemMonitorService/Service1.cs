@@ -22,12 +22,11 @@ namespace FileSystemMonitorService
         }
 
         static Dictionary<string, long> largestFolders = new Dictionary<string, long>();
-        const string largestFoldersFile = "largestFoldersList.dat";
-        string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\listFiles.txt";
-        string recentFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\recentFiles.txt";
-        string csvDiskInfoFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorServic\bin\Debug\disk_information.csv";
-
-        private readonly string listFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
+        const string largestFoldersFile = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\largestFoldersList.dat";
+        string filePath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\listFiles.txt";
+        string recentFilePath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\recentFiles.txt";
+        string csvDiskInfoFilePath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\edisk_information.txt";
+        private string LargestFolderListPath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\largestFolderList.txt"; private readonly string listFilePath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\FileList.txt";
         private List<LargestFileData> largestFiles;
         private List<RecentFiles> recentFiles;
 
@@ -38,6 +37,9 @@ namespace FileSystemMonitorService
         long totalImageSize = 0;
         long totalVideoSize = 0;
         long totalDocSize = 0;
+
+        List<DiskInformation> diskInfoList = new List<DiskInformation>();
+
         protected override void OnStart(string[] args)
         {
             justLoggging("27");
@@ -47,13 +49,30 @@ namespace FileSystemMonitorService
              //   DeserializeListFromFileForLargestFiles();
                 StartMonitoringDrives();
 
-             // start monitoring drives for changes
+
+                if (!File.Exists(csvDiskInfoFilePath))
+                {
+                    DriveInfo[] allDrives = DriveInfo.GetDrives();
+
+                    foreach (DriveInfo driveInfo in allDrives)
+                    {
+                        justLoggging("gathering info for drive::" + driveInfo.Name);
+
+                        diskInfo(driveInfo.Name);
+                    }
+
+                }
+
+                // start monitoring drives for changes
                 SetupFileSystemWatchersForAllDrives();
             }
             catch (Exception ex)
             {
-                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                justLoggging(ex.StackTrace);
+
+                WriteExceptionToHTMLFile(ex, @"E:\ServiceExceptionLog.html");
             }
+
 
         }        
 
@@ -77,7 +96,7 @@ namespace FileSystemMonitorService
             catch (Exception ex)
             {
                 justLoggging("getDirectorySize: " + ex.Message);
-                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                WriteExceptionToHTMLFile(ex, @"E:\ServiceExceptionLog.html");
                 Console.WriteLine("Error calculating folder size: " + ex.Message);
             }
 
@@ -93,7 +112,7 @@ namespace FileSystemMonitorService
             }
             catch (Exception ex)
             {
-                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                WriteExceptionToHTMLFile(ex, @"E:\ServiceExceptionLog.html");
             }
 
         }
@@ -151,7 +170,7 @@ namespace FileSystemMonitorService
                         }
                         catch (UnauthorizedAccessException ex) {
                             justLoggging("getfileEithLargestSize: " + ex.Message);
-                            WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                            WriteExceptionToHTMLFile(ex, @"E:\ServiceExceptionLog.html");
                             Console.WriteLine($"Access denied: {ex.Message}");
                         }
                         catch (DirectoryNotFoundException ex)
@@ -169,7 +188,7 @@ namespace FileSystemMonitorService
             }
             catch (Exception ex)
             {
-                WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                WriteExceptionToHTMLFile(ex, @"E:\ServiceExceptionLog.html");
             }
         }
 
@@ -250,7 +269,7 @@ namespace FileSystemMonitorService
             List<FolderData> folders = new List<FolderData>();
 
             // Check if the file exists, if it does, deserialize the list from the file
-            string path = @"C:\Program Files (x86)\SANDEEP\largestFolderList.txt2";
+            string path = LargestFolderListPath;
 
             //  MessageBox.Show("Not Found for folder..");
             DriveInfo[] drives = DriveInfo.GetDrives();
@@ -272,12 +291,12 @@ namespace FileSystemMonitorService
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                        WriteExceptionToHTMLFile(ex, @"E:\ServiceExceptionLog.html");
                         Console.WriteLine($"Access denied: {ex.Message}");
                     }
                     catch (DirectoryNotFoundException ex)
                     {
-                        WriteExceptionToHTMLFile(ex, @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\ServiceExceptionLog.html");
+                        WriteExceptionToHTMLFile(ex, @"E:\ServiceExceptionLog.html");
                         Console.WriteLine($"Directory not found: {ex.Message}");
                     }
 
@@ -602,7 +621,7 @@ namespace FileSystemMonitorService
 
         public void justLoggging(string line)
         {
-            string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\File.html"; // Specify your file path
+            string filePath = @"E:\File.html"; // Specify your file path
 
             try
             {
@@ -633,6 +652,7 @@ namespace FileSystemMonitorService
         {
             try
             {
+                justLoggging("line 656");
 
                 TraverseTreeParallelForEach(disk, (f) =>
                 {
@@ -681,10 +701,11 @@ namespace FileSystemMonitorService
                 string csvContent = $"{disk},{fileCount},{imageCount},{videoCount},{docCount},{totalImageSize},{totalVideoSize},{totalDocSize}\n";
 
                 File.AppendAllText(csvDiskInfoFilePath, csvContent);
+
             }
             catch (Exception ex)
             {
-
+                justLoggging("Exception line--> 707"+ex.Message);
             }
         }
 
@@ -710,24 +731,15 @@ namespace FileSystemMonitorService
             watcher.IncludeSubdirectories = true;
 
             // Watch for changes in files and directories
-            watcher.Created += (sender, e) => fileHasCreated(disk,e.FullPath);
-            watcher.Deleted += (sender, e) => UpdateStatisticsAfterChange(disk,e.FullPath);
+            watcher.Created += (sender, e) => fileWasCreated(disk,e.FullPath);
+            watcher.Deleted += (sender, e) => fileWasDeleted(disk,e.FullPath);
 
             // Enable the watcher
             watcher.EnableRaisingEvents = true;
         }
 
-        // Update statistics after file change
-        private void UpdateStatisticsAfterChange(string disk,string path)
+        private void fileWasCreated(string disk,string path)
         {
-
-            // When a file is created or deleted, update the statistics for the specific disk
-            diskInfo(disk);
-        }
-
-        private void fileHasCreated(string disk,string path)
-        {
-            List<DiskInformation> diskInfoList = new List<DiskInformation>();
 
             // TO-DO: Also add code to show new drive space
 
@@ -765,15 +777,60 @@ namespace FileSystemMonitorService
                     }
                 }
 
-                // Create or append to a CSV file with the collected information
-           //     string csvContent = $"{disk},{fileCount},{diskInformation.ImageCount},{diskInformation.VideoCount},{diskInformation.DocCount},{diskInformation.TotalImageSize},{diskInformation.TotalVideoSize},{diskInformation.TotalDocSize}\n";
+                //     Create or append to a CSV file with the collected information
+               string csvContent = $"{disk},{fileCount},{diskInformation.ImageCount},{diskInformation.VideoCount},{diskInformation.DocCount},{diskInformation.TotalImageSize},{diskInformation.TotalVideoSize},{diskInformation.TotalDocSize}\n";
 
                 File.AppendAllText(csvDiskInfoFilePath, csvContent);
             }
             
-
         }
 
+        private void fileWasDeleted(string disk, string path)
+        {
+
+            // TO-DO: Also add code to show new drive space
+
+            FileInfo fileInfo = new FileInfo(path);
+            string extension = Path.GetExtension(path)?.ToLower();
+
+            // since a file has been created in the drive
+
+            fileCount--;
+
+            foreach (DiskInformation diskInformation in diskInfoList)
+            {
+                if (diskInformation != null)
+                {
+                    if (diskInformation.Disk == disk)
+                    {
+                        if (extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif")
+                        {
+                            diskInformation.ImageCount--;
+
+                            diskInformation.TotalImageSize = diskInformation.TotalImageSize - fileInfo.Length;
+                        }
+                        else if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
+                        {
+                            diskInformation.VideoCount--;
+
+                            diskInformation.TotalVideoSize = diskInformation.TotalVideoSize - fileInfo.Length;
+                        }
+                        else if (extension == ".doc" || extension == ".docx" || extension == ".pdf" || extension == ".txt")
+                        {
+                            diskInformation.DocCount--;
+
+                            diskInformation.TotalDocSize = diskInformation.TotalDocSize + fileInfo.Length;
+                        }
+                    }
+                }
+
+                //     Create or append to a CSV file with the collected information
+                string csvContent = $"{disk},{fileCount},{diskInformation.ImageCount},{diskInformation.VideoCount},{diskInformation.DocCount},{diskInformation.TotalImageSize},{diskInformation.TotalVideoSize},{diskInformation.TotalDocSize}\n";
+
+                File.AppendAllText(csvDiskInfoFilePath, csvContent);
+            }
+
+        }
 
 
         public class DiskInformation
@@ -786,53 +843,6 @@ namespace FileSystemMonitorService
             public long TotalImageSize { get; set; }
             public long TotalVideoSize { get; set; }
             public long TotalDocSize { get; set; }
-        }
-
-        public List<DiskInformation> ReadDiskInformationFromCSV(string filePath, string disk)
-        {
-            List<DiskInformation> diskInfoList = new List<DiskInformation>();
-
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    using (StreamReader reader = new StreamReader(filePath))
-                    {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            string[] values = line.Split(',');
-
-                            // Parsing values from CSV
-                            DiskInformation diskInfo = new DiskInformation
-                            {
-                                Disk = values[0],
-                                FileCount = long.Parse(values[1]),
-                                ImageCount = long.Parse(values[2]),
-                                VideoCount = long.Parse(values[3]),
-                                DocCount = long.Parse(values[4]),
-                                TotalImageSize = long.Parse(values[5]),
-                                TotalVideoSize = long.Parse(values[6]),
-                                TotalDocSize = long.Parse(values[7])
-                            };
-
-                            diskInfoList.Add(diskInfo);
-                        }
-                    }
-                }
-                else
-                {
-                    diskInfo(disk);
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error reading CSV: " + ex.Message);
-            }
-
-            return diskInfoList;
         }
 
         public static void TraverseTreeParallelForEach(string root, Action<string> action)

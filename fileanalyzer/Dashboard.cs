@@ -15,7 +15,10 @@ namespace fileanalyzer
 {
     public partial class Form3 : Form
     {
-        string csvDiskInfoFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorServic\bin\Debug\disk_information.csv";
+        string csvDiskInfoFilePath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\edisk_information.txt";
+
+        // this variable will be used to access the line number for edisk_information.tx file
+        int DiskInfoLine = 0;
 
         // function to make corner round
         private void makeCornerRound(Control control, int borderRadius)
@@ -36,6 +39,11 @@ namespace fileanalyzer
             DriveInfo[] allDrives = DriveInfo.GetDrives();
 
             int x = 20, y = 25;
+
+            if (!File.Exists(csvDiskInfoFilePath))
+            {
+                MessageBox.Show("More information will be available in few minutes..");
+            }
 
             foreach (DriveInfo drive in allDrives)
             {
@@ -102,6 +110,7 @@ namespace fileanalyzer
 
                 // Find your GroupBox (replace "groupBox1" with the actual name of your GroupBox)
                 Panel myBackPanel = backpanel;
+
                 // Assuming you have a panel named panel1
                 // backpanel.AutoScroll = true;
                 myBackPanel.HorizontalScroll.Visible = true;
@@ -111,7 +120,11 @@ namespace fileanalyzer
 
                 // NOTE: In case of C: drive, search only specific directories like Picture, Music, AppData not all the directories..
 
-                displayDisks(ReadDiskInformationFromCSV(csvDiskInfoFilePath, drive.Name), drivePanel);
+                if (File.Exists(csvDiskInfoFilePath))
+                {
+                   // diskInfo(drive.Name);
+                    displayDisks(ReadDiskInformationFromCSV(csvDiskInfoFilePath, drive.Name), drivePanel);
+                }
 
                 //                Thread thread = new Thread(() => diskInfo(drivePanel, @"E:\SANDEEP_KUMAR", drive));
                 //                thread.Start();
@@ -182,45 +195,11 @@ namespace fileanalyzer
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message + "---" + ex.StackTrace);
+               // justLoggging("Dashboard.cs - 195:" + ex.Message + "---" + ex.StackTrace);
             }
         }
 
-        private void SetupFileSystemWatchersForAllDrives()
-        {
-            DriveInfo[] drives = DriveInfo.GetDrives();
-
-            foreach (DriveInfo drive in drives)
-            {
-                if (drive.IsReady && drive.DriveType == DriveType.Fixed)
-                {
-                    string rootPath = drive.RootDirectory.FullName;
-                    SetupFileSystemWatcher(rootPath);
-                }
-            }
-        }
-
-        // File System Watcher to track file creation and deletion
-        private void SetupFileSystemWatcher(string disk)
-        {
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = disk;
-            watcher.IncludeSubdirectories = true;
-
-            // Watch for changes in files and directories
-            watcher.Created += (sender, e) => UpdateStatisticsAfterChange(disk);
-            watcher.Deleted += (sender, e) => UpdateStatisticsAfterChange(disk);
-
-            // Enable the watcher
-            watcher.EnableRaisingEvents = true;
-        }
-
-        // Update statistics after file change
-        private void UpdateStatisticsAfterChange(string disk)
-        {
-            // When a file is created or deleted, update the statistics for the specific disk
-            diskInfo(disk);
-        }
 
         public class DiskInformation
         {
@@ -240,38 +219,29 @@ namespace fileanalyzer
 
             try
             {
-
-                if (File.Exists(filePath))
+                using (StreamReader reader = new StreamReader(filePath))
                 {
-                    using (StreamReader reader = new StreamReader(filePath))
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        string line;
-                        while ((line = reader.ReadLine()) != null)
+                        string[] values = line.Split(',');
+
+                        // Parsing values from CSV
+                        DiskInformation diskInfo = new DiskInformation
                         {
-                            string[] values = line.Split(',');
+                            Disk = values[0],
+                            FileCount = long.Parse(values[1]),
+                            ImageCount = long.Parse(values[2]),
+                            VideoCount = long.Parse(values[3]),
+                            DocCount = long.Parse(values[4]),
+                            TotalImageSize = long.Parse(values[5]),
+                            TotalVideoSize = long.Parse(values[6]),
+                            TotalDocSize = long.Parse(values[7])
+                        };
 
-                            // Parsing values from CSV
-                            DiskInformation diskInfo = new DiskInformation
-                            {
-                                Disk = values[0],
-                                FileCount = long.Parse(values[1]),
-                                ImageCount = long.Parse(values[2]),
-                                VideoCount = long.Parse(values[3]),
-                                DocCount = long.Parse(values[4]),
-                                TotalImageSize = long.Parse(values[5]),
-                                TotalVideoSize = long.Parse(values[6]),
-                                TotalDocSize = long.Parse(values[7])
-                            };
-
-                            diskInfoList.Add(diskInfo);
-                        }
-                    }
+                        diskInfoList.Add(diskInfo);
+                    }                                        
                 }
-                else
-                {
-                    diskInfo(disk);
-                }
-
 
             }
             catch (Exception ex)
@@ -286,162 +256,161 @@ namespace fileanalyzer
         {
             try
             {
-                foreach (DiskInformation diskInfo in diskInfoList)
-                {
-                    DriveInfo driveInfo = new DriveInfo(diskInfo.Disk);
+                DriveInfo driveInfo = new DriveInfo(diskInfoList[DiskInfoLine].Disk);
 
-                    // DETAILS OF SPACE USED BY IMAGES
-                    PictureBox imagespictureBox = new PictureBox();
-                    imagespictureBox.Location = new Point(15, 150);
-                    imagespictureBox.Height = 30;
-                    imagespictureBox.Width = 30;
-                    imagespictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
-                    control.Controls.Add(imagespictureBox);
+                // DETAILS OF SPACE USED BY IMAGES
+                PictureBox imagespictureBox = new PictureBox();
+                imagespictureBox.Location = new Point(15, 150);
+                imagespictureBox.Height = 30;
+                imagespictureBox.Width = 30;
+                imagespictureBox.ImageLocation = "E:\icon.jpg";
+                control.Controls.Add(imagespictureBox);
 
-                    Label imagesLabel = new Label();
-                    imagesLabel.Text = "Images";
-                    imagesLabel.Location = new Point(50, 150);
-                    imagesLabel.Font = new Font("RobotoRegular", 12);
-                    imagesLabel.BackColor = Color.Transparent;
-                    imagesLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
-                    imagesLabel.Height = 20;
-                    imagesLabel.Width = 90;
-                    control.Controls.Add(imagesLabel);
+                Label imagesLabel = new Label();
+                imagesLabel.Text = "Images";
+                imagesLabel.Location = new Point(50, 150);
+                imagesLabel.Font = new Font("RobotoRegular", 12);
+                imagesLabel.BackColor = Color.Transparent;
+                imagesLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
+                imagesLabel.Height = 20;
+                imagesLabel.Width = 90;
+                control.Controls.Add(imagesLabel);
 
-                    Label imagesCount = new Label();
-                    imagesCount.Text = diskInfo.ImageCount + " files";
-                    imagesCount.Location = new Point(52, 173);
-                    imagesCount.Font = new Font("Roboto", 9, FontStyle.Bold);
-                    imagesCount.BackColor = Color.Transparent;
-                    imagesCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
-                    imagesCount.Height = 13;
-                    imagesCount.Width = 30;
-                    control.Controls.Add(imagesCount);
+                Label imagesCount = new Label();
+                imagesCount.Text = diskInfoList[DiskInfoLine].ImageCount + " files";
+                imagesCount.Location = new Point(52, 173);
+                imagesCount.Font = new Font("Roboto", 9, FontStyle.Bold);
+                imagesCount.BackColor = Color.Transparent;
+                imagesCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
+                imagesCount.Height = 13;
+                imagesCount.Width = 80;
+                control.Controls.Add(imagesCount);
 
-                    Label imagesSpaceTaken = new Label();
-                    imagesSpaceTaken.Text = ConvertBytes(diskInfo.TotalImageSize) + "";
-                    imagesSpaceTaken.Location = new Point(140, 160);
-                    imagesSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
-                    imagesSpaceTaken.BackColor = Color.Transparent;
-                    imagesSpaceTaken.ForeColor = Color.DarkBlue;
-                    imagesSpaceTaken.Height = 22;
-                    imagesSpaceTaken.Width = 100;
-                    imagesSpaceTaken.Anchor = AnchorStyles.Right;
-                    control.Controls.Add(imagesSpaceTaken);
+                Label imagesSpaceTaken = new Label();
+                imagesSpaceTaken.Text = ConvertBytes(diskInfoList[DiskInfoLine].TotalImageSize) + "";
+                imagesSpaceTaken.Location = new Point(140, 160);
+                imagesSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
+                imagesSpaceTaken.BackColor = Color.Transparent;
+                imagesSpaceTaken.ForeColor = Color.DarkBlue;
+                imagesSpaceTaken.Height = 22;
+                imagesSpaceTaken.Width = 100;
+                imagesSpaceTaken.Anchor = AnchorStyles.Right;
+                control.Controls.Add(imagesSpaceTaken);
 
-                    System.Windows.Forms.ProgressBar ImagespaceProgressBar = new System.Windows.Forms.ProgressBar();
-                    ImagespaceProgressBar.Maximum = 100;
-                    ImagespaceProgressBar.Minimum = 0;
-                    ImagespaceProgressBar.Value = (int)(diskInfo.TotalImageSize * 100 / (driveInfo.TotalSize - driveInfo.AvailableFreeSpace));
-                    ImagespaceProgressBar.Location = new Point(20, 190);
-                    ImagespaceProgressBar.Width = 205;
-                    ImagespaceProgressBar.Height = 1;
-                    ImagespaceProgressBar.Style = ProgressBarStyle.Continuous;
-                    ImagespaceProgressBar.MarqueeAnimationSpeed = 0;
-                    control.Controls.Add(ImagespaceProgressBar);
+                System.Windows.Forms.ProgressBar ImagespaceProgressBar = new System.Windows.Forms.ProgressBar();
+                ImagespaceProgressBar.Maximum = 100;
+                ImagespaceProgressBar.Minimum = 0;
+                ImagespaceProgressBar.Value = (int)(diskInfoList[DiskInfoLine].TotalImageSize * 100 / (driveInfo.TotalSize - driveInfo.AvailableFreeSpace));
+                ImagespaceProgressBar.Location = new Point(20, 190);
+                ImagespaceProgressBar.Width = 205;
+                ImagespaceProgressBar.Height = 1;
+                ImagespaceProgressBar.Style = ProgressBarStyle.Continuous;
+                ImagespaceProgressBar.MarqueeAnimationSpeed = 0;
+                control.Controls.Add(ImagespaceProgressBar);
 
-                    // DETAILS OF SPACE USED BY VIDEOS
-                    PictureBox videospictureBox = new PictureBox();
-                    videospictureBox.Location = new Point(15, 210);
-                    videospictureBox.Height = 30;
-                    videospictureBox.Width = 30;
-                    videospictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
-                    control.Controls.Add(videospictureBox);
+                // DETAILS OF SPACE USED BY VIDEOS
+                PictureBox videospictureBox = new PictureBox();
+                videospictureBox.Location = new Point(15, 210);
+                videospictureBox.Height = 30;
+                videospictureBox.Width = 30;
+                videospictureBox.ImageLocation = "E:\icon.jpg";
+                control.Controls.Add(videospictureBox);
 
-                    Label videosLabel = new Label();
-                    videosLabel.Text = "Videos";
-                    videosLabel.Location = new Point(50, 210);
-                    videosLabel.Font = new Font("RobotoRegular", 12);
-                    videosLabel.BackColor = Color.Transparent;
-                    videosLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
-                    videosLabel.Height = 20;
-                    videosLabel.Width = 90;
-                    control.Controls.Add(videosLabel);
+                Label videosLabel = new Label();
+                videosLabel.Text = "Videos";
+                videosLabel.Location = new Point(50, 210);
+                videosLabel.Font = new Font("RobotoRegular", 12);
+                videosLabel.BackColor = Color.Transparent;
+                videosLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
+                videosLabel.Height = 20;
+                videosLabel.Width = 90;
+                control.Controls.Add(videosLabel);
 
-                    Label videosCount = new Label();
-                    videosCount.Text = diskInfo.VideoCount + " files";
-                    videosCount.Location = new Point(52, 233);
-                    videosCount.Font = new Font("Roboto", 9, FontStyle.Bold);
-                    videosCount.BackColor = Color.Transparent;
-                    videosCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
-                    videosCount.Height = 13;
-                    videosCount.Width = 30;
-                    control.Controls.Add(videosCount);
+                Label videosCount = new Label();
+                videosCount.Text = diskInfoList[DiskInfoLine].VideoCount + " files";
+                videosCount.Location = new Point(52, 233);
+                videosCount.Font = new Font("Roboto", 9, FontStyle.Bold);
+                videosCount.BackColor = Color.Transparent;
+                videosCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
+                videosCount.Height = 13;
+                videosCount.Width = 80;
+                control.Controls.Add(videosCount);
 
-                    Label videosSpaceTaken = new Label();
-                    videosSpaceTaken.Text = ConvertBytes(diskInfo.TotalVideoSize) + "";
-                    videosSpaceTaken.Location = new Point(140, 220);
-                    videosSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
-                    videosSpaceTaken.BackColor = Color.Transparent;
-                    videosSpaceTaken.ForeColor = Color.DarkBlue;
-                    videosSpaceTaken.Height = 22;
-                    videosSpaceTaken.Width = 100;
-                    videosSpaceTaken.Anchor = AnchorStyles.Right;
-                    control.Controls.Add(videosSpaceTaken);
+                Label videosSpaceTaken = new Label();
+                videosSpaceTaken.Text = ConvertBytes(diskInfoList[DiskInfoLine].TotalVideoSize) + "";
+                videosSpaceTaken.Location = new Point(140, 220);
+                videosSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
+                videosSpaceTaken.BackColor = Color.Transparent;
+                videosSpaceTaken.ForeColor = Color.DarkBlue;
+                videosSpaceTaken.Height = 22;
+                videosSpaceTaken.Width = 100;
+                videosSpaceTaken.Anchor = AnchorStyles.Right;
+                control.Controls.Add(videosSpaceTaken);
 
-                    System.Windows.Forms.ProgressBar videospaceProgressBar = new System.Windows.Forms.ProgressBar();
-                    videospaceProgressBar.Maximum = 100;
-                    videospaceProgressBar.Minimum = 0;
-                    videospaceProgressBar.Value = (int)(diskInfo.TotalVideoSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
-                    videospaceProgressBar.Location = new Point(20, 250);
-                    videospaceProgressBar.Width = 205;
-                    videospaceProgressBar.Height = 1;
-                    videospaceProgressBar.Style = ProgressBarStyle.Continuous;
-                    videospaceProgressBar.MarqueeAnimationSpeed = 0;
-                    control.Controls.Add(videospaceProgressBar);
+                System.Windows.Forms.ProgressBar videospaceProgressBar = new System.Windows.Forms.ProgressBar();
+                videospaceProgressBar.Maximum = 100;
+                videospaceProgressBar.Minimum = 0;
+                videospaceProgressBar.Value = (int)(diskInfoList[DiskInfoLine].TotalVideoSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
+                videospaceProgressBar.Location = new Point(20, 250);
+                videospaceProgressBar.Width = 205;
+                videospaceProgressBar.Height = 1;
+                videospaceProgressBar.Style = ProgressBarStyle.Continuous;
+                videospaceProgressBar.MarqueeAnimationSpeed = 0;
+                control.Controls.Add(videospaceProgressBar);
 
 
-                    // DETAILS OF SPACE USED BY docs
-                    PictureBox docspictureBox = new PictureBox();
-                    docspictureBox.Location = new Point(15, 270);
-                    docspictureBox.Height = 30;
-                    docspictureBox.Width = 30;
-                    docspictureBox.ImageLocation = "E:\\SANDEEP_KUMAR\\PROJECT\\desktop\\fileanalyzer\\icon.jpg";
-                    control.Controls.Add(docspictureBox);
+                // DETAILS OF SPACE USED BY docs
+                PictureBox docspictureBox = new PictureBox();
+                docspictureBox.Location = new Point(15, 270);
+                docspictureBox.Height = 30;
+                docspictureBox.Width = 30;
+                docspictureBox.ImageLocation = "E:\icon.jpg";
+                control.Controls.Add(docspictureBox);
 
-                    Label docsLabel = new Label();
-                    docsLabel.Text = "Docs";
-                    docsLabel.Location = new Point(50, 270);
-                    docsLabel.Font = new Font("RobotoRegular", 12);
-                    docsLabel.BackColor = Color.Transparent;
-                    docsLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
-                    docsLabel.Height = 20;
-                    docsLabel.Width = 90;
-                    control.Controls.Add(docsLabel);
+                Label docsLabel = new Label();
+                docsLabel.Text = "Docs";
+                docsLabel.Location = new Point(50, 270);
+                docsLabel.Font = new Font("RobotoRegular", 12);
+                docsLabel.BackColor = Color.Transparent;
+                docsLabel.ForeColor = Color.FromArgb(0x42, 0x43, 0x4e);
+                docsLabel.Height = 20;
+                docsLabel.Width = 90;
+                control.Controls.Add(docsLabel);
 
-                    Label docsCount = new Label();
-                    docsCount.Text = docsCount + " files";
-                    docsCount.Location = new Point(52, 293);
-                    docsCount.Font = new Font("Roboto", 9, FontStyle.Bold);
-                    docsCount.BackColor = Color.Transparent;
-                    docsCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
-                    docsCount.Height = 13;
-                    docsCount.Width = 50;
-                    control.Controls.Add(docsCount);
+                Label docsCount = new Label();
+                docsCount.Text = diskInfoList[DiskInfoLine].DocCount + " files";
+                docsCount.Location = new Point(52, 293);
+                docsCount.Font = new Font("Roboto", 9, FontStyle.Bold);
+                docsCount.BackColor = Color.Transparent;
+                docsCount.ForeColor = Color.FromArgb(0x8d, 0x94, 0xbc);
+                docsCount.Height = 13;
+                docsCount.Width = 80;
+                control.Controls.Add(docsCount);
 
-                    Label docsSpaceTaken = new Label();
-                    docsSpaceTaken.Text = ConvertBytes(diskInfo.TotalDocSize) + "";
-                    docsSpaceTaken.Location = new Point(140, 280);
-                    docsSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
-                    docsSpaceTaken.BackColor = Color.Transparent;
-                    docsSpaceTaken.ForeColor = Color.DarkBlue;
-                    docsSpaceTaken.Height = 22;
-                    docsSpaceTaken.Width = 100;
-                    docsSpaceTaken.Anchor = AnchorStyles.Right;
-                    control.Controls.Add(docsSpaceTaken);
+                Label docsSpaceTaken = new Label();
+                docsSpaceTaken.Text = ConvertBytes(diskInfoList[DiskInfoLine].TotalDocSize) + "";
+                docsSpaceTaken.Location = new Point(140, 280);
+                docsSpaceTaken.Font = new Font("Roboto", 12, FontStyle.Bold);
+                docsSpaceTaken.BackColor = Color.Transparent;
+                docsSpaceTaken.ForeColor = Color.DarkBlue;
+                docsSpaceTaken.Height = 22;
+                docsSpaceTaken.Width = 100;
+                docsSpaceTaken.Anchor = AnchorStyles.Right;
+                control.Controls.Add(docsSpaceTaken);
 
-                    System.Windows.Forms.ProgressBar docspaceProgressBar = new System.Windows.Forms.ProgressBar();
-                    docspaceProgressBar.Maximum = 100;
-                    docspaceProgressBar.Minimum = 0;
-                    docspaceProgressBar.Value = (int)(diskInfo.TotalDocSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
-                    docspaceProgressBar.Location = new Point(20, 310);
-                    docspaceProgressBar.Width = 205;
-                    docspaceProgressBar.Height = 1;
-                    docspaceProgressBar.Style = ProgressBarStyle.Continuous;
-                    docspaceProgressBar.MarqueeAnimationSpeed = 0;
-                    control.Controls.Add(docspaceProgressBar);
+                System.Windows.Forms.ProgressBar docspaceProgressBar = new System.Windows.Forms.ProgressBar();
+                docspaceProgressBar.Maximum = 100;
+                docspaceProgressBar.Minimum = 0;
+                docspaceProgressBar.Value = (int)(diskInfoList[DiskInfoLine].TotalDocSize * 100 / (driveInfo.TotalSize - driveInfo.TotalFreeSpace));
+                docspaceProgressBar.Location = new Point(20, 310);
+                docspaceProgressBar.Width = 205;
+                docspaceProgressBar.Height = 1;
+                docspaceProgressBar.Style = ProgressBarStyle.Continuous;
+                docspaceProgressBar.MarqueeAnimationSpeed = 0;
+                control.Controls.Add(docspaceProgressBar);
 
-                }
+                // increment so that it can display information of next Drive by fetching the next line from edisk_information.txt
+                DiskInfoLine++;
             }
             catch (Exception ex)
             {
@@ -605,6 +574,30 @@ namespace fileanalyzer
             }
         }
 
+
+        public void justLoggging(string line)
+        {
+            string filePath = @"E:\File.html"; // Specify your file path
+
+            try
+            {
+                // Create or append to an HTML file
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    writer.WriteLine("<html><head><title>Exception Log</title></head><body>");
+                    writer.WriteLine("<h2>Latest Exception: " + DateTime.Now.ToString() + "</h2>");
+                    writer.WriteLine("<p><strong>Message:</strong> " + "Now " + ":" + line + "</p>");
+                    writer.WriteLine("<hr/>"); // Separator between exceptions
+                    writer.WriteLine("</body></html>");
+                }
+
+                Console.WriteLine("Exception written to " + filePath);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing exception to file: " + e.Message);
+            }
+        }
 
     }
 

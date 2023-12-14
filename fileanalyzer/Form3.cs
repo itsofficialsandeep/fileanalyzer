@@ -22,6 +22,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using File = System.IO.File;
 using System.Net.Http;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using Newtonsoft.Json.Linq;
+using System.ServiceProcess;
 
 namespace fileanalyzer
 {
@@ -49,16 +51,22 @@ namespace fileanalyzer
         public List<string> SearchedFiles { get; set; }
         public int TotalItems { get; set; }
 
-        string recentFilePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\recentFiles.txt";
+        string recentFilePath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\recentFiles.txt";
 
         // variable for explorer tab
-        private string filePath = "C:";
+        private string filePath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\FileList.txt";
+        private string LargestFolderListPath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\largestFolderList.txt";
+
         private bool isFile = false;
         private string currentlySelectedItemName = "";
-
+        private string defaultDirectory = "";
         public Form3()
         {
             InitializeComponent();
+
+            StartService("a_filemonitor1");
+
+            InstallService(@"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\FileSystemMonitorService.exe");
 
             analyze.Click += analyze_click; // Wiring up the Click event to the analyze_click method
           //  clearRecycleBinButton.Click += clearRecycleBin;
@@ -84,12 +92,69 @@ namespace fileanalyzer
             TotalItems = 0;         
 
             GenerateDriveCards();
+
+        }
+
+        public void InstallService(string serviceExecutablePath)
+        {
+            string serviceName = "a_filemonitor1";
+
+            // Check if the service already exists
+            ServiceController sc = ServiceController.GetServices().FirstOrDefault(s => s.ServiceName == serviceName);
+
+            if (sc == null)
+            {
+                // Install the service if it doesn't exist
+                using (System.Diagnostics.Process process = new System.Diagnostics.Process())
+                {
+                    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    startInfo.FileName = "sc.exe";
+                    startInfo.Arguments = $"create {serviceName} binPath= \"{serviceExecutablePath}\" start= auto";
+
+                    process.StartInfo = startInfo;
+                    process.Start();
+                    process.WaitForExit();
+                }
+
+                // Start the service after installation
+                using (ServiceController service = new ServiceController(serviceName))
+                {
+                    service.Start();
+                }
+            }
+        }
+
+        public void StartService(string serviceName)
+        {
+            ServiceController sc = new ServiceController(serviceName);
+
+            if (sc.Status == ServiceControllerStatus.Stopped)
+            {
+                try
+                {
+                    sc.Start();
+                    sc.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(30)); // Wait for service to start (adjust timeout as needed)
+                    Console.WriteLine("Service started successfully.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to start the service: {ex.Message}");
+                }
+            }
+            else if (sc.Status == ServiceControllerStatus.Running)
+            {
+                Console.WriteLine("Service is already running.");
+            }
+            else
+            {
+                Console.WriteLine("Service is in a state where it cannot be started.");
+            }
         }
 
         private void openFolderBrowser(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.ShowDialog();
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -1084,6 +1149,8 @@ namespace fileanalyzer
             makeCornerRound(temp2Panel, 7);
             makeCornerRound(recyclebinPanel, 7);
             makeCornerRound(bigsizefileGroupBox, 7);
+            makeCornerRound(unfinishedDownloadPanel, 7);
+            makeCornerRound(cachePanel, 7);
 
             await Task.Run(() => {
                 loadLargeFilesListview();
@@ -1113,18 +1180,86 @@ namespace fileanalyzer
 
             await Task.Run(() => {
 
-                         pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
-                         videoSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Videos", totalVideos));
-                         audioSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Musics", totalAudios));
-                         docSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Documents", totalDoc));
-                         downloadSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Download", totalDownload));
-                         desktopSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Desktop", totalDesktop));
-                         screenshotSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots",totalScreenshots));
-                         tempSize.Text = ConvertBytes(GetFolderSize(@"C:\Windows\Temp\",totalTemp));
-                         temp2Size.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp",totalTemp2));
-                         recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin",totalRecyclebin)); // Path to Recycle Bin
-                                                         
+                pictureSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures", totalPictures));
+                videoSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Videos", totalVideos));
+                audioSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Musics", totalAudios));
+                docSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Documents", totalDoc));
+                downloadSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Download", totalDownload));
+                desktopSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Desktop", totalDesktop));
+                screenshotSize.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots", totalScreenshots));
+                tempSize.Text = ConvertBytes(GetFolderSize(@"C:\Windows\Temp\", totalTemp));
+                temp2Size.Text = ConvertBytes(GetFolderSize(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp", totalTemp2));
+                recyclebinSize.Text = ConvertBytes(GetFolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\Recycle Bin", totalRecyclebin)); // Path to Recycle Bin
+                browserCacheSize.Text = ConvertBytes(GetFolderSize($@"C:\Users\" + Environment.UserName + @"\AppData\Local\Google\Chrome\User Data\Default\Cache\Cache_Data", totalCacheFile)); // Path to Recycle Bin
+                getUnfinishedDownload();
             });
+
+        }
+
+        private void clearCache(Object sender, EventArgs args)
+        {
+            string chromePath = @"C:\Program Files\Google\Chrome\Application\chrome.exe";
+            string command = "--delete-cache";
+
+            // Start Chrome with the command
+            ProcessStartInfo startInfo = new ProcessStartInfo(chromePath, command);
+            Process.Start(startInfo);
+
+            MessageBox.Show("Cached files deleted..");
+
+        }
+
+        private void getUnfinishedDownload() { 
+
+            int totalFiles = 0;
+            long totalSize = 0;
+            string currentDirectory = Directory.GetCurrentDirectory();
+            string filePath = Path.Combine(currentDirectory, @"C:\Users\"+Environment.UserName+ @"\AppData\Local\Google\Chrome\User Data\Default\Preferences");
+
+            // Read the JSON file
+            string jsonContent = File.ReadAllText(filePath);
+
+            // Parse JSON content
+            JObject jsonObject = JObject.Parse(jsonContent);
+
+            // Access the value of default_directory
+            defaultDirectory = jsonObject["savefile"]["default_directory"].ToString();
+
+            DirectoryInfo directory = new DirectoryInfo(defaultDirectory);
+            FileInfo[] files = directory.GetFiles("*", SearchOption.TopDirectoryOnly);
+
+            foreach (FileInfo file in files)
+            {
+                if (!file.Name.EndsWith(".crdownload") && !file.Name.EndsWith(".part"))
+                {
+                    totalSize += file.Length;
+                    totalFiles++;
+                }
+            }
+
+            unfinishedDownloadSize.Text = ConvertBytes(totalSize) + "";
+            totalUnfinishedDownload.Text = totalFiles + "";
+
+        }
+
+        private void clearUnfinishedDownload(Object sender, EventArgs args)
+        {
+            DirectoryInfo directory = new DirectoryInfo(defaultDirectory);
+            FileInfo[] files = directory.GetFiles("*", SearchOption.TopDirectoryOnly);
+
+            try {
+                foreach (FileInfo file in files)
+                {
+                    if (!file.Name.EndsWith(".crdownload") && !file.Name.EndsWith(".part"))
+                    {
+                        file.Delete();
+                    }
+                }
+
+                MessageBox.Show("Files deleted!");
+            } catch (Exception ex) {
+                MessageBox.Show("Something went wrong..");
+            }
 
         }
 
@@ -1356,31 +1491,31 @@ namespace fileanalyzer
             });
         }
 
-        private void analyzePictureFolder(object sender, MouseEventArgs e)
+        private void analyzePictureFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Pictures", sender, e);
         }
-        private void analyzeVideoFolder(object sender, MouseEventArgs e)
+        private void analyzeVideoFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Videos", sender, e);
         }
-        private void analyzeMusicFolder(object sender, MouseEventArgs e)
+        private void analyzeMusicFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Musics", sender, e);
         }
-        private void analyzeDocumentFolder(object sender, MouseEventArgs e)
+        private void analyzeDocumentFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Documents", sender, e);
         }
-        private void analyzeDownloadFolder(object sender, MouseEventArgs e)
+        private void analyzeDownloadFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Downloads", sender, e);
         }
-        private void analyzeDesktopFolder(object sender, MouseEventArgs e)
+        private void analyzeDesktopFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Desktop", sender, e);
         }
-        private void analyzeScreenshotFolder(object sender, MouseEventArgs e)
+        private void analyzeScreenshotFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots", sender, e);
         }
@@ -1566,7 +1701,7 @@ namespace fileanalyzer
             await Task.Run(() => {
                 List<LargestFileData> largestFiles;
 
-                if (File.Exists(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt"))
+                if (File.Exists(filePath))
                 {
                     // Load the list from the file if it exists
                     largestFiles = DeserializeCSVToList();
@@ -1651,9 +1786,7 @@ namespace fileanalyzer
                 {
                     // Format each line in CSV with FilePath and FileSize separated by a comma
                     csvContent.AppendLine($"{fileData.LargestFilePath},{fileData.LargestFileSize}");
-                }
-
-                string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
+                }                
 
                 // Write the CSV content to the specified file
                 File.WriteAllText(filePath, csvContent.ToString());
@@ -1669,7 +1802,6 @@ namespace fileanalyzer
 
         public List<LargestFileData> DeserializeCSVToList()
         {
-            string filePath = @"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\fileanalyzer\FileSystemMonitorService\bin\Debug\FileList.txt";
 
             List<LargestFileData> deserializedList = new List<LargestFileData>();
 
@@ -1755,15 +1887,15 @@ namespace fileanalyzer
 
         }
 
-        static List<FolderData> GetFoldersWithLargestSize(int count)
+        private List<FolderData> GetFoldersWithLargestSize(int count)
         {
             List<FolderData> folders = new List<FolderData>();
 
             // Check if the file exists, if it does, deserialize the list from the file
-            string path = @"C:\Program Files (x86)\SANDEEP\largestFolderList.txt2";
-            if (File.Exists(path))
+            
+            if (File.Exists(LargestFolderListPath))
             {
-                folders = DeserializeListFromFile(path);
+                folders = DeserializeListFromFile(LargestFolderListPath);
               //  MessageBox.Show("Found for folder..");
             }
             else
@@ -1796,7 +1928,7 @@ namespace fileanalyzer
                 }
 
                 // Store the list in the file for future use
-                SerializeListToFile(path, folders);
+                SerializeListToFile(LargestFolderListPath, folders);
             }
 
 
@@ -2073,7 +2205,7 @@ namespace fileanalyzer
 
         }
 
-        private void OpenSpecificTabWithData(string folderPath, object sender, MouseEventArgs e)
+        private void OpenSpecificTabWithData(string folderPath, object sender, EventArgs e)
         {
             // Logic to open a specific tab in the TabControl with the provided data
             // For example:
@@ -2754,7 +2886,6 @@ namespace fileanalyzer
         private void openFileBrowser(object sender, EventArgs e)
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.ShowDialog();
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
@@ -2804,7 +2935,7 @@ namespace fileanalyzer
             loadButtonAction();
         }
 
-        private void tabPage2_Click(object sender, EventArgs e)
+        private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
