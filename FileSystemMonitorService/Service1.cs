@@ -832,7 +832,6 @@ namespace FileSystemMonitorService
 
         }
 
-
         public class DiskInformation
         {
             public string Disk { get; set; }
