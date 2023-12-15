@@ -37,7 +37,7 @@ the help of ChatGPT and within few weeks We made it (ChatGPT and Me :) ).
 ![Screenshot (345)](https://github.com/itsofficialsandeep/fileanalyzer/assets/87613024/5f50ebb0-3c0d-43c7-9d86-1e4a2a1ae11e)
 
 ## Note:
-There is lot of scope for improvement in this app.
+There is a lot of scope for improvement in this app.
 
 
 
