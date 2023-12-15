@@ -58,7 +58,7 @@ namespace fileanalyzer
         private string LargestFolderListPath = @"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\largestFolderList.txt";
 
         private bool isFile = false;
-        private string currentlySelectedItemName = "";
+        private string currentlySelectedItemName = ""; 
         private string defaultDirectory = "";
         public Form3()
         {
@@ -69,23 +69,11 @@ namespace fileanalyzer
             InstallService(@"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\FileSystemMonitorService.exe");
 
             analyze.Click += analyze_click; // Wiring up the Click event to the analyze_click method
-          //  clearRecycleBinButton.Click += clearRecycleBin;
 
-            // progressBar.Value += ProgressBar_ValueChanged;
-
-            // adding icons to tab of tab control
             // initialize the imagelist
             ImageList imageList1 = new ImageList();
             imageList1.Images.Add("key1", Image.FromFile(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\icon.jpg"));
             imageList1.Images.Add("key2", Image.FromFile(@"E:\SANDEEP_KUMAR\PROJECT\desktop\fileanalyzer\icon.jpg"));
-
-            //initialize the tab control
-            // TabControl tabControl1 = new TabControl();
-            //    mainTabControl.Dock = DockStyle.Fill;
-            //    mainTabControl.ImageList = imageList1;
-            //    mainTabControl.TabPages.Add("tabKey1", "TabText1", "key1"); // icon using ImageKey
-            //   mainTabControl.TabPages.Add("tabKey2", "TabText2", "key2");      // icon using ImageIndex
-            //    this.Controls.Add(mainTabControl);
 
             SearchedFolders = new List<string>();
             SearchedFiles = new List<string>();
@@ -1173,7 +1161,7 @@ namespace fileanalyzer
             });
 
             // load explorer tab
-            filePathTextBox.Text = filePath;
+            filePathTextBox.Text = @"C:\";
             loadFilesAndDirectories();
 
 
@@ -1238,7 +1226,7 @@ namespace fileanalyzer
             }
 
             unfinishedDownloadSize.Text = ConvertBytes(totalSize) + "";
-            totalUnfinishedDownload.Text = totalFiles + "";
+            totalUnfinishedDownload.Text = totalFiles + " Files";
 
         }
 
@@ -1337,160 +1325,90 @@ namespace fileanalyzer
                 }
                 catch (Exception ex)
                 {
-                    // MessageBox.Show(ex.Message);
+                   MessageBox.Show(ex.Message);
                 }
             });
 
         }
 
-        private async void clearPictureFolder(object sender, EventArgs e)
+        private async void ClearFolderContents(string folderPath,string folderName,Control totalSize,Control totalFiles)
         {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear Picture folder ?";
+            await Task.Run(() =>{
+                string confirmationMessage = $"Are you sure you want to clear "+folderName+" folder ?";
 
                 // Show confirmation dialog
                 DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
-                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures");
-                }
-            });
+                    ProcessStartInfo psi = new ProcessStartInfo
+                    {
+                        FileName = "cmd.exe",
+                        Arguments = $"/c del /q /s \"{folderPath}\\*.*\"", // Command to clear folder contents
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    };
 
-        }
+                    using (Process process = Process.Start(psi))
+                    {
+                        process.WaitForExit();
+                    }
 
-        private async void clearVideosFolder(object sender, EventArgs e)
-        {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear Videos folder ?";
-
-                // Show confirmation dialog
-                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Videos");
+                    totalSize.Text = ConvertBytes(GetFolderSize(folderPath, totalFiles));
 
                 }
             });
-
         }
 
-        private async void clearMusicsFolder(object sender, EventArgs e)
+        private void clearPictureFolder(object sender, EventArgs e)
         {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear music folder ?";
-
-                // Show confirmation dialog
-                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Musics");
-                }
-            });
-
+            ClearFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures", "Pictures", pictureSize, totalPictures);
         }
 
-        private async void clearDocumentsFolder(object sender, EventArgs e)
+        private void clearVideosFolder(object sender, EventArgs e)
         {
-            await Task.Run(() => {
-
-            });
-            string confirmationMessage = $"Are you sure you want to clear Document folder ?";
-
-            // Show confirmation dialog
-            DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (result == DialogResult.Yes)
-            {
-                DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Documents");
-            }
-
+            ClearFolderContents(@"C:\Users\" + Environment.UserName + @"\Videos", "Videos", videoSize, totalVideos);
         }
 
-        private async void clearDownloadFolder(object sender, EventArgs e)
+        private void clearMusicsFolder(object sender, EventArgs e)
         {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear download folder ?";
-
-                // Show confirmation dialog
-                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Downloads");
-                }
-            });
-
-
+            ClearFolderContents(@"C:\Users\" + Environment.UserName + @"\Musics", "Musics", audioSize, totalAudios);
         }
 
-        private async void clearDesktopFolder(object sender, EventArgs e)
+        private void clearDocumentsFolder(object sender, EventArgs e)
         {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear desktop folder ?";
-
-                // Show confirmation dialog
-                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Desktop");
-                }
-
-            });
-
+            ClearFolderContents(@"C:\Users\" + Environment.UserName + @"\Documents", "Documents", docSize, totalDoc);
         }
 
-        private async void clearScreenshotsFolder(object sender, EventArgs e)
+        private void clearDownloadFolder(object sender, EventArgs e)
         {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear screenshot folder ?";
-
-                // Show confirmation dialog
-                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\Pictures\Screenshots");
-                }
-            });
-
+            ClearFolderContents(@"C:\Users\" + Environment.UserName + @"\Downloads", "Download", downloadSize, totalDownload);
         }
 
-        private async void clearTempFolder(object sender, EventArgs e)
+        private void clearDesktopFolder(object sender, EventArgs e)
         {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
-
-                // Show confirmation dialog
-                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    DeleteFolderContents(@"C:\Windows\Temp\");
-                }
-
-            });
-
+            ClearFolderContents(@"C:\Users\" + Environment.UserName + @"\Desktop","Desktop", desktopSize, totalDesktop);
         }
 
-        private async void clearTemp2Folder(object sender, EventArgs e)
+        private void clearScreenshotsFolder(object sender, EventArgs e)
         {
-            await Task.Run(() => {
-                string confirmationMessage = $"Are you sure you want to clear Temporary folder ?";
-
-                // Show confirmation dialog
-                DialogResult result = MessageBox.Show(confirmationMessage, "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
-                {
-                    DeleteFolderContents(@"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp");
-                }
-            });
+            ClearFolderContents(@"C:\Users\" + Environment.UserName + @"\Desktop", "Screenshots", screenshotSize, totalScreenshots);
         }
 
+        private void clearTempFolder(object sender, EventArgs e)
+        {
+            ClearFolderContents(@"C:\Windows\Temp\", "Temp", tempSize, totalTemp);
+        }
+
+        private void clearTemp2FolderByCMD(Object sender, EventArgs eventArgs)
+        {
+            string tempFolderPath = Environment.GetEnvironmentVariable("TEMP");
+
+            ClearFolderContents(tempFolderPath, "Temp", temp2Size, totalTemp2);
+        }
+
+        //  Code for Analyze button
         private void analyzePictureFolder(object sender, EventArgs e)
         {
             OpenSpecificTabWithData(@"C:\Users\" + Environment.UserName + @"\Pictures", sender, e);
@@ -1543,50 +1461,30 @@ namespace fileanalyzer
                 }
 
                 //  DELETE THE TEMP FOLDERS
-                string[] folders = { @"C:\Users\" + Environment.UserName + @"\AppData\Local\Temp", @"C:\Windows\Temp\" };
-                foreach (string folder in folders)
+
+                string[] folderPaths = new string[]
                 {
-                    try
+                    @"C:\Windows\Temp\",
+                    Environment.GetEnvironmentVariable("temp"),                   
+                };
+
+                foreach (string folderPath in folderPaths)
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo
                     {
-                        foreach (string file in Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories))
-                        {
-                            try
-                            {
-                                if (File.Exists(file))
-                                {
-                                    try { File.Delete(file); }
-                                    catch (Exception ex)
-                                    {
-                                        MessageBox.Show("Custom:==>" + ex.Message);
-                                    }
+                        FileName = "cmd.exe",
+                        Arguments = $"/c del /q /s \"{folderPath}\\*.*\"", // Command to clear folder contents
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    };
 
-                                    oneClickDeletingFilename.Text = file;
-
-                                    FileInfo fileInfo = new FileInfo(file);
-                                    spaceClearedLabel.Text = ConvertBytes(fileInfo.Length);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Custom2:==>" + ex.Message);
-                            }
-                        }
-
-                        foreach (string subDir in Directory.GetDirectories(folder))
-                        {
-                            DeleteFolderContents(subDir);
-                            if (Directory.GetFiles(subDir).Length == 0 && Directory.GetDirectories(subDir).Length == 0)
-                            {
-                                Directory.Delete(subDir, true);
-                                oneClickDeletingFilename.Text = subDir;
-                            }
-                        }
-                    }
-                    catch (Exception ex)
+                    using (Process process = Process.Start(psi))
                     {
-                        MessageBox.Show("Custom3:==>" + ex.Message);
+                        process.WaitForExit();
                     }
                 }
+
 
                 // DELETE DULICATE FILES
                 var filesByHash = new Dictionary<string, List<string>>();
@@ -1594,12 +1492,12 @@ namespace fileanalyzer
                 // process all the avaiable drives for redundant files
                 //  foreach (DriveInfo d in allDrives)    
                 {
-                    // LOOP THROUGH ALL FILES IN THE DRIVE
+                    // iterate THROUGH ALL FILES IN THE DRIVE
                     foreach (var filePath in Directory.GetFiles(@"C:\Users\SANDEEP\Desktop\sandeep"))
                     {
                         FileInfo fileinfo = new FileInfo(filePath);
 
-                        string[] specificExtensions = { ".tmp", ".cache", ".log", ".old", ".temp", ".dump", "thumbs.db", ".DS_Store", ".partial", ".crdownload" };
+                        string[] specificExtensions = { ".tmp", ".cache", ".log", ".old", ".temp", ".dump", "thumbs.db", ".DS_Store", ".partial", ".crdownload",".part" };
 
                         // Loop through files with specific extensions in the directory
                         if (filePath.EndsWith(specificExtensions[0]) || filePath.EndsWith(specificExtensions[1])
@@ -1708,8 +1606,6 @@ namespace fileanalyzer
                 }
                 else
                 {
-
-                    //   MessageBox.Show("not Found for files..");
 
                     // Create the list by recursively getting all files in the drive
                     List<string> drives = Environment.GetLogicalDrives().ToList();
@@ -2209,7 +2105,7 @@ namespace fileanalyzer
         {
             // Logic to open a specific tab in the TabControl with the provided data
             // For example:
-            mainTabControl.SelectedIndex = 2; // Change 1 to the index of the desired tab
+            mainTabControl.SelectedIndex = 1; // Change 1 to the index of the desired tab
 
             // Perform actions with the provided data
             pathTextBox.Text = folderPath;
@@ -2938,6 +2834,20 @@ namespace fileanalyzer
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void mainTabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int tabIndex = mainTabControl.SelectedIndex;
+
+            // Perform actions based on the selected tab index
+            if (tabIndex == 2) // For the Drive Tab
+            {
+                if (!File.Exists(@"C:\Program Files (x86)\Sandeep Kumar\Sandy's Windows Cleaner\edisk_information.txt"))
+                {
+                    MessageBox.Show("Loading drive information might take some time..");
+                }
+            }
         }
     }
 

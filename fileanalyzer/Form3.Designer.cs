@@ -286,6 +286,7 @@
             this.mainTabControl.Size = new System.Drawing.Size(1921, 1056);
             this.mainTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.mainTabControl.TabIndex = 8;
+            this.mainTabControl.SelectedIndexChanged += new System.EventHandler(this.mainTabControl_SelectedIndexChanged);
             // 
             // tabPage2
             // 
@@ -354,7 +355,7 @@
             // analyzeDesktopFolderButton
             // 
             this.analyzeDesktopFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.analyzeDesktopFolderButton.Location = new System.Drawing.Point(28, 136);
+            this.analyzeDesktopFolderButton.Location = new System.Drawing.Point(25, 153);
             this.analyzeDesktopFolderButton.Name = "analyzeDesktopFolderButton";
             this.analyzeDesktopFolderButton.Size = new System.Drawing.Size(85, 29);
             this.analyzeDesktopFolderButton.TabIndex = 2;
@@ -388,11 +389,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalDesktop.AutoSize = true;
             this.totalDesktop.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalDesktop.Location = new System.Drawing.Point(75, 116);
+            this.totalDesktop.Location = new System.Drawing.Point(166, 124);
             this.totalDesktop.Name = "totalDesktop";
-            this.totalDesktop.Size = new System.Drawing.Size(155, 17);
+            this.totalDesktop.Size = new System.Drawing.Size(64, 17);
             this.totalDesktop.TabIndex = 0;
-            this.totalDesktop.Text = "Total Files Not Available";
+            this.totalDesktop.Text = "Files N/A";
             // 
             // label23
             // 
@@ -425,7 +426,7 @@
             // analyzeDownloadFolderButton
             // 
             this.analyzeDownloadFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.analyzeDownloadFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeDownloadFolderButton.Location = new System.Drawing.Point(25, 153);
             this.analyzeDownloadFolderButton.Name = "analyzeDownloadFolderButton";
             this.analyzeDownloadFolderButton.Size = new System.Drawing.Size(85, 29);
             this.analyzeDownloadFolderButton.TabIndex = 2;
@@ -436,7 +437,7 @@
             // downloadButton
             // 
             this.downloadButton.ForeColor = System.Drawing.Color.Black;
-            this.downloadButton.Location = new System.Drawing.Point(147, 136);
+            this.downloadButton.Location = new System.Drawing.Point(147, 153);
             this.downloadButton.Name = "downloadButton";
             this.downloadButton.Size = new System.Drawing.Size(85, 29);
             this.downloadButton.TabIndex = 2;
@@ -470,11 +471,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalDownload.AutoSize = true;
             this.totalDownload.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalDownload.Location = new System.Drawing.Point(77, 116);
+            this.totalDownload.Location = new System.Drawing.Point(166, 116);
             this.totalDownload.Name = "totalDownload";
-            this.totalDownload.Size = new System.Drawing.Size(155, 17);
+            this.totalDownload.Size = new System.Drawing.Size(64, 17);
             this.totalDownload.TabIndex = 0;
-            this.totalDownload.Text = "Total Files Not Available";
+            this.totalDownload.Text = "Files N/A";
             // 
             // label20
             // 
@@ -507,7 +508,7 @@
             // analyzeDocFolderButton
             // 
             this.analyzeDocFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(144)))), ((int)(((byte)(98)))));
-            this.analyzeDocFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeDocFolderButton.Location = new System.Drawing.Point(25, 153);
             this.analyzeDocFolderButton.Name = "analyzeDocFolderButton";
             this.analyzeDocFolderButton.Size = new System.Drawing.Size(85, 29);
             this.analyzeDocFolderButton.TabIndex = 2;
@@ -518,7 +519,7 @@
             // docButton
             // 
             this.docButton.ForeColor = System.Drawing.Color.Black;
-            this.docButton.Location = new System.Drawing.Point(145, 136);
+            this.docButton.Location = new System.Drawing.Point(145, 153);
             this.docButton.Name = "docButton";
             this.docButton.Size = new System.Drawing.Size(85, 29);
             this.docButton.TabIndex = 2;
@@ -552,11 +553,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalDoc.AutoSize = true;
             this.totalDoc.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalDoc.Location = new System.Drawing.Point(75, 116);
+            this.totalDoc.Location = new System.Drawing.Point(166, 116);
             this.totalDoc.Name = "totalDoc";
-            this.totalDoc.Size = new System.Drawing.Size(155, 17);
+            this.totalDoc.Size = new System.Drawing.Size(64, 17);
             this.totalDoc.TabIndex = 0;
-            this.totalDoc.Text = "Total Files Not Available";
+            this.totalDoc.Text = "Files N/A";
             // 
             // label17
             // 
@@ -622,11 +623,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalCacheFile.AutoSize = true;
             this.totalCacheFile.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalCacheFile.Location = new System.Drawing.Point(86, 124);
+            this.totalCacheFile.Location = new System.Drawing.Point(166, 124);
             this.totalCacheFile.Name = "totalCacheFile";
-            this.totalCacheFile.Size = new System.Drawing.Size(155, 17);
+            this.totalCacheFile.Size = new System.Drawing.Size(64, 17);
             this.totalCacheFile.TabIndex = 0;
-            this.totalCacheFile.Text = "Total Files Not Available";
+            this.totalCacheFile.Text = "Files N/A";
             // 
             // label35
             // 
@@ -659,7 +660,7 @@
             // analyzeMusicFolderButton
             // 
             this.analyzeMusicFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(58)))), ((int)(((byte)(203)))), ((int)(((byte)(232)))));
-            this.analyzeMusicFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeMusicFolderButton.Location = new System.Drawing.Point(25, 153);
             this.analyzeMusicFolderButton.Name = "analyzeMusicFolderButton";
             this.analyzeMusicFolderButton.Size = new System.Drawing.Size(85, 29);
             this.analyzeMusicFolderButton.TabIndex = 2;
@@ -670,7 +671,7 @@
             // musicButton
             // 
             this.musicButton.ForeColor = System.Drawing.Color.Black;
-            this.musicButton.Location = new System.Drawing.Point(145, 136);
+            this.musicButton.Location = new System.Drawing.Point(145, 153);
             this.musicButton.Name = "musicButton";
             this.musicButton.Size = new System.Drawing.Size(85, 29);
             this.musicButton.TabIndex = 2;
@@ -704,11 +705,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalAudios.AutoSize = true;
             this.totalAudios.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalAudios.Location = new System.Drawing.Point(75, 116);
+            this.totalAudios.Location = new System.Drawing.Point(166, 116);
             this.totalAudios.Name = "totalAudios";
-            this.totalAudios.Size = new System.Drawing.Size(155, 17);
+            this.totalAudios.Size = new System.Drawing.Size(64, 17);
             this.totalAudios.TabIndex = 0;
-            this.totalAudios.Text = "Total Files Not Available";
+            this.totalAudios.Text = "Files N/A";
             // 
             // label14
             // 
@@ -741,7 +742,7 @@
             // analyzeVideosFolderButton
             // 
             this.analyzeVideosFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(194)))), ((int)(((byte)(145)))), ((int)(((byte)(0)))));
-            this.analyzeVideosFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzeVideosFolderButton.Location = new System.Drawing.Point(25, 153);
             this.analyzeVideosFolderButton.Name = "analyzeVideosFolderButton";
             this.analyzeVideosFolderButton.Size = new System.Drawing.Size(85, 29);
             this.analyzeVideosFolderButton.TabIndex = 2;
@@ -752,7 +753,7 @@
             // videoButton
             // 
             this.videoButton.ForeColor = System.Drawing.Color.Black;
-            this.videoButton.Location = new System.Drawing.Point(145, 136);
+            this.videoButton.Location = new System.Drawing.Point(145, 153);
             this.videoButton.Name = "videoButton";
             this.videoButton.Size = new System.Drawing.Size(85, 29);
             this.videoButton.TabIndex = 2;
@@ -785,11 +786,11 @@
             this.totalVideos.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.totalVideos.AutoSize = true;
             this.totalVideos.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalVideos.Location = new System.Drawing.Point(75, 116);
+            this.totalVideos.Location = new System.Drawing.Point(166, 116);
             this.totalVideos.Name = "totalVideos";
-            this.totalVideos.Size = new System.Drawing.Size(70, 17);
+            this.totalVideos.Size = new System.Drawing.Size(64, 17);
             this.totalVideos.TabIndex = 0;
-            this.totalVideos.Text = "Total files:";
+            this.totalVideos.Text = "Files N/A";
             // 
             // label11
             // 
@@ -856,11 +857,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalUnfinishedDownload.AutoSize = true;
             this.totalUnfinishedDownload.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalUnfinishedDownload.Location = new System.Drawing.Point(75, 124);
+            this.totalUnfinishedDownload.Location = new System.Drawing.Point(166, 116);
             this.totalUnfinishedDownload.Name = "totalUnfinishedDownload";
-            this.totalUnfinishedDownload.Size = new System.Drawing.Size(155, 17);
+            this.totalUnfinishedDownload.Size = new System.Drawing.Size(64, 17);
             this.totalUnfinishedDownload.TabIndex = 0;
-            this.totalUnfinishedDownload.Text = "Total Files Not Available";
+            this.totalUnfinishedDownload.Text = "Files N/A";
             // 
             // label32
             // 
@@ -926,11 +927,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalRecyclebin.AutoSize = true;
             this.totalRecyclebin.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalRecyclebin.Location = new System.Drawing.Point(75, 124);
+            this.totalRecyclebin.Location = new System.Drawing.Point(166, 124);
             this.totalRecyclebin.Name = "totalRecyclebin";
-            this.totalRecyclebin.Size = new System.Drawing.Size(155, 17);
+            this.totalRecyclebin.Size = new System.Drawing.Size(64, 17);
             this.totalRecyclebin.TabIndex = 0;
-            this.totalRecyclebin.Text = "Total Files Not Available";
+            this.totalRecyclebin.Text = "Files N/A";
             // 
             // label22
             // 
@@ -968,7 +969,7 @@
             this.temp2Button.TabIndex = 2;
             this.temp2Button.Text = "Clear";
             this.temp2Button.UseVisualStyleBackColor = true;
-            this.temp2Button.Click += new System.EventHandler(this.clearTemp2Folder);
+            this.temp2Button.Click += new System.EventHandler(this.clearTemp2FolderByCMD);
             // 
             // temp2Size
             // 
@@ -996,11 +997,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalTemp2.AutoSize = true;
             this.totalTemp2.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTemp2.Location = new System.Drawing.Point(75, 124);
+            this.totalTemp2.Location = new System.Drawing.Point(166, 124);
             this.totalTemp2.Name = "totalTemp2";
-            this.totalTemp2.Size = new System.Drawing.Size(155, 17);
+            this.totalTemp2.Size = new System.Drawing.Size(64, 17);
             this.totalTemp2.TabIndex = 0;
-            this.totalTemp2.Text = "Total Files Not Available";
+            this.totalTemp2.Text = "Files N/A";
             // 
             // label18
             // 
@@ -1066,11 +1067,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalTemp.AutoSize = true;
             this.totalTemp.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalTemp.Location = new System.Drawing.Point(75, 124);
+            this.totalTemp.Location = new System.Drawing.Point(166, 124);
             this.totalTemp.Name = "totalTemp";
-            this.totalTemp.Size = new System.Drawing.Size(155, 17);
+            this.totalTemp.Size = new System.Drawing.Size(64, 17);
             this.totalTemp.TabIndex = 0;
-            this.totalTemp.Text = "Total Files Not Available";
+            this.totalTemp.Text = "Files N/A";
             // 
             // label13
             // 
@@ -1148,11 +1149,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalScreenshots.AutoSize = true;
             this.totalScreenshots.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalScreenshots.Location = new System.Drawing.Point(75, 124);
+            this.totalScreenshots.Location = new System.Drawing.Point(166, 124);
             this.totalScreenshots.Name = "totalScreenshots";
-            this.totalScreenshots.Size = new System.Drawing.Size(155, 17);
+            this.totalScreenshots.Size = new System.Drawing.Size(64, 17);
             this.totalScreenshots.TabIndex = 0;
-            this.totalScreenshots.Text = "Total Files Not Available";
+            this.totalScreenshots.Text = "Files N/A";
             // 
             // label9
             // 
@@ -1185,7 +1186,7 @@
             // analyzePictureFolderButton
             // 
             this.analyzePictureFolderButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(65)))), ((int)(((byte)(245)))));
-            this.analyzePictureFolderButton.Location = new System.Drawing.Point(25, 136);
+            this.analyzePictureFolderButton.Location = new System.Drawing.Point(25, 153);
             this.analyzePictureFolderButton.Name = "analyzePictureFolderButton";
             this.analyzePictureFolderButton.Size = new System.Drawing.Size(85, 29);
             this.analyzePictureFolderButton.TabIndex = 2;
@@ -1196,7 +1197,7 @@
             // pictureButton
             // 
             this.pictureButton.ForeColor = System.Drawing.Color.Black;
-            this.pictureButton.Location = new System.Drawing.Point(145, 136);
+            this.pictureButton.Location = new System.Drawing.Point(145, 153);
             this.pictureButton.Name = "pictureButton";
             this.pictureButton.Size = new System.Drawing.Size(85, 29);
             this.pictureButton.TabIndex = 2;
@@ -1230,11 +1231,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.totalPictures.AutoSize = true;
             this.totalPictures.Font = new System.Drawing.Font("Roboto", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.totalPictures.Location = new System.Drawing.Point(75, 116);
+            this.totalPictures.Location = new System.Drawing.Point(166, 116);
             this.totalPictures.Name = "totalPictures";
-            this.totalPictures.Size = new System.Drawing.Size(155, 17);
+            this.totalPictures.Size = new System.Drawing.Size(64, 17);
             this.totalPictures.TabIndex = 0;
-            this.totalPictures.Text = "Total Files Not Available";
+            this.totalPictures.Text = "Files N/A";
             // 
             // Pictures
             // 

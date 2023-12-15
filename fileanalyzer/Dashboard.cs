@@ -40,11 +40,6 @@ namespace fileanalyzer
 
             int x = 20, y = 25;
 
-            if (!File.Exists(csvDiskInfoFilePath))
-            {
-                MessageBox.Show("More information will be available in few minutes..");
-            }
-
             foreach (DriveInfo drive in allDrives)
             {
                 //DriveInfo drive = new DriveInfo(@"G:\");
@@ -263,7 +258,7 @@ namespace fileanalyzer
                 imagespictureBox.Location = new Point(15, 150);
                 imagespictureBox.Height = 30;
                 imagespictureBox.Width = 30;
-                imagespictureBox.ImageLocation = "E:\icon.jpg";
+                imagespictureBox.ImageLocation = @"E:\icon.jpg";
                 control.Controls.Add(imagespictureBox);
 
                 Label imagesLabel = new Label();
@@ -313,7 +308,7 @@ namespace fileanalyzer
                 videospictureBox.Location = new Point(15, 210);
                 videospictureBox.Height = 30;
                 videospictureBox.Width = 30;
-                videospictureBox.ImageLocation = "E:\icon.jpg";
+                videospictureBox.ImageLocation = @"E:\icon.jpg";
                 control.Controls.Add(videospictureBox);
 
                 Label videosLabel = new Label();
@@ -364,7 +359,7 @@ namespace fileanalyzer
                 docspictureBox.Location = new Point(15, 270);
                 docspictureBox.Height = 30;
                 docspictureBox.Width = 30;
-                docspictureBox.ImageLocation = "E:\icon.jpg";
+                docspictureBox.ImageLocation = @"E:\icon.jpg";
                 control.Controls.Add(docspictureBox);
 
                 Label docsLabel = new Label();
