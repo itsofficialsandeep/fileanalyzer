@@ -1,4 +1,4 @@
-# Windows Cleaner
+# Sandy's Windows Cleaner
 A windows app ( written in c# ) that helps users to free more space by
 deleting unnecessary files/folders like Temporary folders, log files, duplicate
 files, 0 Byte files, RecycleBin in one-click. It provides a one-stop platform to
