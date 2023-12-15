@@ -19,15 +19,15 @@ Visual Basic becasue I had learned somethings about it a decade ago, but that wa
 the help of ChatGPT and within few weeks We made it (ChatGPT and Me :) ).
 
 ## Fetaures
-- **Analyze** -- You can analyze a folder by clicking on analyze button and get the list of types (images, video, audio) of large files that taking huge space of your drive.
-- **One-click Clear** -- It saves your lot of time by automatically deleting the redundant files or folder (like .temp, .part, .crdownload or Temp, Recycle Bin folders)
-- **Find Duplicates** -- You can find duplicate files in just two click in any directory.
-- **Delete Duplicates** -- You can delete duplicate files in just two click for any particular directory.
-- **Large files** -- Sandy's Windows Cleaner displays you top 100 large files that help you take decision to delete ot keep it.
-- **Large folders** -- It shows you top 100 large folder that taking lots of computer space.
-- **Recent Files** -- Oversee the files that has been created recently.
-- **Built in Explorer** -- It has built-in file explorer so that you don't need to switch to Windows File Explorer for minor task.
-- **App Explorer** -- It has in-built app exploer that let you uninstall any app if you want.
+- ***Analyze*** -- You can analyze a folder by clicking on analyze button and get the list of types (images, video, audio) of large files that taking huge space of your drive.
+- ***One-click Clear*** -- It saves your lot of time by automatically deleting the redundant files or folder (like .temp, .part, .crdownload or Temp, Recycle Bin folders)
+- ***Find Duplicates*** -- You can find duplicate files in just two click in any directory.
+- ***Delete Duplicates*** -- You can delete duplicate files in just two click for any particular directory.
+- ***Large files*** -- Sandy's Windows Cleaner displays you top 100 large files that help you take decision to delete ot keep it.
+- ***Large folders*** -- It shows you top 100 large folder that taking lots of computer space.
+- ***Recent Files*** -- Oversee the files that has been created recently.
+- ***Built in Explorer*** -- It has built-in file explorer so that you don't need to switch to Windows File Explorer for minor task.
+- ***App Explorer*** -- It has in-built app exploer that let you uninstall any app if you want.
 
 ## Screenshots
 ![Screenshot (341)](https://github.com/itsofficialsandeep/fileanalyzer/assets/87613024/56e9b2b0-c045-4594-8f6c-74218384408a)
