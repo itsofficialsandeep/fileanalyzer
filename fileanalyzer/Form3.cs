@@ -1245,7 +1245,7 @@ namespace fileanalyzer
                 }
 
                 MessageBox.Show("Files deleted!");
-            } catch (Exception ex) {
+            } catch (Exception) {
                 MessageBox.Show("Something went wrong..");
             }
 
