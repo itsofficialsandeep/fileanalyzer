@@ -37,78 +37,66 @@
             this.desktopPanel = new System.Windows.Forms.Panel();
             this.analyzeDesktopFolderButton = new System.Windows.Forms.Button();
             this.desktopSize = new System.Windows.Forms.Label();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.totalDesktop = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.downloadPanel = new System.Windows.Forms.Panel();
             this.analyzeDownloadFolderButton = new System.Windows.Forms.Button();
             this.downloadButton = new System.Windows.Forms.Button();
             this.downloadSize = new System.Windows.Forms.Label();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.totalDownload = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.documentPanel = new System.Windows.Forms.Panel();
             this.analyzeDocFolderButton = new System.Windows.Forms.Button();
             this.docButton = new System.Windows.Forms.Button();
             this.docSize = new System.Windows.Forms.Label();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.totalDoc = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.cachePanel = new System.Windows.Forms.Panel();
             this.button11 = new System.Windows.Forms.Button();
             this.browserCacheSize = new System.Windows.Forms.Label();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.totalCacheFile = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.musicPanel = new System.Windows.Forms.Panel();
             this.analyzeMusicFolderButton = new System.Windows.Forms.Button();
             this.musicButton = new System.Windows.Forms.Button();
             this.audioSize = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.totalAudios = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.videoPanel = new System.Windows.Forms.Panel();
             this.analyzeVideosFolderButton = new System.Windows.Forms.Button();
             this.videoButton = new System.Windows.Forms.Button();
             this.videoSize = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.totalVideos = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.unfinishedDownloadPanel = new System.Windows.Forms.Panel();
             this.button10 = new System.Windows.Forms.Button();
             this.unfinishedDownloadSize = new System.Windows.Forms.Label();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.totalUnfinishedDownload = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.recyclebinPanel = new System.Windows.Forms.Panel();
             this.recyclebinButton = new System.Windows.Forms.Button();
             this.recyclebinSize = new System.Windows.Forms.Label();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
             this.totalRecyclebin = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.temp2Panel = new System.Windows.Forms.Panel();
             this.temp2Button = new System.Windows.Forms.Button();
             this.temp2Size = new System.Windows.Forms.Label();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.totalTemp2 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tempPanel = new System.Windows.Forms.Panel();
             this.tempButton = new System.Windows.Forms.Button();
             this.tempSize = new System.Windows.Forms.Label();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.totalTemp = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.screenshotPanel = new System.Windows.Forms.Panel();
             this.analyzeScreenshotFolderButton = new System.Windows.Forms.Button();
             this.screenshotButton = new System.Windows.Forms.Button();
             this.screenshotSize = new System.Windows.Forms.Label();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.totalScreenshots = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.picturePanel = new System.Windows.Forms.Panel();
             this.analyzePictureFolderButton = new System.Windows.Forms.Button();
             this.pictureButton = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureSize = new System.Windows.Forms.Label();
             this.totalPictures = new System.Windows.Forms.Label();
             this.Pictures = new System.Windows.Forms.Label();
@@ -138,7 +126,6 @@
             this.groupBoxForResuts = new System.Windows.Forms.GroupBox();
             this.selectedFileSize = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.evenOddButton = new System.Windows.Forms.Button();
             this.deleteSelected = new System.Windows.Forms.Button();
             this.selectAllButton = new System.Windows.Forms.Button();
@@ -214,32 +201,34 @@
             this.goButton = new System.Windows.Forms.Button();
             this.backButton = new System.Windows.Forms.Button();
             this.tabIcon = new System.Windows.Forms.ImageList(this.components);
+            this.pictureBox6 = new System.Windows.Forms.PictureBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox10 = new System.Windows.Forms.PictureBox();
+            this.pictureBox11 = new System.Windows.Forms.PictureBox();
+            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.iconForDrives = new System.Windows.Forms.ImageList(this.components);
             this.mainTabControl.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.desktopPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.downloadPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.documentPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.cachePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             this.musicPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.videoPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.unfinishedDownloadPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             this.recyclebinPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
             this.temp2Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.tempPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             this.screenshotPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             this.picturePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.bigsizefileGroupBox.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -264,6 +253,18 @@
             this.tabPage5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.explorerTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTabControl
@@ -374,15 +375,6 @@
             this.desktopSize.TabIndex = 0;
             this.desktopSize.Text = "0 GB";
             // 
-            // pictureBox6
-            // 
-            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
-            this.pictureBox6.Location = new System.Drawing.Point(28, 49);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox6.TabIndex = 1;
-            this.pictureBox6.TabStop = false;
-            // 
             // totalDesktop
             // 
             this.totalDesktop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -455,15 +447,6 @@
             this.downloadSize.Size = new System.Drawing.Size(60, 25);
             this.downloadSize.TabIndex = 0;
             this.downloadSize.Text = "0 GB";
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
-            this.pictureBox5.Location = new System.Drawing.Point(25, 49);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox5.TabIndex = 1;
-            this.pictureBox5.TabStop = false;
             // 
             // totalDownload
             // 
@@ -538,15 +521,6 @@
             this.docSize.TabIndex = 0;
             this.docSize.Text = "0 GB";
             // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-            this.pictureBox4.Location = new System.Drawing.Point(25, 49);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox4.TabIndex = 1;
-            this.pictureBox4.TabStop = false;
-            // 
             // totalDoc
             // 
             this.totalDoc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -607,15 +581,6 @@
             this.browserCacheSize.Size = new System.Drawing.Size(60, 25);
             this.browserCacheSize.TabIndex = 0;
             this.browserCacheSize.Text = "0 GB";
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
-            this.pictureBox12.Location = new System.Drawing.Point(25, 57);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox12.TabIndex = 1;
-            this.pictureBox12.TabStop = false;
             // 
             // totalCacheFile
             // 
@@ -690,15 +655,6 @@
             this.audioSize.TabIndex = 0;
             this.audioSize.Text = "0 GB";
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(25, 49);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox3.TabIndex = 1;
-            this.pictureBox3.TabStop = false;
-            // 
             // totalAudios
             // 
             this.totalAudios.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -772,15 +728,6 @@
             this.videoSize.TabIndex = 0;
             this.videoSize.Text = "0 GB";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(25, 49);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox2.TabIndex = 1;
-            this.pictureBox2.TabStop = false;
-            // 
             // totalVideos
             // 
             this.totalVideos.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -841,15 +788,6 @@
             this.unfinishedDownloadSize.Size = new System.Drawing.Size(60, 25);
             this.unfinishedDownloadSize.TabIndex = 0;
             this.unfinishedDownloadSize.Text = "0 GB";
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-            this.pictureBox10.Location = new System.Drawing.Point(25, 57);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox10.TabIndex = 1;
-            this.pictureBox10.TabStop = false;
             // 
             // totalUnfinishedDownload
             // 
@@ -912,15 +850,6 @@
             this.recyclebinSize.TabIndex = 0;
             this.recyclebinSize.Text = "0 GB";
             // 
-            // pictureBox11
-            // 
-            this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
-            this.pictureBox11.Location = new System.Drawing.Point(25, 57);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox11.TabIndex = 1;
-            this.pictureBox11.TabStop = false;
-            // 
             // totalRecyclebin
             // 
             this.totalRecyclebin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -982,15 +911,6 @@
             this.temp2Size.TabIndex = 0;
             this.temp2Size.Text = "0 GB";
             // 
-            // pictureBox9
-            // 
-            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-            this.pictureBox9.Location = new System.Drawing.Point(25, 57);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox9.TabIndex = 1;
-            this.pictureBox9.TabStop = false;
-            // 
             // totalTemp2
             // 
             this.totalTemp2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -1051,15 +971,6 @@
             this.tempSize.Size = new System.Drawing.Size(60, 25);
             this.tempSize.TabIndex = 0;
             this.tempSize.Text = "0 GB";
-            // 
-            // pictureBox8
-            // 
-            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
-            this.pictureBox8.Location = new System.Drawing.Point(25, 57);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox8.TabIndex = 1;
-            this.pictureBox8.TabStop = false;
             // 
             // totalTemp
             // 
@@ -1134,15 +1045,6 @@
             this.screenshotSize.TabIndex = 0;
             this.screenshotSize.Text = "0 GB";
             // 
-            // pictureBox7
-            // 
-            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
-            this.pictureBox7.Location = new System.Drawing.Point(25, 57);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox7.TabIndex = 1;
-            this.pictureBox7.TabStop = false;
-            // 
             // totalScreenshots
             // 
             this.totalScreenshots.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -1204,15 +1106,6 @@
             this.pictureButton.Text = "Clear";
             this.pictureButton.UseVisualStyleBackColor = true;
             this.pictureButton.Click += new System.EventHandler(this.clearPictureFolder);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(25, 49);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(62, 64);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // pictureSize
             // 
@@ -1547,22 +1440,6 @@
             this.label15.TabIndex = 6;
             this.label15.Text = "Total size:";
             this.label15.Visible = false;
-            // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("listView1.BackgroundImage")));
-            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(6, 19);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1772, 664);
-            this.listView1.TabIndex = 5;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.DisplaySelectedFilesSize);
             // 
             // evenOddButton
             // 
@@ -2451,6 +2328,140 @@
             this.tabIcon.Images.SetKeyName(3, "hard-drive.png");
             this.tabIcon.Images.SetKeyName(4, "speedometer.png");
             // 
+            // pictureBox6
+            // 
+            this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
+            this.pictureBox6.Location = new System.Drawing.Point(28, 49);
+            this.pictureBox6.Name = "pictureBox6";
+            this.pictureBox6.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox6.TabIndex = 1;
+            this.pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
+            this.pictureBox5.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox5.TabIndex = 1;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox4.TabIndex = 1;
+            this.pictureBox4.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+            this.pictureBox12.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox12.TabIndex = 1;
+            this.pictureBox12.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox3.TabIndex = 1;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox10
+            // 
+            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
+            this.pictureBox10.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox10.Name = "pictureBox10";
+            this.pictureBox10.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox10.TabIndex = 1;
+            this.pictureBox10.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
+            this.pictureBox11.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox11.Name = "pictureBox11";
+            this.pictureBox11.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox11.TabIndex = 1;
+            this.pictureBox11.TabStop = false;
+            // 
+            // pictureBox9
+            // 
+            this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+            this.pictureBox9.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox9.Name = "pictureBox9";
+            this.pictureBox9.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox9.TabIndex = 1;
+            this.pictureBox9.TabStop = false;
+            // 
+            // pictureBox8
+            // 
+            this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
+            this.pictureBox8.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox8.Name = "pictureBox8";
+            this.pictureBox8.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox8.TabIndex = 1;
+            this.pictureBox8.TabStop = false;
+            // 
+            // pictureBox7
+            // 
+            this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
+            this.pictureBox7.Location = new System.Drawing.Point(25, 57);
+            this.pictureBox7.Name = "pictureBox7";
+            this.pictureBox7.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox7.TabIndex = 1;
+            this.pictureBox7.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(25, 49);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(62, 64);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.BackgroundImage = global::fileanalyzer.Properties.Resources.folder___Copy___Copy;
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(6, 19);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(1772, 664);
+            this.listView1.TabIndex = 5;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.DisplaySelectedFilesSize);
+            // 
+            // iconForDrives
+            // 
+            this.iconForDrives.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("iconForDrives.ImageStream")));
+            this.iconForDrives.TransparentColor = System.Drawing.Color.Transparent;
+            this.iconForDrives.Images.SetKeyName(0, "picture32.png");
+            this.iconForDrives.Images.SetKeyName(1, "folders32.png");
+            this.iconForDrives.Images.SetKeyName(2, "musical-note32.png");
+            this.iconForDrives.Images.SetKeyName(3, "unknown32.png");
+            this.iconForDrives.Images.SetKeyName(4, "youtube32.png");
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2467,40 +2478,28 @@
             this.tabPage2.PerformLayout();
             this.desktopPanel.ResumeLayout(false);
             this.desktopPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.downloadPanel.ResumeLayout(false);
             this.downloadPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.documentPanel.ResumeLayout(false);
             this.documentPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.cachePanel.ResumeLayout(false);
             this.cachePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             this.musicPanel.ResumeLayout(false);
             this.musicPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.videoPanel.ResumeLayout(false);
             this.videoPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.unfinishedDownloadPanel.ResumeLayout(false);
             this.unfinishedDownloadPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             this.recyclebinPanel.ResumeLayout(false);
             this.recyclebinPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
             this.temp2Panel.ResumeLayout(false);
             this.temp2Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.tempPanel.ResumeLayout(false);
             this.tempPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             this.screenshotPanel.ResumeLayout(false);
             this.screenshotPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             this.picturePanel.ResumeLayout(false);
             this.picturePanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.bigsizefileGroupBox.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
@@ -2539,6 +2538,18 @@
             this.panel1.PerformLayout();
             this.explorerTab.ResumeLayout(false);
             this.explorerTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2729,5 +2740,6 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label totalCacheFile;
         private System.Windows.Forms.Label messageLabel;
+        private System.Windows.Forms.ImageList iconForDrives;
     }
 }

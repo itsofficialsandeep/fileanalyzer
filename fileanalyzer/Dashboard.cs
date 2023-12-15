@@ -258,7 +258,7 @@ namespace fileanalyzer
                 imagespictureBox.Location = new Point(15, 150);
                 imagespictureBox.Height = 30;
                 imagespictureBox.Width = 30;
-                imagespictureBox.ImageLocation = @"E:\icon.jpg";
+                imagespictureBox.Image = iconForDrives.Images[0]; ;
                 control.Controls.Add(imagespictureBox);
 
                 Label imagesLabel = new Label();
@@ -308,7 +308,7 @@ namespace fileanalyzer
                 videospictureBox.Location = new Point(15, 210);
                 videospictureBox.Height = 30;
                 videospictureBox.Width = 30;
-                videospictureBox.ImageLocation = @"E:\icon.jpg";
+                videospictureBox.Image = iconForDrives.Images[4];
                 control.Controls.Add(videospictureBox);
 
                 Label videosLabel = new Label();
@@ -353,13 +353,12 @@ namespace fileanalyzer
                 videospaceProgressBar.MarqueeAnimationSpeed = 0;
                 control.Controls.Add(videospaceProgressBar);
 
-
                 // DETAILS OF SPACE USED BY docs
                 PictureBox docspictureBox = new PictureBox();
                 docspictureBox.Location = new Point(15, 270);
                 docspictureBox.Height = 30;
                 docspictureBox.Width = 30;
-                docspictureBox.ImageLocation = @"E:\icon.jpg";
+                docspictureBox.Image = iconForDrives.Images[1];
                 control.Controls.Add(docspictureBox);
 
                 Label docsLabel = new Label();

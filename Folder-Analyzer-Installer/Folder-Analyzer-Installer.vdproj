@@ -449,7 +449,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Sandy's Windows Cleaner"
         "ProductCode" = "8:{580DBC72-640C-44AF-A5C8-42E06D14B35F}"
-        "PackageCode" = "8:{72A7F327-BE9B-4CFE-B982-8BAE863EC9E5}"
+        "PackageCode" = "8:{20D3EB14-1534-44FB-AD14-CA5D7FB0A0FF}"
         "UpgradeCode" = "8:{8A26BD0A-73A6-4051-A24B-14E6FB12D22C}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
